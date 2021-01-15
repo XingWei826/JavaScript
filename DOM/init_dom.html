@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="time">Hello World</div>
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+    </ul>
+    <ul id="ID">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+//getElementById():以对象的形式返回
+        var obj = document.getElementById('time');
+        console.log(obj);
+        console.log(typeof obj);
+        //console.dir()：列出了对象的详细信息
+        console.dir(obj);
+//getElementsByTagName():以伪数组的形式返回
+    var lis = document.getElementsByTagName('li');
+    console.log(lis);
+    for(var i =0;i < lis.length;i++) {
+        console.log(lis[i]);
+    }
+
+    console.log('--------------------------');
+    var ul = document.getElementById("ID");
+    var liss = ul.getElementsByTagName("li");
+    console.log(liss);
+    for(var i =0;i < liss.length;i++) {
+        console.log(liss[i]);
+    }
+
+    </script>
+</body>
+</html>

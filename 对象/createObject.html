@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+//第一种创建对象的方法：
+        // var obj = {};   //创建了一个空的对象
+        var obj = {
+            Name: 'boy',
+            age: 19,
+            sex: 'man',
+            //方法
+            sayhello: function() {
+                console.log('Hello World');
+            }
+        }
+        console.log(obj.Name);
+        console.log(obj['age']);
+        obj.sayhello();
+
+//第二种创建对象的方法：new
+        var object = new Object();
+        object.Name = 'girl';
+        object.age = 18;
+        object.sex = 'woman';
+        object.sayHi = function() {
+            console.log('hi');
+        }
+        console.log(object.age);
+        console.log(object['sex']);
+        object.sayHi();
+
+//第三种：构造函数,批量生成
+        function Star(Name, Age, Sex) {
+            this.name = Name;
+            this.age = Age;
+            this.sex = Sex;
+            this.sing = function(num) {
+                console.log('sing a song');
+                console.log(num);
+            }
+            this.dance = function() {
+                console.log('dacing');
+            }
+        }
+        var ldh = new Star('ldh',18,'man');
+        console.log(ldh.age);
+        ldh.sing(666);
+        console.log(ldh);
+//遍历对象
+        console.log('----------');
+        for(var k in obj) {
+            // console.log(k);      //out 属性名
+            console.log(obj[k]);    //out 属性值
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

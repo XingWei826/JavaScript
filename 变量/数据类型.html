@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // js的变量的类型是只有程序在运行过程当中，根据等号右边的值来确定的！
+        // 另外注意：在js中，我们一般推荐使用‘’单引号！因为html标签里的属性使用的是双引号！
+        //js是动态语言，变量的数据类型是可以动态改变的！
+        var x = 10;
+        x = 'Hello World!';
+        //本来x被定义为数字型，后来又变成了字符串型的！
+        console.log(Number.MAX_VALUE);
+        console.log(Number.MIN_VALUE);
+        console.log(Number.MAX_VALUE * 2);    //Infinity
+        console.log(-Number.MAX_VALUE * 2);     //-Infinity
+        console.log('jl' - 100);                //NaN,not a number
+        // isNaN();  
+        var string1 = 'jjl "jljjljl';
+        var string2 = "jljljljl'\nljjlj";
+        console.log(string1);
+        console.log(string2);
+        //
+        var str = "hello World!";
+        // alert(str.length);
+        //字符串+任何类型值 => 都将变成字符串类型
+        str += 13;
+        console.log(str + 'jljl' + Age);
+        var Age = 18;
+        console.log('今年' + Age + '岁');
+        //
+            //某个变量声明但未赋值，就是undefined！
+        //
+        console.log(typeof(str));
+        console.log(typeof Age);
+        //数据类型转换
+            //other type => string
+                var NUM = 11;
+                var str1 = NUM.toString();
+                console.log(typeof str1);
+                console.log(String(NUM));
+            //string => num
+            console.log(parseInt('14'));
+            console.log(parseFloat('34.21'));
+            console.log(Number('12'));
+            console.log(parseInt('12-0'));
+            //利用算术运算符隐式转换【- ,* ,/, 没有+】
+            console.log('18'-0);            //num型
+            console.log('123' - '120');     //num型
+            console.log('123' - '12');      //num型
+            console.log('123' + '2');   //实际是字符型，'1232'
+        //Boolean
+        console.log(Boolean(''));   //false
+        console.log(Boolean(0));//false
+        console.log(Boolean(NaN));//false
+        console.log(Boolean(null));//false
+        console.log(Boolean(undefined));//false
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

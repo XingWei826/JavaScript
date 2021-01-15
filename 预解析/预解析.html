@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //1.此时将会出现undefined
+        console.log(num);   //undefined
+        var num = 10;
+
+        //2.事实证明：调用函数fun()放在函数体前 和 后都是可以的！
+        fun();
+        function fun() {
+            console.log('Hello');
+        }
+        fun();
+
+        //3.证明：此种情况下的函数调用，只能在下面
+            // Fun();  //ERROR
+        var Fun = function() {
+            console.log('World');;
+        }
+        Fun();
+    </script>
+</head>
+<body>
+    <!-- 
+        JS引擎运行机制：
+        第一步：预解析      =>js引擎会把里面所有的var 和 function提升到当前作用域的最前面；
+        第二步：代码执行    =>按照代码书写的顺序从上往下执行。
+
+        变量提升：就是把所有的变量声明提升到当前作用域的最前面，不提升赋值操作！
+        函数提升：就是把所有的函数声明提升到当前作用域的最前面！
+     -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

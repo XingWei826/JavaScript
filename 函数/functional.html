@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function sum() {
+            var sum = 0;
+            for (var i = 0; i <= 100; i++) {
+                sum += i;
+            }
+            console.log(sum);
+        }
+        sum();
+
+        //带参数的函数
+        function add( a, b) {
+            console.log(a + b);
+        }
+            //参数个数
+        add(1,2);   //3
+        add(1,2,3); //3
+        add(1);     //NaN
+
+        //函数返回
+            //eg1
+        function sub(num1, num2) {
+            return num1 - num2;
+        }
+        console.log(sub(3,5));
+            //eg2
+        function getArrayMax(arr) {
+            var max = 0;
+            for(var i = 0;i < arr.length;i++) {
+                if(arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            return max;
+        }
+        console.log(getArrayMax([2,4,1,5,2,6,4]));
+            //eg3返回了一个数组
+        function result(num1, num2) {
+            return [num1 + num2, num1 - num2, num1 * num2];
+        }
+        console.log(result(1,4));
+
+        //嵌套调用
+        function out() {
+            console.log('i am out!');
+            In();
+        }
+        out();
+        function In() {
+            console.log('i am in!');
+        }
+
+        //函数表达式(匿名函数)
+        var NUM = function(num) {  //NUM是变量名
+            console.log('functioal expression!');
+            console.log(num);
+        }
+        NUM(111);
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

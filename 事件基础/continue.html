@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id='first'>第一张图片</button>
+    <button id='second'>第二张图片</button> <br/>
+    <img src="./1.jpg" alt="" title="第一张图片">
+    <script>
+        var first = document.getElementById('first');
+        var second = document.getElementById('second');
+        var img = document.querySelector('img');
+        first.onclick = function() {
+            img.src = './2.jpg';
+            img.title = '第二张图片'
+        }
+        second.onclick = function() {
+            img.src = './1.jpg';
+            img.title = '第一张图片'
+        }
+    </script>
+</body>
+</html>

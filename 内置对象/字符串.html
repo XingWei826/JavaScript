@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //1.基本包装类型：将简单数据类型包装为复杂数据类型。
+        var str = 'andy';           //实际上将str包装成了String类型
+        console.log(str.length);    //为什么str可以调用length呢？？？
+            //第一句代码等价于：
+                //var temp = new String('andy');
+                //str = temp;
+                //temp = null;
+        //2.字符串的不可变性（开辟新内存）
+            //指的是里面的值不可变，虽然看上去确实改变了内容，但实际上是地址改变了，
+            //在内存中新开辟了一个内存空间！
+        var  Str = 'abc';
+        Str = 'Hello';
+        //当重新给Str赋值时，常量'abc'不会被修改，依然在内存当中；
+        //重新赋值'Hello',实际上在内存中重新开辟空间，用来存放'Hello';
+        //并且使得Str指向了'Hello'。
+        //3.charAt(index),charCodeAt(index)=>ASCII码
+            //h5新增：str[index]
+        //4.substr(start,nums); replace(ch1,ch2); 
+        //5.spilt();  //string => 数组
+        var strt = 'red,pink,green';
+        console.log(strt.split(','));
+        
+  
+
+    var STR = 'abcoefoxyzzopp';
+    var o = {};
+    for(var i = 0;i < STR.length;i ++) {  
+        var chars = STR.charAt(i);
+        if(o[chars]) {
+            o[chars] ++;
+        }else {
+            o[chars] = 1;
+        }
+    }
+    console.log(o);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+
+
