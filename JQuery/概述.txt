@@ -1,0 +1,9 @@
+JavaScript库：
+    是一个封装好的特定的集合(方法和函数)，从封装一大堆函数的角度理解，
+    就是在这个库中，封装了很多预先定义好的函数在里面，比如动画animate,hide,show，比如获取元素等。
+    简单理解：就是一个JS文件，里面对我们原生js代码进行了封装，存放到里面。这样我们可以快速高效的使用
+    这些封住好的功能了！
+
+jQuery:
+    jQuery是一个快速，简洁的JavaScript库，其设计宗旨是“write less，do more”;
+    jQuery封装了JavaScript常用的功能代码，优化了DOM操作，事件处理，动画设计和Ajax交互。
