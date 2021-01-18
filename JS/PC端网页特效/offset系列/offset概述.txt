@@ -1,0 +1,24 @@
+使用offset系列相关属性可以动态的得到该元素的位置（偏移），大小等。
+    1.获得元素距离带有定位父元素的位置；
+    2.获得元素自身的大小（宽度高度）
+    3.注意：返回的数值都不带单位
+offset系列属性：
+    .offsetParent:返回作为该元素带有定位的父级元素，如果父级都没有定位，则返回body
+    .offsetTop:返回元素相对于带有定位父元素上方的偏移
+    .offsetTop:返回元素相对于带有定位元素左边框的偏移
+    .offsetWidth:返回自身包括   padding+边框+内容区 => 宽度，返回数值无单位
+    .offsetHeight:返回自身包括  padding+边框+内容区 => 高度，返回数值无单位
+
+offset和style的区别：
+    offset：
+        1.offset可以得到任意样式表中的样式值；
+        2.offset系列获得的数值是没有单位的；
+        3.offsetWidth包含padding+border+width
+        4.offsetWidth等属性是只读属性
+        5.所以，要想获取元素大小位置，用offset系列更为合适
+    style：
+        1.style只能得到行内样式表中的样式值；
+        2.style.width获得的是带有单位的字符串；
+        3.style.width获得是不包含padding和border的值；
+        4.style.width具有读写属性；
+        5.所以，要想给元素更改值，则需要用style改变

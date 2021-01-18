@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1.location.assign():跟href一样，可以跳转页面
+        2.location.replace():替换当前页面，不记录历史，所以不能后退页面
+        3.location.reload():重新加载页面，相当于刷新（F5）；如果参数为true，则是强制刷新（Ctrl+F5）
+
+     -->
+     <button>点击</button>
+     <script>
+         var btn = document.querySelector('button');
+         btn.addEventListener('click',function(){
+            // location.assign('https://www.baidu.com');//可回退
+            // location.replace('https://www.baidu.com');  //不可回退
+            location.reload();
+         })
+     </script>
+</body>
+</html>

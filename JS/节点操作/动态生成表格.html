@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>科目</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+            <tbody>
+
+            </tbody>
+        </thead>
+    </table>
+    <script>
+        var datas = [   //数组里面存放的是对象
+            {name: '张',
+            subject: 'JavaScript',
+            score:100,
+            }, {name: '王',
+            subject: 'JavaScript',
+            score:188,
+            }, {name: '李',
+            subject: 'JavaScript',
+            score:125,
+            }
+        ];
+        //往tbody里面创建行
+        var tbody = document.querySelector('tbody');
+        for(var i = 0 ;i < datas.length;i++) {
+            //创建行
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            //创建单元格
+            for(var k in datas[i]) {
+                var td = document.createElement('td');
+                td.innerHTML = datas[i][k];
+                tr.appendChild(td);
+            }
+            //单独创建具有删除二字的单元格
+            var td = document.createElement('td');
+            td.innerHTML = '<a href="javascript:;">删除</a>';
+            tr.appendChild(td);
+        }
+        //动态删除
+        var as = document.querySelectorAll('a');
+        for(var i= 0;i< as.length;i ++) {
+            as[i].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode);
+            }
+        }
+    </script>
+</body>
+</html>

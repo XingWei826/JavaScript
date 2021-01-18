@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+        .change {
+            background-color: yellow;
+        }
+        .first {
+
+        }
+    </style>
+</head>
+<body>
+        <!-- 
+            通过JS修改元素的大小，颜色，位置等样式。
+            2.element.className  类名样式操作
+         -->
+         <div class="first"></div>
+         <script>
+             var div = document.querySelector('div');
+             div.onclick  = function() {
+                this.className = 'first change';
+             }
+         </script>
+
+</body>
+</html>

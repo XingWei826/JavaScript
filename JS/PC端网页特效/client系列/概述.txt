@@ -1,0 +1,5 @@
+client系列属性：
+    .clientTop: 返回元素上边框的大小
+    .clientLeft:返回元素左边框的大小
+    .clientWidth:返回自身包含 padding+内容区宽度+不含边框 => 返回数值不带单位
+    .clientHeight:同上

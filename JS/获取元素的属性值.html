@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo" Hello="hello" class="Wo"></div>
+    <script>
+        var div = document.querySelector('div');
+        //通过属性来获取对应的属性值
+        //way 1：获取内置属性
+        console.log(div.id);
+        //way 2：主要用来获取自定义属性
+        console.log(div.getAttribute('id'));
+        console.log(div.getAttribute('Hello'));
+
+        //设置属性值
+        div.id = "test";
+        div.setAttribute('Hello','hi');
+        div.setAttribute('class','Ni');
+
+        //移除属性
+        div.removeAttribute('Hello');
+    </script>
+</body>
+</html>

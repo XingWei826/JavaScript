@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- H5：自定义属性以 “data-“关键字开头  -->
+    <div time="20" data-time="30" data-hour="40" data-list-name="Tom"></div>
+    <script>
+        var div = document.querySelector('div');
+        //dataset是一个存放所有以data-开头的自定义属性的集合；
+        console.log(div.dataset);   //集合
+        console.log(div.dataset.hour);
+        console.log(div.dataset['time']);
+            //如果自定义属性里面有多个-连接的属性，那么获取的时候采取驼峰命名法
+        console.log(div.dataset.listName);
+        console.log(div.dataset['listName']);
+        
+    </script>
+</body>
+</html>
