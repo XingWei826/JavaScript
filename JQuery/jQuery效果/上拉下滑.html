@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button>下拉滑动</button>
+    <button>上拉滑动</button>
+    <button>切换滑动</button>
+    <!-- 
+        slideDown,slideUp,slideToggle
+        hover([over,]out)
+     -->
+    <div></div>
+    <script>
+        $(function () {
+            // $('button').eq(0).click(function() {
+            //     $('div').slideDown(2000);
+            // })
+            // $('button').eq(1).click(function() {
+            //     $('div').slideUp(2000);
+            // })
+
+            //鼠标经过和离开的组合hover，下面分别代表鼠标经过和鼠标离开
+            // $('button').hover(function(){
+            //     $('div').slideDown();
+            // }, function() {
+            //     $('div').slideUp();
+            // });
+
+            //hover:如果只写一个函数，那么鼠标经过和离开都会触发这个函数
+            $('button').hover(function () {
+                $('div').slideToggle('slow');
+            })
+
+            // $('button').eq(2).click(function() {
+            //     $('div').slideToggle('slow');
+            // })
+        })
+    </script>
+</body>
+
+</html>

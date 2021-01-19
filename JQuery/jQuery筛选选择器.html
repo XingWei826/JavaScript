@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jQuery.min.js"></script>
+</head>
+<body>
+    <!-- 
+        :first     $('li:first')    //获取第一个li元素 
+        :last
+        :eq(index)  $('li:eq(2)')   //获取到的li元素中，索引号为2的元素
+        :odd
+        :even
+     -->
+     <ul>
+         <li>Hello</li>
+         <li>Hello</li>
+         <li>Hello</li>
+         <li>Hello</li>
+     </ul>
+     <ol>
+         <li>World</li>
+         <li>World</li>
+         <li>World</li>
+         <li>World</li>
+     </ol>
+     <script>
+         $(function() {
+             $('ul li:first').css('color','red');
+             $('ul li:eq(2)').css('color','green');
+         })
+     </script>
+</body>
+</html>
