@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jQuery.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <span>我是内容</span>
+    </div>
+    <input type=" text" value="请输入内容">
+
+    <!--  -->
+  
+    <script>
+        //html
+        console.log($("div").html());   //等价于原生中的innerHtml
+        $("div").html("Hello World");
+        //text
+        console.log($("div").text());   //...innertext
+        $("div").text("World");
+        //
+        console.log($("input").val());  //...value
+        $("input").val(123);
+
+
+
+    </script>
+</body>
+
+</html>

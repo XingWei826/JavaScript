@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+</head>
+<body>
+    <a index="how" href="http://www.baidu.com" title="Hello">百度</a>
+    <span>123</span>
+    <script>
+        $(function() {
+            //元素的固有属性：element.prop(属性名);
+            $("a").prop("href");            //获取属性值
+            $("a").prop("title","BaiDu");   //设置属性值
+            //元素的自定义属性：
+            // attr("属性");
+           console.log( $("a").attr("index"));
+           //数据缓存:data()
+           $("span").data("uname","andy");
+           console.log($("span").data("uname"));
+
+        })
+    </script>
+</body>
+</html>

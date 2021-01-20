@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+</head>
+<body>
+    <!-- 
+        如果想要把某个对象拷贝给另给一个对象使用，此时就要使用$.extend([deep],target,object1,[objectN])方法了！
+
+     -->
+     <script>
+         $(function() {
+             var targetObj = {};
+             var obj = {
+                 id: 1,
+                 name: "tom"
+             }
+             $.extend(targetObj,obj);   //把obj拷贝给targetObj
+             console.log(targetObj);
+         })
+     </script>
+</body>
+</html>

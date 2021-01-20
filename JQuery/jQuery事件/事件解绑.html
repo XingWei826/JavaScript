@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <ol>
+        <li>fs</li>
+        <li>sfs</li>
+        <li>ksdf </li>
+    </ol>
+    <script>
+        $(function(){
+            //div
+            $("div").on({
+                click: function() {
+                    console.log('点击');
+                },
+                mouseover: function() {
+                    console.log('经过');
+                }
+            });
+            //ol
+            $("ol").on("click","li",function() {
+                console.log(111);
+            })
+            //1.解绑
+            // $("div").off();          //解除所有
+            $("div").off("click");      //解除click事件
+            $("ol").off("click","li");  //解绑小li
+        })
+    </script>
+</body>
+</html>

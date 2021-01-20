@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li>原先的li</li>
+    </ul>
+    <div class="test">原先的div</div>
+    <script>
+        $(function() {
+            //1.创建元素: 
+            var li = $("<li>动态创建的li</li>");
+            console.log(li);
+            //2.添加元素:append,prepend;    after,before
+                $("ul").append(li);
+                $("ul").prepend(li);
+            var div = $("<div>动态创建的div</div>");
+                // $(".test").after(div);
+                $(".test").before(div);
+            //3.删除元素
+            // $("ul").remove();   //删除自身
+            // $("ul").empty();    //删除它的孩子
+            $("ul").html("");       //同上
+        })
+    </script>
+</body>
+</html>

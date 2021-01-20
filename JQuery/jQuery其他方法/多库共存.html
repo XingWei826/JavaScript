@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+</head>
+<body>
+    <div></div>
+    <!-- 
+
+     -->
+     <script>
+         $(function() {
+             //self function, but use '$'
+             function $(ele) {  
+                 return document.querySelector('div');
+             }
+             console.log($("div"));
+             //1.如果$符号冲突，那么就使用jQuery
+             //2.让jQuery释放对$的控制权，让用户自己决定
+             var my = jQuery.noConflict();
+             console.log(my("div"));
+             my.each();
+         })
+     </script>
+</body>
+</html>

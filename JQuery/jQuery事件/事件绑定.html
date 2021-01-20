@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <ol>
+
+    </ol>
+    <script>
+        $(function() {
+            //1.单个事件注册
+            // $("div").click(function() {
+            //     $(this).css('background','green');
+            // })
+            //2.在一个元素上绑定一个或多个事件处理函数: on()
+                // $("div").on ({
+                //     click: function() {
+                //         $(this).css('background','green');
+                //     },
+                //     mouseover: function() {
+                //         $(this).css('background','yellow');
+                //     },
+                //     mouseleave: function() {
+                //         $(this).css('background','purple');
+                //     }
+                // })
+                $("div").on("mouseover mouseleave", function() {
+                        $(this).css('background','green');
+                })
+                //3.on实现事件委派
+                    //把原来加给子元素身上的事件绑定在父元素身上，就是把事件委派给父元素
+                // $("ul li").click();  //原来
+                    $("ul").on("click","li",function() {
+                        console.log(666);
+                    })
+                    //click是绑定在ul上的，但是触发的是ul的小li
+                
+                //4. on可以给动态创建的元素绑定事件
+                    // $("ol li").click(function() {
+                    //     console.log(222);    //li是未来才创建的
+                    // })   //此种方法不行
+                    $("ol").on("click","li",function() {
+                        console.log(222);
+                    })  //用on()，可行
+                    var li = $("<li>动态创建的li</li>");
+                    $("ol").append(li);
+        })
+    </script>
+</body>
+</html>
