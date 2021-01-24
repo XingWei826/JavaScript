@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1. function fun() {}
+        //2. var fun = function() {}
+        //3. new Function('参数1','参数2','函数体')     
+        var fun = new Function('a','b','console.log(a+b)');
+        fun(1,2);
+        //所有函数都是Function的实例()对象。
+        console.dir(fun);
+        console.log(fun instanceof Object);     //函数也是对象
+    </script>
+</body>
+</html>

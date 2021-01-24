@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        ^: 以谁开始；
+        $: 以谁结束；
+        ^...$：精确匹配
+     -->
+     <script>
+         var reg =/^abc$/   //=> 精确匹配，必须是abc
+         console.log(reg.test('abc'));
+         console.log(reg.test('abcabc'));
+         console.log(reg.test('agdg dbc'));
+     </script>
+</body>
+</html>

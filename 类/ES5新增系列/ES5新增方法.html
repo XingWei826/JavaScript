@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1.数组中的 void forEach(function(value,index,arr))
+        var arr = [1,2,3];
+        var sum = 0;
+        arr.forEach(function(value,index,arr) {
+            // console.log(value);
+            // console.log(index);
+            // console.log(arr);
+            sum += value;
+            if(value >= 3)
+                return ;
+            /*注意：此处的return并不会像C++中的return，
+            这里的意思是：如若此次遍历满足条件，则不往下往下执行下面语句了，
+            但是仍然进行下一次遍历，并不是C++中的语法，一遇见return就结束函数！
+            也说明了这个forEach是完*/
+            console.log('fsfsfsfsfs');  //2次
+        })
+        console.log(sum);
+
+
+
+
+
+
+        //2.数组中的 Array fliter(function(currentvalue,index,arr))
+            //主要用来筛选数组，直接返回一个新数组
+            //这里的return同理于forEach。
+        var arr1 = [12,66,4,88];
+        var NewArr = arr1.filter(function(currentvalue,index) {
+            // return currentvalue >= 20;
+            if(currentvalue >= 66)
+                return ;            
+            console.log('fliter');  //2次
+        })
+        console.log(NewArr);
+
+
+
+
+
+
+        //3.数组中的 bool some(function(currentvalue,index,arr))
+            //用于检测数组中的元素是否满足指定条件
+            //通俗点，就是查找数组中是否有满足条件的元素
+            //注意：找到第一个满足条件的值，就终止循环，返回bool值
+            //notice: some里面遇到return true就会终止遍历！
+        var arr2 = [10,30,4];
+        var flag = arr2.some(function(value) {
+            // return value >= 20;
+            if(value > 10)
+                return true;         //1次，【直接退出】
+                // return ;        //2次，【只是结束本次】【调试可知】
+            console.log('some');    //1次 || 2次
+        })
+        console.log(flag);
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <!-- 
+        字符类：[]表示有一系列字符可供选择，只要匹配其中一个就行了
+                //多选1
+     -->
+     <script>
+        var reg =/[abc]/   //只要包含其中任何一个就行
+        console.log(reg.test('abc'));
+        console.log(reg.test('abcabc'));
+        console.log(reg.test('agdg dbc'));
+
+        var Reg = /^[abc]$/ //只能是a,或者b，或者c其中一个
+        console.log(Reg.test('a'));     //true
+        console.log(Reg.test('sa'));    //false
+
+        var REG = /^[a-z]$/;    //只能是26个字母中的其中一个
+        console.log(REG.test('a'));     //true
+        console.log(REG.test('ab'));    //false
+
+        var RegExp = /^[a-zA-Z0-9_-]$/;  //只能是其中一个(a-z,A-Z,0-9,_,-之一)
+        console.log(RegExp.test('aA9'));    //false
+        console.log(RegExp.test('9'));      //true
+        console.log(RegExp.test('-'));      //true
+
+        //中括号里面又包含了一个^,表示取反，也即是不能是a-z,A-Z,,0-9,_,-之一
+        var RegExp1 = /^[^a-zA-Z0-9_-]$/;  
+        console.log(RegExp1.test('aA9'));    //false
+        console.log(RegExp1.test('9'));      //false
+        console.log(RegExp1.test('-'));      //false
+        console.log(RegExp1.test('!'));      //
+    </script>
+</body>
+</html>

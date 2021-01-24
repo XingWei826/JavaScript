@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        JS为我们提供了一些函数来帮我们处理函数内部this的指向问题，
+        常用的有bind(),call(),qpply()三种方法.
+     -->
+     <button>点击</button>
+    <script>
+        //  1. fun.call(thisArg,arg1,arg2,,,)
+        // 2. apply(thisArg,[argsArray])
+        //可以调用函数，也可以改变函数内部的this指向
+        //但是它的第二个参数传递的是数组
+        var obj = {
+            name: 'tom',
+        }
+        function fun(arr) {
+            console.log(this);
+            console.log(arr);   //'pink'
+        }
+        fun.apply(obj, ['pink']);
+
+        //apply的主要应用：可以利用apply，借助Math内置对象求最大值。
+        var arr = [1, 66, 3, 99, 4];
+        // var max = Math.max.apply(null,arr);
+        var max = Math.max.apply(Math, arr);
+        console.log(max);
+
+        //3.  bind(thisArg,arg1,arg2,,,)
+        //不会调用函数，但是可以改变函数内部的this指向。
+        //返回由指定的this值和初始化参数改造的原函数拷贝。
+        var object = {
+            name: 'andy',
+        }
+        function func() {
+            console.log(this);
+        }
+        var funCopy = func.bind(object);    //返回原函数改变this之后产生的新函数
+        funCopy();
+        //bind的应用：
+            // =>如果有函数不需要我们立即调用，但是又想改变这个函数内部的this指向，此时用bind().
+            //问题：有一个按钮，点击之后，就禁用这个按钮，3秒钟之后开启这个按钮。
+            var btn = document.querySelector('button');
+            btn.onclick = function() {
+                this.disabled = true;
+                setTimeout(function() {
+                    this.disabled = false;
+                }.bind(this),3000);
+                //bind中的this就是btn，当定时器到达时，就会自动调用函数，
+                //此时通过bind改变了函数中的this指向，使得this由原来的window => btn,
+                //完美！
+
+                //当然，我们也可以像以前那样创建变量，然后炮制，但是终归是比较麻烦的！
+            }
+
+    //总结：
+            // 1.call经常用于继承当中！
+            //2.apply经常跟数组有关系，比如借助于数学对象实现数组中的max和敏！
+            //3.bind不调用函数，但是还想改变this指向，比如改变定时器内部的this指向！
+    </script>
+</body>
+
+</html>

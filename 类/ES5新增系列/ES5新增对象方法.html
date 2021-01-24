@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //一. 获取对象自身所有的属性:   Object.keys(selfObj)
+        //返回一个由属性名组成的数组
+        var object = {
+            id: 1,
+            name: 'hello',
+            price: 1999,
+            num: 101
+        }
+        var arr = Object.keys(object);
+        console.log(arr);
+        arr.forEach(function (value) {
+            console.log(value);
+        })
+
+        //二. Object.defineProperty(selfObj,prop,descriptor)：定义新属性或修改原有的属性
+            //第三个参数：以对象形式书写{}
+                //value:    设置属性的值，默认是undefined
+                //writable: 值是否可以被修改，true|false,默认是false
+                //enumerable:   目标属性是否可以被枚举，true|false,默认是false
+                //configurable: ，目标属性是否可以被删除或是否可以再次修改特性,true|false,默认false
+        var obj = {
+            id: 1,
+            name: 'world',
+            price: 1999,
+            address: '中国制造'
+        };
+        // obj.score = 199;             //之前方式
+        // obj.name = 'hello World';    //之前方式
+        //新方式：
+        //1.
+        Object.defineProperty(obj,'num',{
+            value: 1000,
+            enumerable: true,
+        })  //add
+        Object.defineProperty(obj,'price',{
+            value: 9999
+        })  //modify
+
+        //2.
+        Object.defineProperty(obj,'id',{
+            //false，不允许被修改
+            writable: false,
+        })  
+        obj.id = 2;
+
+        //3.
+        Object.defineProperty(obj,'address',{
+            // false：不允许遍历，默认false
+            enumerable: false,
+            //false：不允许被删除， 也不允许再次修改address的相关属性
+            configurable: false
+        })  
+        console.log(obj);   
+        console.log( Object.keys(obj));  //为什么num也没有呢？ => 因为enumerable默认是false，修改为true即可
+
+        //4.configurable
+        delete obj.address;     //删除属性
+        console.log(obj);
+
+        Object.defineProperty(obj,'address',{
+            enumerable: true,
+        })  
+        console.log(obj);       //ERROR
+            //因为59行的address属性中的configurable为false，
+            //表示不可以再修改address中的属性了。
+            //但是此处又妄想修改address中的enumerable属性为true，此时报错！
+    </script>
+</body>
+
+</html>

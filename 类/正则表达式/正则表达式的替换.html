@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        替换：replace(substr|regexp[i|g|gi],replacement)
+        第一个参数可以是字符串，也可以是一个正则表达式。
+        只能替换第一个满足条件的值。
+        //notice:在正则表达式的最后添加参数
+            //g:全局匹配;
+            //i:忽略大小写;
+            //gi:全局 + 忽略大小写
+     -->
+    <script>
+        var str = '激情的我andy and tom我的激情';
+        //第一个参数是字符串：
+        var newStr = str.replace('andy','xingwei');
+
+        //第二个参数是RegExp：
+        var newStr1 = str.replace(/激情/g,'**');
+        console.log(newStr1);
+    </script>
+</body>
+</html>

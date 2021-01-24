@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        *：     出现的次数 >=0
+        +：     出现的次数 >=1
+        ？：    出现的次数 0 || 1
+
+        {n}：   出现的次数 ==n
+        {n,}：  出现的次数 >=n
+        {n,m}： 出现的次数 n<= x <= m
+     -->
+     <script>
+        //  var reg = /^a*$/;       //a出现的次数   >=0
+        //  var reg = /^a+$/;       //a出现的次数   >=1
+        //  var reg = /^a?$/;        //a出现的次数   0 || 1
+        // var reg = /^a{3}$/;        //a出现次数 ==3
+        // var reg = /^a{3,}$/;         //a出现次数 >=3
+        var reg = /^a{3,6}$/;         //a出现次数 >=3 && <= 6
+
+         console.log(reg.test(''));  
+         console.log(reg.test('aaaa'));
+         console.log(reg.test('aaa'));  
+     </script>
+</body>
+</html>
