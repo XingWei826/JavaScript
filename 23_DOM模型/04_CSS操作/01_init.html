@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div">hello World</div>
+    <div id="DIV">hello </div>
+    <div id="Div" style="background-color: purple; border: 1px solid red;"></div>
+    <div id="hello" style="margin: 10px!important; color: green;">ShiJie</div>
+    <div id="world" style="background-color: paleturquoise; border: 2px solid red;">Hellosfjfsfjs</div>
+    <div id="love"> 测试 </div>
+    <!-- 
+        CSS 与 JavaScript 是两个有着明确分工的领域，前者负责页面的视觉效果，后者负责与用户的行为互动。
+        但是，它们毕竟同属网页开发的前端，因此不可避免有着交叉和互相配合。
+        【【【本节介绍如何通过 JavaScript 操作 CSS】】】。
+     -->
+
+     <!-- 
+         【【【1.】】】HTML 元素的 style 属性：
+            操作 CSS 样式最简单的方法，
+            就是使用网页元素节点的getAttribute方法、setAttribute方法和removeAttribute方法，
+            直接读写或删除网页元素的style属性。
+      -->
+      <script>
+          var div = document.getElementById('div');
+          div.setAttribute(
+              'style',                                              //属性名
+              'background-color:red;' + 'border: 1px solid red;'    //属性值
+          );
+        //   上述代码相当于下面的HTML代码：
+        // <div style="background-color:red; border:1px solid black;" />
+      </script>
+
+
+      <!-- 
+          【【【2.】】】CSSStyleDeclaration接口：CSSStyleDeclaration 接口用来操作元素的样式。
+            三个地方部署了这个接口。
+            1. 元素节点的style属性（Element.style）;
+            2. CSSStyle实例的style属性;
+            3. window.getComputedStyle()的返回值;
+                CSSStyleDeclaration 接口可以直接读写 CSS 的样式属性，不过，连词号需要变成骆驼拼写法。
+                CSSStyleDeclaration 接口表示一个对象，它是一个 CSS 声明块，CSS 属性键值对的集合。
+                注意，该对象的属性值都是字符串，设置时必须包括单位，但是不含规则结尾的分号。比如，divStyle.width不能写为100，而要写为100px。
+
+       -->
+       <script>
+           var divStyle = document.querySelector('div').style;  //元素节点的style属性
+           var div = document.getElementById('div');
+        //    console.log('---------->');
+        //    console.log(divStyle instanceof CSSStyleDeclaration);    //true
+        //    console.log('---------->');   //divStyle就是CSSStyleDeclaration的实例对象
+           divStyle.backgroundColor = 'green';
+           divStyle.border = '1px solid black';
+           divStyle.width = '100px';
+           divStyle.height = '100px';
+           divStyle.fontSize = '10px';
+        // 上面代码中，style属性的值是一个 CSSStyleDeclaration 实例。
+        // 这个对象所包含的属性与 CSS 规则一一对应，但是名字需要改写，
+        // 比如background-color写成backgroundColor。改写的规则是将横杠从 CSS 属性名中去除，
+        // 然后将横杠后的第一个字母大写。如果 CSS 属性名是 JavaScript 保留字，则规则名之前需要加上字符串css，比如float写成cssFloat。
+
+        // 注意，该对象的属性值都是字符串，设置时必须包括单位，但是不含规则结尾的分号。比如，divStyle.width不能写为100，而要写为100px。
+
+        // 另外，Element.style返回的只是行内样式，并不是该元素的全部样式。
+        // 通过样式表设置的样式，或者从父元素继承的样式，无法通过这个属性得到。
+        // 元素的全部样式要通过window.getComputedStyle()得到。
+       </script>
+
+
+        <!-- 
+            CSSStyleDeclaration 实例属性:
+            （1）CSSStyleDeclaration.cssText: 用来读写当前规则的所有样式声明文本。设置此属性会改变样式。
+            （2）CSSStyleDeclaration.length: 返回一个整数值，表示当前规则包含多少条样式声明。
+            （3）CSSStyleDeclaration.parentRule: 属性返回当前规则所属的那个样式块（CSSRule 实例）。
+                如果不存在所属的样式块，该属性返回null。该属性只读，且只在使用 CSSRule 接口时有意义。
+         -->
+         <script>
+             //1. cssText
+             var DIVStyle = document.getElementById('DIV').style;
+             DIVStyle.cssText = 
+             'background-color: yellow;'
+             + 'border: 1px solid black;'
+             + 'height: 100px;'
+             + 'width: 100px;';
+            //  注意，cssText的属性值不用改写 CSS原生属性名(background-color，保留了连字符，不用转驼峰了)。
+
+            // 删除一个元素的所有行内样式，最简便的方法就是设置cssText为空字符串。
+            // DIV.cssText = '';
+            
+            //2.length
+            var myDiv = document.getElementById('Div');
+            console.log(myDiv.style.length);    //18
+
+            //3.parentRule
+            // 该属性只读，且只在使用 CSSRule 接口时有意义。
+            console.log('----------');
+         </script>
+
+
+         <!-- 
+             CSSStyleDeclaration 实例方法:
+             （1）CSSStyleDeclaration.getPropertyPriority(): 方法接受 CSS 样式的属性名作为参数，返回一个字符串，表示有没有设置important优先级。如果有就返回important，否则返回空字符串。
+             （2）CSSStyleDeclaration.getPropertyValue(): 方法接受 CSS 样式属性名作为参数，返回一个字符串，表示该属性的属性值。
+             （3）CSSStyleDeclaration.item(): 方法接受一个整数值作为参数，返回该位置的 CSS 属性名。
+             （4）CSSStyleDeclaration.removeProperty(): 方法接受一个属性名作为参数，在 CSS 规则里面移除这个属性，返回这个属性原来的值。
+             （5）CSSStyleDeclaration.setProperty()：方法用来设置新的 CSS 属性。该方法没有返回值。
+          -->
+          <script>
+              //1.getPropertyPriority():
+              var style = document.getElementById('hello').style;
+              console.log(style.margin);                        //"10px"
+              console.log(style.getPropertyPriority('margin')); //"important"
+              console.log(style.getPropertyPriority('color'));  //""
+            //   上面代码中，margin属性有important优先级，color属性没有。
+
+            //2.getPropertyValue():
+            console.log(style.getPropertyValue('color'));   //"green"
+
+            //3. item():
+            var Style = document.getElementById('world').style;
+            console.log(Style.item(0)); //"background-color"
+            console.log(Style.item(1)); //"border-top-width"
+
+            //4.removeProperty():
+            Style.removeProperty('border');
+                //此时，相应的div里面style属性里就没有border这个属性了！
+
+            //5.setProperty(属性名，[属性值]，[优先级]):
+            // 该方法可以接受三个参数:
+                // (1) 属性名，该参数是必需的。
+                // (2) 属性值，该参数可选。如果省略，则参数值默认为空字符串。
+                // (3) 优先级，该参数可选。如果设置，唯一的合法值是important，表示 CSS 规则里面的!important。
+            Style.setProperty('border','3px solid green');
+          </script>
+</body>
+</html>

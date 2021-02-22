@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        document对象是文档的根节点，每张网页都有自己的document对象。
+        window.document属性就指向这个对象。
+        只要浏览器开始载入 HTML 文档，该对象就存在了，可以直接使用。
+        document对象有不同的办法可以获取。
+
+        document对象有不同的办法可以获取:
+            (1)正常的网页，直接使用document或window.document。
+            (2)iframe框架里面的网页，使用iframe节点的contentDocument属性。
+            (3)Ajax 操作返回的文档，使用XMLHttpRequest对象的responseXML属性。
+            (4)内部节点的ownerDocument属性。
+
+            document对象继承了EventTarget接口、Node接口、ParentNode接口。
+            这意味着，这些接口的方法都可以在document对象上调用。
+            除此之外，document对象还有很多自己的属性和方法。
+     -->
+
+
+     <!-- 
+         【【【1.】】】快捷方式属性：
+            （1）document.defaultView：返回document对象所属的window对象。如果当前文档不属于window对象，该属性返回null。
+            （2）document.doctype：对于 HTML 文档来说，document对象一般有两个子节点。第一个子节点是document.doctype，指向<DOCTYPE>节点，即文档类型（Document Type Declaration，简写DTD）节点。HTML 的文档类型节点，一般写成<!DOCTYPE html>。如果网页没有声明 DTD，该属性返回null。
+            （3）document.documentElement：返回当前文档的根节点（root），。它通常是document节点的第二个子节点，紧跟在document.doctype节点后面。HTML网页的该属性，一般是<html>节点。
+            （4）document.body，document.head：document.body属性指向<body>节点，document.head属性指向<head>节点。
+            （5）document.scrollingElement：返回文档的滚动元素。也就是说，当文档整体滚动时，到底是哪个元素在滚动。
+            （6）document.activeElement：返回获得当前焦点（focus）的 DOM 元素。通常，这个属性返回的是<input>、<textarea>、<select>等表单元素，如果当前没有焦点元素，返回<body>元素或null。
+            （7）document.fullscreenElement：返回当前以全屏状态展示的 DOM 元素。如果不是全屏状态，该属性返回null。
+      -->
+      <script>
+          console.log(document.defaultView === window);     //true
+          console.log(document.doctype);    //<!DOCTYPE html>
+          console.log(document.documentElement);    //html元素
+
+          console.log(document.scrollingElement);   //html元素
+        //  标准模式下，这个属性返回的文档的根元素document.documentElement（即<html>）。
+        // 兼容（quirk）模式下，返回的是<body>元素，如果该元素不存在，返回null。
+
+            console.log(document.activeElement);    //body
+
+            console.log(document.fullscreenElement);    //null
+            // if(document.fullscreenElement.nodeName == 'VIDEO') {
+            //     console.log('全屏播放视频');
+            // }
+            // 上面代码中，通过document.fullscreenElement可以知道<video>元素有没有处在全屏状态，从而判断用户行为。
+      </script>
+
+
+        <!-- 【【【2.】】】 节点集合属性-->
+        <!-- 
+            以下属性返回一个HTMLCollection实例，表示文档内部特定元素的集合。
+            这些集合都是动态的，原节点有任何变化，立刻会反映在集合中。
+            （1）document.links：返回当前文档所有设定了href属性的<a>及<area>节点。
+            （2）document.forms：返回所有<form>表单节点。
+            （3）document.images：返回页面所有<img>图片节点。
+            （4）document.embeds，document.plugins：都返回所有<embed>节点。
+            （5）document.scripts：属性返回所有<script>节点。
+            （6）document.styleSheets:返回文档内嵌或引入的样式表集合。
+            //小结：除了document.styleSheets，以上的集合属性返回的都是HTMLCollection实例。
+                HTMLCollection实例是类似数组的对象，所以这些属性都有length属性，都可以使用方括号运算符引用成员。
+                如果成员有id或name属性，还可以用这两个属性的值，在HTMLCollection实例上引用到这个成员。
+         -->
+         <script>
+             // 打印文档所有的链接
+             var links = document.links;
+             for(var i = 0;i < links.length;i++) {
+                 console.log(links[i]);
+             }
+
+             //
+             var selectForm = document.forms[0];    //获取文档第一个表单
+
+             //在所有img标签中，寻找某张图片。
+             var imglist = document.images;
+             for(var i = 0;i < imglist.length;i++) {
+                 if(imglist[i].src === 'banner.gif') {
+                    //  ...
+                 }
+             }
+             
+             //
+             var scripts = document.scripts;
+             if(scripts.length !== 0) {
+                 console.log('当前网页有脚本！');
+             }
+
+             //HTMLCollection实例：
+             console.log(document.links instanceof HTMLCollection);     //true
+             console.log(document.images instanceof HTMLCollection);    //true
+             console.log(document.forms instanceof HTMLCollection);     //true
+             console.log(document.embeds instanceof HTMLCollection);    //true
+             console.log(document.scripts instanceof HTMLCollection);   //true
+             console.log('----------');
+         </script>
+
+
+         <!-- 【【【3.文档就静态信息属性】】】 -->
+         <!-- 
+             （1）document.documentURI，document.URL：都返回一个字符串，表示当前文档的网址。
+                    不同之处是它们继承自不同的接口，documentURI继承自Document接口，可用于所有文档；URL继承自HTMLDocument接口，只能用于 HTML 文档。
+            （2）document.domain: 返回当前文档的域名，不包含协议和接口。如果无法获取域名，该属性返回null。
+            （3）document.location: 是浏览器提供的原生对象，提供 URL 相关的信息和操作方法。通过window.location和document.location属性，可以拿到这个对象。
+            （4）document.lastModified: 属性返回一个字符串，表示当前文档最后修改的时间。不同浏览器的返回值，日期格式是不一样的。
+            （5）document.title: 返回当前文档的标题。默认情况下，返回<title>节点的值。但是该属性是可写的，一旦被修改，就返回修改后的值。
+            （6）document.characterSet: 返回当前文档的编码，比如UTF-8、ISO-8859-1等等。
+            （7）document.referrer: 返回一个字符串，表示当前文档的访问者来自哪里。
+            （8）document.dir: 返回一个字符串，表示文字方向。它只有两个可能的值：rtl表示文字从右到左，阿拉伯文是这种方式；ltr表示文字从左到右，包括英语和汉语在内的大多数文字采用这种方式。
+            （9）document.compatMode: 返回浏览器处理文档的模式，可能的值为BackCompat（向后兼容模式）和CSS1Compat（严格模式）。
+                                    一般来说，如果网页代码的第一行设置了明确的DOCTYPE（比如<!doctype html>），document.compatMode的值都为CSS1Compat。
+          -->
+          <script>
+              console.log(document.URL);
+              console.log(document.documentURI === document.URL);   //true
+            //   如果文档的锚点（#anchor）变化，这两个属性都会跟着变化。
+
+            console.log(document.referrer);
+            // 如果无法获取来源，或者用户直接键入网址而不是从其他网页点击进入，document.referrer返回一个空字符串。
+          </script>
+
+
+          <!-- 【【【4.】】】 文档状态属性：-->
+          <!-- 
+              （1）document.hidden：返回一个布尔值，表示当前页面是否可见。如果窗口最小化、浏览器切换了 Tab，都会导致导致页面不可见，使得document.hidden返回true。
+              （2）document.visibilityState：返回文档的可见状态。
+                    它的值有四种可能：
+                        （1）visible：：页面可见。注意，页面可能是部分可见，即不是焦点窗口，前面被其他窗口部分挡住了。
+                        （2）hidden： 页面不可见，有可能窗口最小化，或者浏览器切换到了另一个 Tab。
+                        （3）prerender：页面处于正在渲染状态，对于用于来说，该页面不可见。
+                        （4）unloaded：页面从内存里面卸载了。
+                    这个属性可以用在页面加载时，防止加载某些资源；或者页面不可见时，停掉一些页面功能。
+              （3）document.readyState：返回当前文档的状态，共有三种可能的值。
+                        （1）loading：加载 HTML 代码阶段（尚未完成解析）
+                        （2）interactive：加载外部资源阶段
+                        （3）complete：加载完成
+                        这个属性变化的过程如下：
+                            （1）浏览器开始解析 HTML 文档，document.readyState属性等于loading。
+                            （2）浏览器遇到 HTML 文档中的<script>元素，并且没有async或defer属性，就暂停解析，开始执行脚本，这时document.readyState属性还是等于loading。
+                            （3）HTML 文档解析完成，document.readyState属性变成interactive。
+                            （4）浏览器等待图片、样式表、字体文件等外部资源加载完成，一旦全部加载完成，document.readyState属性变成complete。
+           -->
+
+
+           <!-- 【【【5.】】】 -->
+           <!-- 
+               document.cookie：用来操作浏览器 Cookie。
+               document.designMode：控制当前文档是否可编辑，通常用在所见即所得编辑器。该属性只有两个值on和off，默认值为off。
+               document.implementation： 属性返回一个DOMImplementation对象。该对象有三个方法，主要用于创建独立于当前文档的新的 Document 对象。
+                                            DOMImplementation.createDocument()：    创建一个 XML 文档。
+                                            DOMImplementation.createHTMLDocument()： 创建一个 HTML 文档。
+                                            DOMImplementation.createDocumentType()： 创建一个 DocumentType 对象。
+
+            -->
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div onclick="console.log('HelloWorld')">helloWorld</div>
+    <div onclick="doSomething()">helloWorld</div>
+    <div onclick="alert('Father')">
+        <button onclick="alert('Son')">点击</button>
+    </div>
+    <div id="div">shijie</div>
+    <!-- 
+        EventTarget 接口:
+        DOM 的事件操作（监听和触发），都定义在EventTarget接口。所有节点对象都部署了这个接口，其他一些需要事件通信的浏览器内置对象（比如，XMLHttpRequest、AudioNode、AudioContext）也部署了这个接口。
+        该接口主要提供三个实例方法:
+            (1) addEventListener：      绑定事件的监听函数
+            (2) removeEventListener：   移除事件的监听函数
+            (3) dispatchEvent：         触发事件
+     -->
+     <!-- 
+         target.addEventListener(type, listener[, useCapture]);
+         该方法接受三个参数:
+            type：事件名称，大小写敏感。
+            listener：监听函数。事件发生时，会调用该监听函数。
+            useCapture：默认false，监听函数只在冒泡阶段被触发。
+      -->
+
+<!-- 第一种方法： -->
+      <!-- 
+          HTML的on- 属性： HTML语言允许在元素的属性中，直接定义某些事件的监听代码。
+          <div onclick="console.log('HelloWorld')">helloWorld</div>
+          注意，这些属性的值是将会执行的代码，而不是一个函数。
+          【【【使用此方法指定的监听代码，只会在冒泡阶段触发。】】】
+          直接设置on-属性，与通过元素节点的setAttribute方法设置on-属性，效果是一样的。
+          <Element onclick="doSomething()">       
+          el.setAttribute('onclick', 'doSomething()');  //与上等价
+       -->
+       <script>
+           function doSomething() {
+               console.log('hello123456');
+           }
+       </script>
+
+<!-- 第二种方法： -->
+        <script>
+            div.onclick = function (event) {
+            console.log('触发事件');
+        };
+        // 使用这个方法指定的监听函数，也是只会在冒泡阶段触发。
+        // 和HTML中的onclick差球不多！！！
+        </script>
+
+<!-- 第三种方法： -->
+<!-- addEventListener(...) -->
+
+<!-- 【【【总结：】】】 -->
+        <!-- 
+            （1）<div onclick="doSomething()">helloWorld</div>
+            （2） div.onclick = function() {...}
+            （3）div.addEventListener('click',doSomething,false);
+            上面三种方法中：
+            第一种“HTML的on-属性”，违反了 HTML 与 JavaScript 代码相分离的原则，将两者写在一起，不利于代码分工，因此不推荐使用。
+            第二种“元素节点的事件属性”的缺点在于，同一个事件只能定义一个监听函数，也就是说，如果定义两次onclick属性，后一次定义会覆盖前一次。因此，也不推荐使用。
+            第三种EventTarget.addEventListener是推荐的指定监听函数的方法。它有如下优点：
+                （1）同一个事件可以添加多个监听函数。
+                （2）能够指定在哪个阶段（捕获阶段还是冒泡阶段）触发监听函数。
+                （3）除了 DOM 节点，其他对象（比如window、XMLHttpRequest等）也有这个接口，它等于是整个 JavaScript 统一的监听函数接口。
+        -->
+        <script>
+            //发生了覆盖，同一事件只能定义一个监听函数
+            var div = document.getElementById('div');
+            div.onclick = function() {
+                console.log('First');
+            }
+            div.onclick = function() {
+                console.log('Second');
+            }
+
+            //addEventListener: 没有覆盖，同一个事件可以定义多个监听函数
+            div.addEventListener('click',function() {
+                console.log('First');
+            },false);
+            div.addEventListener('click',function() {
+                console.log('Second');
+            });
+        </script>
+
+
+        <!-- 
+            事件的传播： 一个事件发生后，会在子元素和父元素之间传播（propagation）。这种传播分成三个阶段。
+            捕获->目标->冒泡。  window -> target -> window  [层层递进]
+            第一阶段：从window对象传导到目标节点（上层传到底层），称为“捕获阶段”（capture phase）。
+            第二阶段：在目标节点上触发，称为“目标阶段”（target phase）。
+            第三阶段：从目标节点传导回window对象（从底层传回上层），称为“冒泡阶段”（bubbling phase）。
+            ===》这种三阶段的传播模型，使得同一个事件会在多个节点上触发。
+            
+            eg:
+            <div>
+                <p>点击</p>
+            </div>
+            事件传播的最上层对象是window，接着依次是document，html（document.documentElement）和body（document.body）。
+            也就是说，上例的事件传播顺序:
+            在捕获阶段依次为    window、document、html、body、div、p，
+            在冒泡阶段依次为    p、div、body、html、document、window。
+            冒泡：从target开始向顶层对象开始依次经过！
+        -->
+</body>
+</html>

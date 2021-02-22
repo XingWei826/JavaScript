@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        立即执行函数：
+        1.(funtion() {})()
+        2.(funtion(){} ())
+            记忆方式： (function(){}) ***
+                剩下的一对括号可在（***）式的里面或外面均可！
+     -->
+    <script>
+        (function(a, b){
+            console.log(a+b);
+        })(1,3);
+
+        (function(a, b){
+            console.log(a-b);
+        } (1,6));
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        属性描述对象的各个属性称为“元属性”，因为它们可以看作是控制属性的属性。
+        value: 是目标属性的值。
+     -->
+     <!-- 【1.value：目标属性的值】  -->
+     <script>
+         var object1 = {
+             name: 'Zhang',
+             age: 23
+         };
+         console.log(Object.getOwnPropertyDescriptor(object1,'name').value);   //"Zhang"
+         Object.defineProperty(object1,'age',{
+             value: 88
+         });
+         console.log(Object.getOwnPropertyDescriptor(object1,'age').value);   //88
+        //  上面代码是通过value属性，读取object1.name属性值 ，改写object1.age的例子。
+        console.log('----------');
+     </script>
+
+     <!-- 【2.writable：决定了目标属性的值（value）是否可以被改变】  -->
+     <script>
+        //  'use strict';
+         var object2 = {};
+         Object.defineProperty(object2,'name',{
+             value: 'Zhang',
+             writable: false
+         });
+         console.log(object2.name); //"Zhang"
+         object2.name = 'Wang';
+         console.log(object2.name); //"Zhang"
+         //因为对象的writable属性是false，所以改变不起效果。
+         //注意：正常模式下，对writable为false的属性赋值不会报错，只会默默失败。
+         //但是，严格模式下会报错。(因为name只是可读属性)
+
+
+         var proto = Object.defineProperty({},'name',{
+             value: 'Long',
+             writable: false
+         });
+         var object3 = Object.create(proto);
+         object3.name = 'Zhang';
+         console.log(object3.name); //"Long"
+        //  上面代码中，proto是原型对象，它的name属性不可写。
+        //  object3对象继承proto，也不可以再自定义这个属性了。
+        //  如果是严格模式，这样做还会抛出一个错误。
+        console.log('----------');
+     </script>
+
+
+     <!-- 【3.enumerable：表示目标属性是否可遍历】  -->
+     <script>
+        //  具体来说，如果一个属性的enumerable为false，下面三个操作不会取到该属性。
+        // for..in循环
+        // Object.keys方法
+        // JSON.stringify方法
+        // 因此，enumerable可以用来设置“秘密”属性。
+        var object4 = {};
+        Object.defineProperty(object4,'name',{
+            value: 'Zhang',
+            enumerable: false
+        });
+        for(var key in object4) {
+            console.log(key);
+        }   //undefined
+        console.log(Object.keys(object4));      //"[]"
+        console.log(JSON.stringify(object4));   //"{}"
+        // 注意，for...in循环包括继承的属性，
+        // Object.keys方法不包括继承的属性。
+        // 如果需要获取对象自身的所有属性，不管是否可遍历，可以使用Object.getOwnPropertyNames方法。
+     </script>
+
+     <!-- 【4.configurable：决定了是否可以修改属性描述对象】  -->
+     <script>
+        //  也就是说，configurable为false时，value、writable、enumerable和configurable都不能被修改了。
+        var object5 = Object.defineProperty({},'name',{
+            value: 'Zhang',
+            writable: false,
+            // writable: true,
+            enumerable: false,
+            configurable: false
+        });
+        // Object.defineProperty(object5,'name',{value: 'Wang'});  //Error
+        // Object.defineProperty(object5,'name',{writable: true});  //Error
+        // Object.defineProperty(object5,'name',{enumerable: true});  //Error
+        // Object.defineProperty(object5,'name',{configurable: true});  //Error
+
+        // 注意，writable只有在false改为true会报错，true改为false是允许的。
+        // Object.defineProperty(object5,'name',{writable: false});  //true->false不会报错
+
+        //至于value，只要writable和configurable有一个为true，就允许改动。
+        // Object.defineProperty(object5,'name',{value: 'Wang'});      //success
+
+        // 另外，configurable为false时，直接目标属性赋值，不报错，但不会成功（默默的失败）。
+        object5.name = 'GaoXing';
+        console.log(object5.name);  //"Zhang"
+
+        // 另外，configurable为false时，直接目标属性赋值，不报错，但不会成功。
+        var object6 = Object.defineProperties({},{
+            name: {value: 'Zhang', configurable: true},
+            age: {value: 23, configurable: false}
+        });
+        console.log(delete object6.name);   //true
+        console.log(delete object6.age);    //false
+        console.log(object6.name);          //undefined
+        console.log(object6.age);           //23
+        // 上面代码中，object6.name的configurable是true，所以可以被删除，object6.age就无法删除。
+
+     </script>
+</body>
+</html>

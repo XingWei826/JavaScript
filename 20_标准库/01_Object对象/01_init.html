@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            JavaScript 的所有其他对象都继承自Object对象，即那些对象都是Object的实例。
+            Object对象的原生方法分成两类：Object本身的方法与Object的实例方法。
+            Object对象的原生方法分成两类：Object本身的方法(静态方式) 与 Object的实例方法。
+        */
+        // （1）Object对象本身的方法
+                // 所谓”本身的方法“就是直接定义在Object对象的方法。
+        Object.print = function() {console.log('hello,本身方法');}
+        // console.dir(Object);     //print方法就是直接定义在Object对象上
+        Object.print();             //也即是只能由 Object.function(...) 这样才能进行调用
+
+        // （2）Object的实例方法
+                //所谓实例方法就是定义在Object原型对象Object.prototype上的方法。它可以被Object实例对象直接使用。
+        Object.prototype.show = function() {console.log('Hello,实例方法');};
+        // console.dir(Object);
+        var obj = new Object();
+        obj.show();
+        // console.dir(obj);
+        /* 
+            obj直接继承了Object.prototype的属性和方法，可以直接使用obj.show调用show方法。
+            也就是说，obj对象的show方法实质上就是调用Object.prototype.show方法。
+            关于原型对象object.prototype的详细解释，参见《面向对象编程》章节。
+            这里只要知道，凡是定义在Object.prototype对象上面的属性和方法，将被其所有实例对象共享就可以了。
+        */
+       console.log('----------');
+    </script>
+
+<!-- 1. Objcet作为工具函数使用：Object(.) => 将任意值转换为对象-->
+
+    <script>
+        // Object():将任意值转为对象,常用来保证某个值是一个对象。
+        //如果参数为空（或者为undefined和null），则Object()返回一个空对象。
+    // var obj = Object(); 
+    // var obj = Object(undefined);
+    // var obj = Object(null);     //以上3句等价，返回一个空对象
+
+    var obj1 = Object(1);
+    console.log(obj1 instanceof Object); //true
+    console.log(obj1 instanceof Number); //true
+
+    var obj2 = Object('string');
+    console.log(obj2 instanceof Object);    //true
+    console.log(obj2 instanceof String);    //true
+    
+    var obj3 = Object(true);
+    console.log(obj3 instanceof Object);    //true
+    console.log(obj3 instanceof Boolean);    //true
+        //上面代码中，Object函数的参数是各种原始类型的值，转换成对象就是原始类型值对应的包装对象。
+    console.log('----------');
+    </script>
+
+    <script>
+        // 如果Object方法的参数是一个对象，它总是返回该对象，即不用转换。
+        var arr = [];
+        var Obj1 = Object(arr); //返回原数组
+        console.log(arr === Obj1);
+        // console.log(arr instanceof Array);  //true,Array是对象，也即arr是对象
+
+        var o = {};
+        var Obj2 = Object(o);   //返回原对象
+        console.log(o === Obj2);
+
+        var fn =function() {};
+        var Obj3 = Object(fn);  //返回原函数
+        console.log(fn === Obj3);
+        // console.log(fn instanceof Function);    //true
+
+        // 利用这一点，可以写一个判断变量是否为对象的函数。
+        function isObject(value) {
+            return value === Object(value);
+        }
+        console.log(isObject([]));      //true
+        console.log(isObject(true));    //false
+        console.log('---------');
+    </script>
+
+<!-- 2.Object构造函数：使用new命令 -->
+    <script>
+        var OBJ = new Object();
+        // var OBJ = {};
+        //注意，通过var OBJ = new Object()的写法生成新对象，
+        // 与字面量的写法var OBJ = {}是等价的。
+        // 或者说，后者只是前者的一种简便写法。
+    </script>
+</body>
+
+</html>

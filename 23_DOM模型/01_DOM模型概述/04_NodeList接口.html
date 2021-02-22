@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        【节点都是单个对象，有时需要一种数据结构，能够容纳多个节点】。
+        DOM 提供两种节点集合，用于容纳多个节点：【NodeList】 和 【HTMLCollection】。
+        这两种集合都属于接口规范。许多 DOM 属性和方法，返回的结果是NodeList实例或HTMLCollection实例。
+     -->
+     <!--
+          NodeList实例是一个类似数组的对象，它的成员是节点对象。
+          NodeList实例很像数组，可以使用length属性和forEach方法。但是，它不是数组，不能使用pop或push之类数组特有的方法。
+         -->
+
+     <script>
+         console.log(document.body.childNodes instanceof NodeList);
+         console.log(document.body.childNodes.length);
+        //  除了使用forEach方法遍历 NodeList 实例，还可以使用for循环。
+        var children = document.body.childNodes;
+        for(var i = 0;i < children.length;i++) {
+            var item = children[i];
+        }
+        // 注意，NodeList 实例可能是动态集合，也可能是静态集合。
+        // 所谓动态集合就是一个活的集合，DOM 删除或新增一个相关节点，都会立刻反映在 NodeList 实例。
+        // 目前，只有Node.childNodes返回的是一个动态集合，其他的 NodeList 都是静态集合。
+     </script>
+
+<!--【1.】 NodeList.prototype.length -->
+     <script>
+        //  length属性返回 NodeList 实例包含的节点数量。
+        // document.getElementsByTagName('xxx').length;
+        // 上面代码中，document.getElementsByTagName返回一个 NodeList 集合。对于那些不存在的 HTML 标签，length属性返回0。
+     </script>
+
+
+<!-- 【2.】NodeList.prototype.forEach() -->
+     <script>
+        //  forEach方法用于遍历 NodeList 的所有成员。
+        //  它接受一个回调函数作为参数，每一轮遍历就执行一次这个回调函数，用法与数组实例的forEach方法完全一致。
+            // var children = document.body.childNodes;
+            // children.forEach(function f(item, i, list) {
+            // // ...
+            // }, this);
+            // 上面代码中，回调函数f的三个参数依次是当前成员、位置和当前 NodeList 实例。
+            // forEach方法的第二个参数，用于绑定回调函数内部的this，该参数可省略。
+     </script>
+
+
+     <!-- 【3.】NodeList.prototype.item() -->
+     <script>
+        //  item方法接受一个整数值作为参数，表示成员的位置，返回该位置上的成员。
+        // document.body.childNodes.item(0);
+        // 上面代码中，item(0)返回第一个成员。
+        // 如果参数值大于实际长度，或者索引不合法（比如负数），item方法返回null。如果省略参数，item方法会报错。
+        // 所有类似数组的对象，都可以使用方括号运算符取出成员。一般情况下，都是使用方括号运算符，而不使用item方法。
+        // document.body.childNodes[0];
+     </script>
+
+
+     <!-- 【4.】NodeList.prototype.keys()，NodeList.prototype.values()，NodeList.prototype.entries() -->
+     <script>
+        //  这三个方法都返回一个 ES6 的遍历器对象，可以通过for...of循环遍历获取每一个成员的信息。
+        // 区别在于，keys()返回键名的遍历器，
+        // values()返回键值的遍历器，
+        // entries()返回的遍历器同时包含键名和键值的信息。
+        var childrens = document.body.childNodes;
+        for(var key of childrens.keys()) {
+            console.log(key);
+        }
+        for(var value of childrens.values()) {
+            console.log(value);
+        }
+        for(var entry of childrens.entries()) {
+            console.log(entry);
+        }
+     </script>
+</body>
+</html>

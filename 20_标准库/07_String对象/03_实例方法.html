@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        实例属性： String.prototype.length
+        实例方法: 
+            1. String.prototype.charAt() => 返回指定位置的字符
+            2. String.prototype.charCodeAt() => 返回字符串指定位置的 Unicode 码点（十进制表示）
+            3. String.prototype.concat() => 连接两个字符串，返回一个新字符串，不改变原字符串
+            4. String.prototype.slice() => 从原字符串取出子字符串并返回，不改变原字符串 [start,end)
+            5. String.prototype.substring() => 从原字符串取出子字符串并返回，不改变原字符串
+                由于这些规则违反直觉，因此不建议使用substring方法，应该优先使用slice。
+            6. String.prototype.substr() => 从原字符串取出子字符串并返回，不改变原字符串，跟slice和substring方法的作用相同。
+            7. String.prototype.indexOf()
+            8. String.prototype.lastIndexOf()
+            9. String.prototype.trim() => 去除字符串两端的空格，返回一个新字符串，不改变原字符串。
+            10. String.prototype.toLowerCase() => 返回一个新字符串，不改变原字符串。
+            11. String.prototype.toUpperCase() => 返回一个新字符串，不改变原字符串。
+            12. String.prototype.match() => 于确定原字符串是否匹配某个子字符串，返回一个数组
+            13. String.prototype.search() => search方法的用法基本等同于match，但是返回值为匹配的第一个位置
+            14. String.prototype.replace() => 用于替换匹配的子字符串，一般情况下只替换第一个匹配（除非使用带有g修饰符的正则表达式）。
+            15. String.prototype.split() => 按照给定规则分割字符串，返回一个由分割出来的子字符串组成的数组。
+            16. String.prototype.localeCompare() => 用于比较两个字符串,它返回一个整数
+     -->
+
+     <script>
+        //  它的第一个参数是子字符串的开始位置，第二个参数是子字符串的结束位置（不含该位置）。
+        // String.prototype.slice():
+        'JavaScript'.slice(0, 4);        // "Java"
+        'JavaScript'.slice(4);           // "Script"
+        'JavaScript'.slice(-6);          // "Script"
+        'JavaScript'.slice(0, -6);       // "Java"
+        'JavaScript'.slice(-2, -1);      // "p"
+        // 如果第一个参数大于第二个参数，slice方法返回一个空字符串。
+        'JavaScript'.slice(2, 1)         // ""
+     </script>
+
+    <script>
+        // String.prototype.substring():
+        // 它的第一个参数表示子字符串的开始位置，第二个位置表示结束位置（返回结果不含该位置）。
+        'JavaScript'.substring(0, 4);        // "Java"
+        'JavaScript'.substring(4);           // "Script"
+        'JavaScript'.substring(10, 4);       // "Script"
+        'JavaScript'.substring(4, 10);       // "Script" (与上等价)
+        // 如果参数是负数，substring方法会自动将负数转为0。
+        'Javascript'.substring(-3);          // "JavaScript"
+        'JavaScript'.substring(4, -3);       // "Java"
+    </script>
+
+    <script>
+        // String.prototype.substr():
+        // 如果第二个参数是负数，将被自动转为0
+        // substr方法的第一个参数是子字符串的开始位置（从0开始计算），第二个参数是子字符串的长度。
+        'JavaScript'.substr(-6);         // "Script"
+        'JavaScript'.substr(4, -1);      // ""
+    </script>
+
+    <script>
+        // String.prototype.trim():
+        // 该方法去除的不仅是空格，还包括制表符（\t、\v）、换行符（\n）和回车符（\r）。
+        '\r\nabc \t'.trim();     // 'abc'
+    </script>
+
+    <script>
+        // String.prototype.match():
+        // match方法用于确定原字符串是否匹配某个子字符串，返回一个数组，成员为匹配的第一个字符串
+        // 如果没有找到匹配，则返回null。
+        // 返回的数组还有index属性和input属性，分别表示匹配字符串开始的位置和原始字符串。
+        var matches = 'cat, bat, sat, fat'.match('at');
+        console.log(matches);            //["at"]
+        console.log(matches.index);     //1
+        console.log(matches.input);     //"cat, bat, sat, fat"
+        // match方法还可以使用正则表达式作为参数.
+    </script>
+
+    <script>
+        // search方法还可以使用正则表达式作为参数;
+        // replace方法还可以使用正则表达式作为参数
+    </script>
+
+    <script>
+        'a|b|c'.split('|'); //["a","b","c"]
+        // 如果省略参数，则返回数组的唯一成员就是原字符串。
+        'a|b|c'.split();     //["a|b|c"]
+        // 如果满足分割规则的两个部分紧邻着（即两个分割符中间没有其他字符），则返回数组之中会有一个空字符串。
+        'a||c'.split('|');   //['a', '', 'c']
+        // 如果满足分割规则的部分处于字符串的开头或结尾（即它的前面或后面没有其他字符），则返回数组的第一个或最后一个成员是一个空字符串。
+        '|b|c'.split('|');   //["", "b", "c"]
+        'a|b|'.split('|');   //["a", "b", ""]
+
+        //split方法还可以接受第二个参数，限定返回数组的最大成员数
+        'a|b|c'.split('|', 0);   //[]
+        'a|b|c'.split('|', 1);   //["a"]
+        'a|b|c'.split('|', 2);   //["a", "b"]
+        'a|b|c'.split('|', 3);   //["a", "b", "c"]
+        'a|b|c'.split('|', 4);   //["a", "b", "c"]
+    </script>
+
+    <script>
+        'apple'.localeCompare('banana');    //-1
+        'apple'.localeCompare('apple');      //0
+        // 该方法的最大特点，就是会考虑自然语言的顺序。
+        // 但是，localeCompare方法会考虑自然语言的排序情况，将B排在a的前面。
+        console.log('B'.localeCompare('a'));    //1,表示B较大
+
+        // localeCompare还可以有第二个参数，指定所使用的语言（默认是英语），然后根据该语言的规则进行比较。
+        'ä'.localeCompare('z', 'de');    // -1
+        'ä'.localeCompare('z', 'sv');    // 1
+        // 上面代码中，de表示德语，sv表示瑞典语。
+    </script>
+</body>
+</html>

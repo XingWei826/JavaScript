@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <style>
+        .article {
+  display: block;
+  margin: 0 0 30px 0;
+  padding: 12px;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  transition: all 220ms;
+}
+.article:hover {
+  box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  transition: all 220ms;
+}
+.article > img {
+  display: block;
+  width: 100%;
+  margin: 0 0 24px 0;
+}
+.article h2 {
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 0 0 12px 0;
+}
+ 
+.wall {
+  display: block;
+  position: relative;
+}
+.wall-column {
+  display: block;
+  position: relative;
+  width: 1%;
+  float: left;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .wall-column {
+    width: 50%;
+  }
+}
+@media (max-width: 480px) {
+  .wall-column {
+    width: auto;
+    float: none;
+  }
+}      
+    </style>
+</head>
+
+
+<body>
+    <!-- 
+        jQuery插件库：http://www.jq22.com/
+        jQuery之家：http://www.htmleaf.com/
+     -->
+    <div class="wall">
+        <a class="article" href="#">
+            <img src="img/1.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </a>
+        <div class="article">
+            <img src="img/2.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/3.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/4.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/5.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/6.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+
+        <div class="article">
+            <img src="img/7.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/8.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/9.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/10.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/11.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/12.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/13.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/14.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+        <div class="article">
+            <img src="img/15.jpg" />
+            <h2>Cursus cursus proin auctor in in ac, nunc, tortor</h2>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.wall').jaliswall();
+        });   
+    </script>
+</body>
+
+</html>

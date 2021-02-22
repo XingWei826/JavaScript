@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        onkeyup:
+        onkeydown:
+        onkeypress:不能识别control,shift,<-，，，
+        执行顺序:keydown->keypress->keyup
+     -->
+     <!-- 
+         onkeydown和onkeyup不区分字母大小写，onkeypress区分字母大小写。
+         在实际开发中，更多的使用的是keydown和keyup，因为它能识别所有的键(包括功能键)
+         keypress不识别功能键。
+         keyCode属性：返回该键的ASCII码值！
+      -->
+      <script>
+          document.addEventListener('keyup',function(event) {
+              console.log(event.keyCode);
+          })
+          document.addEventListener('keypress',function(){
+              console.log('press' + event.keyCode);
+          })
+      </script>
+</body>
+</html>

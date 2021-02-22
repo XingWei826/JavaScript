@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //使用const：具有块级作用域，只能在声明的区域中运行！
+        //使用const修饰时，必须初始化值！
+        // const pi ;  //ERROR
+        const pi = 9;
+
+        //简单数据类型：
+        const num = 19;
+        // num = 13;    //企图修改，ERROR
+
+        //复杂数据类型；
+        const array = [100,200];
+        array[0] = 123;     //right,可以单独修改
+        array = [1,2];      //ERROR，不能整体修改
+        console.log(array);
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        【1.】Node.appendChild()：接受一个节点对象作为参数，将其作为最后一个子节点，插入当前节点。方法的返回值就是插入文档的子节点。
+        【2.】Node.hasChildNodes()：回一个布尔值，表示当前节点是否有子节点。
+        【3.】Node.cloneNode():用于克隆一个节点。它接受一个布尔值作为参数，表示是否同时克隆子节点。它的返回值是一个克隆出来的新节点。
+        【4.】Node.insertBefore():用于将某个节点插入父节点内部的指定位置。
+        【5.】Node.removeChild():接受一个子节点作为参数，用于从当前节点移除该子节点。返回值是移除的子节点。
+        【6.】Node.replaceChild():用于将一个新的节点，替换当前节点的某一个子节点。
+        【7.】Node.contains():返回一个布尔值，表示参数节点是否满足以下三个条件之一。
+        【8.】Node.compareDocumentPosition():与contains方法完全一致，返回一个七个比特位的二进制值，表示参数节点与当前节点的关系。
+        【9.】Node.isEqualNode()，Node.isSameNode():返回一个布尔值，用于检查两个节点是否相等。
+        【10.】Node.normalize():用于清理当前节点内部的所有文本节点（text）。
+        【11.】Node.getRootNode():返回当前节点所在文档的根节点。
+     -->
+     <script>
+        //  Node.hasChildNodes():
+        //  注意，子节点包括所有节点，哪怕节点只包含一个空格，hasChildNodes方法也会返回true。
+        // 判断一个节点有没有子节点，有许多种方法，下面是其中的三种:
+            // node.hasChildNodes()
+            // node.firstChild !== null
+            // node.childNodes && node.childNodes.length > 0
+     </script>
+
+
+     <script>
+        //  Node.cloneNode():
+        // 该方法有一些使用注意点:
+            // （1）克隆一个节点，会拷贝该节点的所有属性，但是会丧失addEventListener方法和on-属性（即node.onclick = fn），添加在这个节点上的事件回调函数。
+            // （2）该方法返回的节点不在文档之中，即没有任何父节点，必须使用诸如Node.appendChild这样的方法添加到文档之中。
+            // （3）克隆一个节点之后，DOM 有可能出现两个有相同id属性（即id="xxx"）的网页元素，这时应该修改其中一个元素的id属性。如果原节点有name属性，可能也需要修改。
+     </script>
+
+
+     <script>
+        //  var insertedNode = parentNode.insertBefore(newNode, referenceNode);
+        // insertBefore方法接受两个参数，第一个参数是所要插入的节点newNode，第二个参数是父节点parentNode内部的一个子节点referenceNode。newNode将插在referenceNode这个子节点的前面。返回值是插入的新节点newNode。
+        // var p = document.createElement('p');
+        // document.body.insertBefore(p, document.body.firstChild);
+        // 上面代码中，新建一个<p>节点，插在document.body.firstChild的前面，也就是成为document.body的第一个子节点。
+        // 如果insertBefore方法的第二个参数为null，则新节点将插在当前节点内部的最后位置，即变成最后一个子节点。
+     </script>
+     
+     <script>
+        //  var replacedNode = parentNode.replaceChild(newChild, oldChild);
+     </script>
+
+     <script>
+        //  Node.contains(): 返回一个布尔值，表示参数节点是否满足以下三个条件之一：
+            //（1） 参数节点为当前节点;
+            //（2） 参数节点为当前节点的子节点;
+            //（3） 参数节点为当前节点的后代节点;
+
+            // document.body.contains(node);    
+            // 上面代码检查参数节点node，是否包含在当前文档之中。
+     </script>
+
+     <script>
+        //  Node.compareDocumentPosition():与contains方法完全一致，返回一个七个比特位的二进制值，表示参数节点与当前节点的关系。
+            
+        // 二进制值	    十进制值	    含义
+        // 000000	    0	        两个节点相同
+        // 000001	    1	        两个节点不在同一个文档（即有一个节点不在当前文档）
+        // 000010	    2	        参数节点在当前节点的前面
+        // 000100	    4	        参数节点在当前节点的后面
+        // 001000	    8	        参数节点包含当前节点
+        // 010000	    16	     当前节点包含参数节点
+        // 100000	    32	     浏览器内部使用
+     </script>
+
+     <script>
+        // Node.isEqualNode()，Node.isSameNode():
+        // Node.isEqualNode():
+        // 返回一个布尔值，用于检查两个节点是否相等。
+        // 所谓相等的节点，指的是两个节点的类型相同、属性相同、子节点相同。
+
+        // Node.isSameNode():
+        // isSameNode方法返回一个布尔值，表示两个节点是否为同一个节点。
+
+        /* var p1 = document.createElement('p');
+        var p2 = document.createElement('p');
+        p1.isSameNode(p2) // false
+        p1.isSameNode(p1) // true */
+     </script>
+
+      <script>
+        //   Node.normalize():
+        // 用于清理当前节点内部的所有文本节点（text）。
+        // 它会去除空的文本节点，并且将毗邻的文本节点合并成一个，
+        // 也就是说不存在空的文本节点，以及毗邻的文本节点。
+      </script>
+
+      <script>
+        //   Node.getRootNode():返回当前节点所在文档的根节点。
+        document.body.firstChild.getRootNode() === document     // true
+      </script>
+</body>
+</html>

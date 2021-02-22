@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        【【【1.】】】属性相关方法：
+        1. Element.getAttribute()
+        2. Element.getAttributeNames()
+        3. Element.setAttribute()
+        4. Element.hasAttribute()
+        5. Element.hasAttributes()
+        6. Element.removeAttribute()
+        7. Element.querySelector()
+        8. Element.querySelectorAll()
+        9. Element.getElementsByClassName()
+        10. Element.getElementsByTagName()
+        11. Element.closest(): 接受一个 CSS 选择器作为参数，返回匹配该选择器的、最接近当前节点的一个祖先节点（包括当前节点本身）。如果没有任何节点匹配 CSS 选择器，则返回null。
+        12. Element.matches(): 返回一个布尔值，表示当前元素是否匹配给定的 CSS 选择器。
+     -->
+
+     <!-- 
+        【【【2.】】】事件相关方法：
+        1. Element.addEventListener()：添加事件的回调函数
+        2. Element.removeEventListener()：移除事件监听函数
+        3. Element.dispatchEvent()：触发事件
+      -->
+      
+      <!-- 
+          1. Element.scrollIntoView(): 滚动当前元素，进入浏览器的可见区域，类似于设置window.location.hash的效果。
+          2. Element.getBoundingClientRect(): 返回一个对象，提供当前元素节点的大小、位置等信息，基本上就是 CSS 盒状模型的所有信息。
+                x：元素左上角相对于视口的横坐标
+                y：元素左上角相对于视口的纵坐标
+                height：元素高度
+                width：元素宽度
+                left：元素左上角相对于视口的横坐标，与x属性相等
+                right：元素右边界相对于视口的横坐标（等于x + width）
+                top：元素顶部相对于视口的纵坐标，与y属性相等
+                bottom：元素底部相对于视口的纵坐标（等于y + height）
+          3. Element.getClientRects(): 返回一个类似数组的对象，里面是当前元素在页面上形成的所有矩形（所以方法名中的Rect用的是复数）。
+          4. Element.insertAdjacentElement(): 在相对于当前元素的指定位置，插入一个新的节点。该方法返回被插入的节点，如果插入失败，返回null。
+          5. Element.insertAdjacentHTML(): 用于将一个 HTML 字符串，解析生成 DOM 结构，插入相对于当前节点的指定位置。
+          6. Element.insertAdjacentText(): 在相对于当前节点的指定位置，插入一个文本节点，用法与Element.insertAdjacentHTML方法完全一致。
+          7. Element.remove(): 继承自 ChildNode 接口，用于将当前元素节点从它的父节点移除。
+          8. Element.focus(): 用于将当前页面的焦点，转移到指定元素上。
+          9. Element.blur(): 用于将焦点从当前元素移除。
+          10. Element.click(): 法用于在当前元素上模拟一次鼠标点击，相当于触发了click事件。
+       -->
+
+       <script>
+        //    element.insertAdjacentElement(position, element);
+        // Element.insertAdjacentElement方法一共可以接受两个参数，第一个参数是一个字符串，表示插入的位置，第二个参数是将要插入的节点。第一个参数只可以取如下的值。
+                // beforebegin：当前元素之前
+                // afterbegin：当前元素内部的第一个子节点前面
+                // beforeend：当前元素内部的最后一个子节点后面
+                // afterend：当前元素之后
+       </script>
+</body>
+</html>

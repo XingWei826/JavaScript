@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        StyleSheet 接口:
+        StyleSheet接口代表网页的一张样式表，包括<link>元素加载的样式表和<style>元素内嵌的样式表。
+            document对象的styleSheets属性，可以返回当前页面的所有StyleSheet实例（即所有样式表）。它是一个类似数组的对象。
+     -->
+     <script>
+         var sheets = document.styleSheets;     //StyleSheetList
+         var sheet = document.styleSheets[0];   //StyleSheet
+         console.log(sheets instanceof StyleSheetList);  //true
+         console.log(sheet instanceof StyleSheet);      //false
+     </script>
+
+     <!-- 
+         StyleSheet实例有以下属性:
+            （1）StyleSheet.disabled: 返回一个布尔值，表示该样式表是否处于禁用状态。
+            （2）Stylesheet.href: 返回样式表的网址。对于内嵌样式表，该属性返回null。该属性只读。
+            （3）StyleSheet.media: 返回一个类似数组的对象（MediaList实例），成员是表示适用媒介的字符串。
+            （4）StyleSheet.title: 返回样式表的title属性。
+            （5）StyleSheet.type: 返回样式表的type属性，通常是text/css。
+            （6）StyleSheet.parentStyleSheet: CSS 的@import命令允许在样式表中加载其他样式表。
+            （7）StyleSheet.ownerNode: 返回StyleSheet对象所在的 DOM 节点，通常是<link>或<style>。
+            （8）StyleSheet.cssRules： 指向一个类似数组的对象（CSSRuleList实例），里面每一个成员就是当前样式表的一条 CSS 规则。
+            （9）StyleSheet.ownerRule：有些样式表是通过@import规则输入的，它的ownerRule属性会返回一个CSSRule实例，代表那行@import规则。
+      -->
+      <script>
+          document.styleSheets[0].href;
+
+        //   StyleSheet.media属性返回一个类似数组的对象（MediaList实例），成员是表示适用媒介的字符串。
+        // 表示当前样式表是用于屏幕（screen），还是用于打印（print）或手持设备（handheld），或各种媒介都适用（all）。
+        // 该属性只读，默认值是screen。
+          document.styleSheets[0].media.mediaText;
+
+          document.styleSheets[0].type  // "text/css"
+
+        //   CSS 的@import命令允许在样式表中加载其他样式表。
+        //   StyleSheet.parentStyleSheet属性返回包含了当前样式表的那张样式表。
+        //   如果当前样式表是顶层样式表，则该属性返回null。
+        if (stylesheet.parentStyleSheet) {
+        sheet = stylesheet.parentStyleSheet;
+        } else {
+        sheet = stylesheet;
+        }
+      </script>
+
+      <!-- 【【【实例方法：】】】 -->
+      <!-- 
+          1. CSSStyleSheet.insertRule()：用于在当前样式表的插入一个新的 CSS 规则。
+          2. CSSStyleSheet.deleteRule()：用来在样式表里面移除一条规则，它的参数是该条规则在cssRules对象中的位置。该方法没有返回值。
+       -->
+       <script>
+           var sheet = document.querySelector('#styleElement').sheet;
+            sheet.insertRule('#block { color: white }', 0);
+            sheet.insertRule('p { color: red }', 1);
+            // 该方法可以接受两个参数，第一个参数是表示 CSS 规则的字符串，这里只能有一条规则，否则会报错。
+            // 第二个参数是该规则在样式表的插入位置（从0开始），该参数可选，默认为0（即默认插在样式表的头部）。
+            // 注意，如果插入位置大于现有规则的数目，会报错。
+            // 该方法的返回值是新插入规则的位置序号。
+
+            document.styleSheets[0].deleteRule(1);
+       </script>
+
+
+       <!-- 【【【 CSSRuleList 接口】】】-->
+       <!-- 
+           CSSRuleList 接口是一个类似数组的对象，表示一组 CSS 规则，成员都是 CSSRule 实例。
+           获取 CSSRuleList 实例，一般是通过StyleSheet.cssRules属性。
+           <style id="myStyle">
+                h1 { color: red; }
+                p { color: blue; }
+         </style>
+         var myStyleSheet = document.getElementById('myStyle').sheet;
+        var crl = myStyleSheet.cssRules;
+        crl instanceof CSSRuleList          // true
+        CSSRuleList 实例里面，每一条规则（CSSRule 实例）可以通过rules.item(index)或者rules[index]拿到。
+        CSS 规则的条数通过rules.length拿到。
+        注意，添加规则和删除规则不能在 CSSRuleList 实例操作，而要在它的父元素 StyleSheet 实例上，通过StyleSheet.insertRule()和StyleSheet.deleteRule()操作。
+        -->
+
+
+        <!-- 【【【CSSRule 接口】】】 -->
+        <!-- 
+            一条 CSS 规则包括两个部分：CSS 选择器和样式声明。
+            下面就是一条典型的 CSS 规则。
+            .myClass {
+                color: red;
+                background-color: yellow;
+            }
+            JavaScript 通过 CSSRule 接口操作 CSS 规则。
+            一般通过 CSSRuleList 接口（StyleSheet.cssRules）获取 CSSRule 实例。
+        <style id="myStyle">
+                h1 { color: red; }
+                p { color: blue; }
+         </style>
+        var myStyleSheet = document.getElementById('myStyle').sheet;
+        var ruleList = myStyleSheet.cssRules;
+        var rule = ruleList[0];
+        rule instanceof CSSRule // true
+         -->
+
+
+        <!--
+            CSSRule 实例的属性：
+                1. CSSRule.cssText：返回当前规则的文本
+                2. CSSRule.parentStyleSheet：返回当前规则所在的样式表对象（StyleSheet 实例）
+                3. CSSRule.parentRule：返回包含当前规则的父规则，如果不存在父规则（即当前规则是顶层规则），则返回null。
+                4. CSSRule.type：属性返回一个整数值，表示当前规则的类型。
+                    最常见的类型有以下几种：
+                    （1）普通样式规则（CSSStyleRule 实例）
+                    （2）@import规则
+                    （3）@media规则（CSSMediaRule 实例）
+                    （4）@font-face规则
+        -->
+
+
+        <!-- 
+            CSSStyleRule 接口：
+            如果一条 CSS 规则是普通的样式规则（不含特殊的 CSS 命令），那么除了 CSSRule 接口，它还部署了 CSSStyleRule 接口。
+            CSSStyleRule 接口有以下两个属性：
+                （1）CSSStyleRule.selectorText：返回当前规则的选择器，注意，这个属性是可写的。
+                （2）CSSStyleRule.style： 属性返回一个对象，代表当前规则的样式声明，也就是选择器后面的大括号里面的部分。
+         -->
+
+
+         <!--
+              CSSMediaRule 接口：
+              如果一条 CSS 规则是@media代码块，那么它除了 CSSRule 接口，还部署了 CSSMediaRule 接口。
+              该接口主要提供media属性和conditionText属性。前者返回代表@media规则的一个对象（MediaList 实例），后者返回@media规则的生效条件。
+        -->
+
+
+        <!-- 
+            window.matchMedia()：
+            window.matchMedia方法用来将 CSS 的MediaQuery条件语句，转换成一个 MediaQueryList 实例。
+            var mdl = window.matchMedia('(min-width: 400px)');
+            mdl instanceof MediaQueryList // true
+            注意，如果参数不是有效的MediaQuery条件语句，window.matchMedia不会报错，依然返回的一个 MediaQueryList 实例。
+         -->
+
+
+         <!-- 
+             MediaQueryList 接口的实例属性：
+                (1)MediaQueryList.media: 属性返回一个字符串，表示对应的 MediaQuery 条件语句。
+                (2)MediaQueryList.matches: 属性返回一个布尔值，表示当前页面是否符合指定的 MediaQuery 条件语句。
+                (3)MediaQueryList.onchange: 如果 MediaQuery 条件语句的适配环境发生变化，会触发change事件。MediaQueryList.onchange属性用来指定change事件的监听函数。
+                                            该函数的参数是change事件对象（MediaQueryListEvent 实例），该对象与 MediaQueryList 实例类似，也有media和matches属性。
+          -->
+
+
+          <!-- 
+              MediaQueryList 接口的实例方法:
+              MediaQueryList.addListener():
+              MediaQueryList.removeListener():
+              ===>用来为change事件添加或撤销监听函数。
+           -->
+
+
+           <!-- 
+               CSS事件:
+                    1.transitionEnd事件: CSS的过渡效果（transition）结束后，触发transitionEnd事件。
+                    transitionEnd的事件对象具有以下属性:
+                        (1)propertyName: 发生transition效果的CSS属性名。
+                        (2)elapsedTime: elapsedTime：transition效果持续的秒数，不含transition-delay的时间。
+                        (3)pseudoElement: 如果transition效果发生在伪元素，会返回该伪元素的名称，以“::”开头。如果不发生在伪元素上，则返回一个空字符串。
+                    2.animationstart事件，animationend事件，animationiteration事件:
+                        animationstart事件：动画开始时触发。
+                        animationend事件：动画结束时触发。
+                        animationiteration事件：开始新一轮动画循环时触发。如果animation-iteration-count属性等于1，该事件不触发，即只播放一轮的CSS动画，不会触发animationiteration事件。
+            -->
+</body>
+</html>

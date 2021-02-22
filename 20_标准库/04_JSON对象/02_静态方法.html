@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        JSON对象是 JavaScript 的原生对象，用来处理 JSON 格式数据。
+        它有两个静态方法：JSON.stringify()和JSON.parse()。
+     -->
+     <script>
+        //  JSON.stringify():将一个值转为 JSON 字符串。
+        // 该字符串符合 JSON 格式，并且可以被JSON.parse方法还原。
+        console.log(JSON.stringify('abc')); //""abc""
+        console.log(JSON.stringify(1));     //"1"
+        console.log(JSON.stringify(false)); //"false"
+        console.log(JSON.stringify([]));    //"[]"
+        console.log(JSON.stringify({}));    //"{}"
+        console.log(JSON.stringify([1,"false",false]));     //'[1,"false",false]' 
+        console.log(JSON.stringify({name: "Zhang"}));       //'{"name":"张三"}'
+        // 注意，对于原始类型的字符串，转换结果会带双引号。
+        console.log(JSON.stringify('foo') === "foo");       //false
+        console.log(JSON.stringify('foo') === "\"foo\"");   //true
+        //
+        JSON.stringify(false);   // "false"
+        JSON.stringify('false'); // "\"false\""
+        // 上面代码中，如果没有内层的双引号，将来还原的时候，引擎就无法知道原始值是布尔值还是字符串。
+
+        ////////////////////////////////
+        var obj = {
+            a:undefined,
+            b:function() {}
+        };
+        JSON.stringify(obj);    //"{}"
+        // 如果对象的属性是undefined、函数或 XML 对象，该属性会被JSON.stringify过滤。
+        // 上面代码中，对象obj的a属性是undefined，而b属性是一个函数，结果都被JSON.stringify过滤。
+
+        /////////////////////////////////
+        // 如果数组的成员是undefined、函数或 XML 对象，则这些值被转成null。
+        var array = [undefined,function() {}];
+        var test = JSON.stringify(array);      
+        console.log(test);  //"[null,null]"
+
+        /////////////////////////////////
+        // 正则对象会被转成空对象。
+        JSON.stringify(/foo/) // "{}"
+
+        /////////////////////////////////
+        // JSON.stringify方法会忽略对象的不可遍历属性。
+
+        /////////////////////【【【第二个参数】】】///////////
+        // (1) JSON.stringify方法还可以接受一个数组，作为第二个参数，指定需要转成字符串的属性。
+        var object = {
+            'prop1': 'value1',
+            'prop2': 'value2',
+            'prop3': 'value3'
+        };
+        var selectedProperties = ['prop1','prop2'];
+        JSON.stringify(obj, selectedProperties);    //"{"prop1":"value1", "prop2":"value2"}"
+        // 上面代码中，JSON.stringify方法的第二个参数指定，只转prop1和prop2两个属性。
+
+        JSON.stringify(['a', 'b'], ['0']);          //"["a","b"]"
+        JSON.stringify({0: 'a', 1: 'b'}, ['0']);    //"{"0":"a"}"
+        // 上面代码中，第二个参数指定 JSON 格式只转0号属性，实际上对数组是无效的，只对对象有效。
+
+        // (2) 第二个参数还可以是一个函数，用来更改JSON.stringify的返回值。
+        function fun(key,value) {
+            if(typeof value === "number") {
+                value = 2 * value;
+            }
+            return value;
+        };
+        JSON.stringify({a:1, b:2},fun);   //"{"a": 2, "b": 4}"
+        // 上面代码中的f函数，接受两个参数，分别是被转换的对象的键名和键值。如果键值是数值，就将它乘以2，否则就原样返回。
+     </script>
+
+     <script>
+        /////////////////////【【【第三个参数】】】///////////
+        // JSON.stringify还可以接受第三个参数，用于增加返回的 JSON 字符串的可读性。
+        // 如果是数字，表示每个属性前面添加的空格（最多不超过10个）；
+        // 如果是字符串（不超过10个字符），则该字符串会添加在每行前面。
+        var _s1 = JSON.stringify({ p1: 1, p2: 2 }, null, 2);
+        var _s2 = JSON.stringify({ p1:1, p2:2 }, null, '|-');
+        console.log(_s1);
+        console.log(_s2);
+     </script>
+
+     <script>
+        //  参数对象的 toJSON 方法
+        // 如果参数对象有自定义的toJSON方法，那么JSON.stringify会使用这个方法的返回值作为参数，而忽略原对象的其他属性。
+        var user = {
+            firstName: 'San',
+            lastName: 'Zhang',
+            get fullName() {
+                return this.lastName + this.firstName;
+            },
+            toJSON: function() {
+                return {
+                    name: this.lastName + this.firstName
+                }
+            }
+        };
+        // 上面代码中，JSON.stringify发现参数对象有toJSON方法，就直接使用这个方法的返回值作为参数，而忽略原对象的其他参数。
+        var __s1 = JSON.stringify(user);
+        console.log(__s1);
+     </script>
+
+     <script>
+        //  JSON.parse(): 用于将 JSON 字符串转换成对应的值。
+        JSON.parse('{}');       //{}
+        JSON.parse('true');     //true
+        JSON.parse('"foo"');      //"foo"
+        JSON.parse('[1,5,"false"]'); //[1,5,"false"]
+        JSON.parse('null');         //null
+        var o = JSON.parse('{"name": "Zhang"}');
+        console.log(o.name);
+        // 如果传入的字符串不是有效的 JSON 格式，JSON.parse方法将报错。
+        // 为了处理解析错误，可以将JSON.parse方法放在try...catch代码块中。
+        try {
+            JSON.parse("'String'");
+        } catch(e) {
+            console.log('parsing error!');
+        }
+
+        //第二个参数：JSON.parse方法可以接受一个处理函数，作为第二个参数，用法与JSON.stringify方法类似。
+        var ooo = JSON.parse('{"a": 1, "b": 2}',function(key, value) {
+            if(key === 'a') {
+                return value + 10;
+            }
+            return value;
+        })
+        console.log(ooo);
+     </script>
+</body>
+</html>

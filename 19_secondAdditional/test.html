@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 值得注意的是，由于数组本质上是一种对象，所以可以为数组添加属性，但是这不影响length属性的值。
+        // 如果数组的键名是添加超出范围的数值，该键名会自动转为字符串。
+        var arr = [];
+        arr['p'] = 'abc';
+        arr[2.1] = 'bca';
+        arr[0] = 1;
+        arr[1] = 4;
+        // 但是，for...in不仅会遍历数组所有的数字键，还会遍历非数字键。
+        for (var key in arr) {
+            // console.log(arr[key]);   // 1 4 "abc" "bca"
+            console.log(key);           //"0" "1" "p" "2.1"
+        }
+        // 下面代码将数组的键分别设为字符串和小数，结果都不影响length属性。因为，length属性的值就是等于最大的数字键加1，而这个数组没有整数键，所以length属性保持为0
+        var array = [];
+        array['p'] = 'abc';
+        array[2.1] = 'sfsfs';
+        console.log(array.length);  //0
+    </script>
+
+    <script>
+        // 采用函数表达式声明函数时，function命令后面不带有函数名。如果加上函数名，该函数名只在函数体内部有效，在函数体外部无效。
+        // 下面代码在函数表达式中，加入了函数名x。这个x只在函数体内部可用，指代函数表达式本身，其他地方都不可用
+        var fun = function x() {
+            // console.log('hello,function!');
+            console.log(typeof x);
+        }
+            // x();    //ERROR
+    </script>
+
+    <script>
+        //第三种声明函数的方式是Function构造函数。
+        // 总的来说，这种声明函数的方式非常不直观，几乎无人使用。
+        var add = new Function('x', 'y', 'return x + y');
+        // 等同于
+        // function add(x, y) {
+        //     return x + y;
+        // }
+        console.log(add(3, 2));
+    </script>
+
+    <script>
+        function add(num1, num2) {
+            return num1 + num2;
+        }
+        var operator = add; //将函数赋值给一个变量
+
+        //将函数作为参数和返回值
+        function test(Argument) {
+            return Argument;
+        }
+        var sum = test(add)(1, 2);    //最终相当于add(1,2) test(add) => add
+        console.log(sum);   //3
+    </script>
+
+    <script>
+        // 如果同时采用function命令和赋值语句声明同一个函数，最后总是采用赋值语句的定义
+        var fun = function (a, b) {
+            console.log('赋值声明函数');
+        }
+        function fun() {
+            console.log('function命令定义的函数');
+        }
+        fun();  //'赋值声明函数'
+        console.dir(fun);   //看看函数的属性有哪些
+        console.log(fun.name);  //"fun"  
+
+        var f1 = function () { };          // f1.name => "f1"
+        var f2 = function hello() { };   // f2.name => "hello"
+        console.log(f1.name);
+        console.log(f2.name);
+    </script>
+
+    <script>
+        // 函数作用域，变量只在函数内部存在。
+        // 在函数内部定义的变量，外部无法读取，称为“局部变量”（local variable）。
+        function fff() {
+            var aa = 11;
+        }
+        // console.log(aa); //ERROR,变量aa的作用域只在函数内部存在
+
+        // /注意，对于var命令来说，局部变量只能在函数内部声明，在其他区块中声明，一律都是全局变量。
+        if (true) {
+            var x = 5;
+        }
+        console.log(x);
+    </script>
+
+    <script>
+        // 函数内部的变量提升
+        // 与全局作用域一样，函数作用域内部也会产生“变量提升”现象。
+        // var命令声明的变量，不管在什么位置，变量声明都会被提升到函数体的头部。
+        function fff(x) {
+            if (x > 100) {
+                var temp = x - 100;
+            }
+        }
+        //等价于
+        // function fff(x) {
+        //     var temp ;
+        //     if(x > 100) {
+        //         temp = x - 100;
+        //     }
+        // }
+    </script>
+
+    <script>
+        // 传递方式：
+        // 1.值传递：函数参数如果是原始类型的值（数值、字符串、布尔值），传递方式是【值传递】。
+        // 这意味着，在函数体内修改参数值，不会影响到函数外部。
+        var p = 2;
+        function f(p) {
+            p = 3;
+        }
+        f(p);
+        console.log(p); //2
+
+        // 2.址传递：但是，如果函数参数是复合类型的值（数组、对象、其他函数），传递方式是传址传递（pass by reference）。
+        // 也就是说，传入函数的原始值的地址，因此在函数内部修改参数，将会影响到原始值。
+        var obj = { num: 1 };
+        function fff(o) {
+            o.num = 222;
+        }
+        fff(obj);
+        console.log(obj);   //num: 222
+
+        // 注意，如果函数内部修改的，不是参数对象的某个属性，而是替换掉整个参数，这时不会影响到原始值。
+        var obb = [1, 2, 3];
+        function ffff(o) {
+            o = [4, 5, 6];
+        }
+        ffff(obb);
+        console.log(obb);  //[1,2,3]
+        // 上面代码中，在函数ffff内部，参数对象obb被整个替换成另一个值。
+        // 这时不会影响到原始值。这是因为，形式参数（o）的值实际是参数obb的地址，
+        // 重新对o赋值导致o指向另一个地址，保存在原地址上的值当然不受影响。
+    </script>
+
+
+    <script>
+        // 由于 JavaScript 允许函数有不定数目的参数，所以需要一种机制，可以在函数体内部读取所有参数。这就是arguments对象的由来。
+        // arguments对象包含了函数运行时的所有参数，arguments[0]就是第一个参数，arguments[1]就是第二个参数，以此类推。这个对象只有在函数体内部，才可以使用。
+        // 正常模式下，arguments对象可以在运行时修改。
+        //严格模式下，arguments对象是一个只读对象，修改它是无效的，但不会报错。
+        var f0 = function(num1,num2){
+            // console.log(arguments);      //输出arguments参数的相关属性
+            // console.log(arguments[0]);
+            // console.log(arguments[1]);
+            // console.log(arguments[2]);
+            // 'use strict';        //输出3
+            arguments[0] = 3;
+            arguments[1] = 5;
+            return num1 +  num2;
+        }
+        console.log(f0(1,2));
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1. RegExp.prototype.test() => 返回一个布尔值，表示当前模式是否能匹配参数字符串。
+        2. RegExp.prototype.exec() => 。如果发现匹配，就返回一个数组，成员是匹配成功的子字符串，否则返回null
+        3. 
+        4. 
+        5. 
+        6. 
+        7. 
+        8. 
+     -->
+     <script>
+         /cat/.test('cats and dogs');       //true
+        //  如果正则模式是一个空字符串，则匹配所有字符串。
+         new RegExp('').test('abc');        //true
+         console.log('----------');
+     </script>
+
+     <script>
+        //  如果正则表达式带有g修饰符，则每一次test方法都从上一次匹配成功位置的下一个位置开始向后匹配。
+        var regExp = /x/g;
+        var string = '_x_x';
+        console.log(regExp.lastIndex);                  //0
+        console.log(regExp.test(string));               //true
+        console.log(regExp.lastIndex);                  //2
+        console.log(regExp.test(string));               //true
+        console.log(regExp.lastIndex);                  //4
+        console.log(regExp.test(string));               //false
+        console.log('----------');
+     </script>
+     
+     <script>
+        //  正则实例对象的exec方法，用来返回匹配结果。
+        //  如果发现匹配，就返回一个数组，成员是匹配成功的第一个子字符串，否则返回null。
+         var str = '_x_x';
+         console.log(/x/.exec(str));     //["x"]
+         console.log(/y/.exec(str));     //null
+        //  如果正则表示式包含圆括号（即含有“组匹配”），则返回的数组会包括多个成员。
+        //  第一个成员是整个匹配成功的结果，后面的成员就是圆括号对应的匹配成功的组。
+        //  也就是说，第二个成员对应第一个括号，第三个成员对应第二个括号，以此类推。
+        //  整个数组的length属性等于组匹配的数量再加1。
+        console.log(/_(x)/.exec(str));  //["_x","x"]
+        // 上面代码的exec方法，返回一个数组。第一个成员是整个匹配的结果，第二个成员是圆括号匹配的结果。
+
+        // exec方法的返回数组还包含以下两个属性：
+        // (1)input：整个原字符串。
+        // (2)index：整个模式匹配成功的开始位置（从0开始计数）。
+        var match = /_(x)/.exec(str);
+        console.log(match.index);   //0
+        console.log(match.input);   //"_x_x"
+     </script>
+
+     <script>
+        //  字符串的实例方法
+        // 字符串的实例方法之中，有4种与正则表达式有关。
+        //1. String.prototype.match()：返回一个数组，成员是匹配的第一个子字符串。
+        //4. String.prototype.split()：按照给定规则进行字符串分割，返回一个数组，包含分割后的各个成员。
+        var String1 = '_x_x';
+        console.log(String1.match(/x/)); //["x"]
+        console.log(String1.match(/y/)); null
+        // 如果正则表达式带有g修饰符，则该方法与正则对象的exec方法行为不同，会一次性返回所有匹配成功的结果。
+        console.log(String1.match(/x/g));   //["x","x"]
+        
+        //2. String.prototype.search()：按照给定的正则表达式进行搜索，返回一个整数，表示匹配开始的位置。
+        console.log('_x_x'.search(/x/));    //1
+        
+        //3. String.prototype.replace()：按照给定的正则表达式进行替换，返回替换后的字符串。
+            //只替换匹配的第一个子串，除非在正则表达式中加了/g属性
+        console.log('aaa'.replace(/a/,'b'));    //"baa"
+        console.log('aaa'.replace(/a/g,'b'));    //"bbb"
+     </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        对象解构：允许我们使用变量的名字匹配对象的属性，
+        匹配成功，则将对象属性的值赋给变量。
+     -->
+    <script>
+        //1.
+        let person = {name: 'tom', age: 30, sex: 'man'};
+        let { name,age,sex} = person;   //变量name,age,sex
+        console.log(name);
+        console.log(age);
+        console.log(sex);
+
+        //2.
+        let {name: myName} = person;   //变量myName
+        console.log(myName);
+    </script>
+</body>
+</html>

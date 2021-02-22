@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //in运算符
+        var point = {x:1,u:1};
+        console.log("x" in point);          //true
+        console.log("toString" in point);  //true
+        console.log("z" in point);          //false
+
+        var data = [7,8,9];
+        console.log("0" in data);   //true
+        console.log(1 in data);     //true
+        console.log(3 in data);     //false(指代的是索引号)
+
+        //delete运算符
+        var obj = {name: 'Zhang', age: 34};
+        console.log(obj);
+        delete obj.age;     //删除了age属性
+        console.log(obj);
+
+        var arr = [1,2,3];
+        delete arr[2];
+        console.log(arr[2]);//undefined
+        console.log(arr.length);    //长度还是3，只是将值给抹去了，位置还是保留的
+
+        //标签语句
+        function test(num) {
+            console.log('hello');
+            var x = 3;
+            var y = 4;
+            if(num == 3) {
+                debugger;
+            }     
+        }
+        console.log(test());
+        </script>
+</body>
+</html>

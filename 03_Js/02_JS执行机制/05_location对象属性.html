@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        window对象给我们提供了一个location属性用于获取或设置窗体的URL，
+        并且可以用于解析URL。因为这个属性返回的是一个对象，所以我们将这个属性也称为location对象。
+        location属性：
+            .href：整个URL
+            .host, .port, .pathname, 
+            .search:返回参数
+            .hash:返回片段，#后面内容 常见于链接，锚点
+     -->
+     <button>点击</button>
+     <script>
+         var btn = document.querySelector('button');
+         btn.addEventListener('click',function() {
+            //  console.log(window.location.href);
+            //赋值，那么此时点击，将会进行页面跳转
+            window.location.href = 'http://www.baidu.com';
+         })
+     </script>
+</body>
+</html>

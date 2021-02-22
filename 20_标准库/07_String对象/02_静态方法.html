@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        String.fromCharCode(): 该方法的参数是一个或多个数值，代表Unicode码点，返回值是这些码点(ASCII码)组成的字符串。
+
+     -->
+    <script>
+        String.fromCharCode();       //""
+        String.fromCharCode(97);     //"a"
+        String.fromCharCode(104, 101, 108, 108, 111); //"hello"
+        // 注意，该方法不支持 Unicode 码点大于0xFFFF的字符，即传入的参数不能大于0xFFFF（即十进制的 65535）。
+        console.log(String.fromCharCode(0xD842, 0xDFB7));
+    </script>
+</body>
+
+</html>

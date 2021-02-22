@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //eval命令：将字符串当做语句执行
+        eval('var a = 1');
+        console.log(a);     //上面的代码将字符串当做语句执行，生成了变量a。
+      
+        // eval没有自己的作用域，都在当前作用域内执行，因此可能会修改当前作用域的变量的值，造成安全问题。
+        eval('a = 5');      //此时，已经修改了外部变量a的值，由于这个原因，eval有风险
+        console.log(a);    //5
+        // 为了防止这种风险，JavaScript 规定，如果使用严格模式，eval内部声明的变量，不会影响到外部作用域。 
+        (function(){
+            'use strict';
+            eval('var foo = 456');
+            // console.log(foo);   //error => foo is not defined
+        })();   //此处的分号是必须的，连续的两个立即执行函数之间，分号是必须的，否则ERROR
+
+            //上面代码中，函数f内部是严格模式，这时eval内部声明的foo变量，就不会影响到外部。
+            // 不过，即使在严格模式下，eval依然可以读写当前作用域的变量。
+            (function() {
+                'use strict';
+                var foo = 1;
+                eval('foo = 2');
+                console.log(foo);   //2
+            })()
+            // 上面代码中，严格模式下，eval内部还是改写了外部变量，可见安全风险依然存在。
+            // 此外，eval的命令字符串不会得到 JavaScript 引擎的优化，运行速度较慢。这也是一个不应该使用它的理由。
+    </script>
+</body>
+</html>

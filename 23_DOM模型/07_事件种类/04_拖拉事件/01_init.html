@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div draggable="true" id="div">hello</div>
+    <!-- 
+        拖拉（drag）指的是，用户在某个对象上按下鼠标键不放，拖动它到另一个位置，然后释放鼠标键，将该对象放在那里。
+        拖拉的对象有好几种，包括元素节点、图片、链接、选中的文字等等。在网页中，除了元素节点默认不可以拖拉，其他（图片、链接、选中的文字）都是可以直接拖拉的。为了让元素节点可拖拉，可以将该节点的draggable属性设为true。
+        draggable属性可用于任何元素节点，但是图片（<img>）和链接（<a>）不加这个属性，就可以拖拉。对于它们，用到这个属性的时候，往往是将其设为false，防止拖拉这两种元素。
+        注意，一旦某个元素节点的draggable属性设为true，就无法再用鼠标选中该节点内部的文字或子节点了。
+     -->
+
+     <!-- 
+         当元素节点或选中的文本被拖拉时，就会持续触发拖拉事件，包括以下一些事件。
+         drag：         拖拉过程中，在被拖拉的节点上持续触发（相隔几百毫秒）。
+        dragstart：     用户开始拖拉时，在被拖拉的节点上触发，该事件的target属性是被拖拉的节点。通常应该在这个事件的监听函数中，指定拖拉的数据。
+        dragend：       拖拉结束时（释放鼠标键或按下 ESC 键）在被拖拉的节点上触发，该事件的target属性是被拖拉的节点。它与dragstart事件，在同一个节点上触发。不管拖拉是否跨窗口，或者中途被取消，dragend事件总是会触发的。
+        dragenter：     拖拉进入当前节点时，在当前节点上触发一次，该事件的target属性是当前节点。通常应该在这个事件的监听函数中，指定是否允许在当前节点放下（drop）拖拉的数据。如果当前节点没有该事件的监听函数，或者监听函数不执行任何操作，就意味着不允许在当前节点放下数据。在视觉上显示拖拉进入当前节点，也是在这个事件的监听函数中设置。
+        dragover：      拖拉到当前节点上方时，在当前节点上持续触发（相隔几百毫秒），该事件的target属性是当前节点。该事件与dragenter事件的区别是，dragenter事件在进入该节点时触发，然后只要没有离开这个节点，dragover事件会持续触发。
+        dragleave：     拖拉操作离开当前节点范围时，在当前节点上触发，该事件的target属性是当前节点。如果要在视觉上显示拖拉离开操作当前节点，就在这个事件的监听函数中设置。
+        drop：          被拖拉的节点或选中的文本，释放到目标节点时，在目标节点上触发。注意，如果当前节点不允许drop，即使在该节点上方松开鼠标键，也不会触发该事件。如果用户按下 ESC 键，取消这个操作，也不会触发该事件。该事件的监听函数负责取出拖拉数据，并进行相关处理。
+      -->
+
+      <!-- 
+        关于拖拉事件，有以下几个注意点:
+        拖拉过程只触发以上这些拖拉事件，尽管鼠标在移动，但是鼠标事件不会触发。
+        将文件从操作系统拖拉进浏览器，不会触发dragstart和dragend事件。
+        dragenter和dragover事件的监听函数，用来取出拖拉的数据（即允许放下被拖拉的元素）。由于网页的大部分区域不适合作为放下拖拉元素的目标节点，所以这两个事件的默认设置为当前节点不允许接受被拖拉的元素。如果想要在目标节点上放下的数据，首先必须阻止这两个事件的默认行为。
+       -->
+      <script>
+          var div = document.getElementById('div');
+          div.addEventListener('dragstart',function(e) {
+              this.style.backgroundColor = 'red';
+          },false);
+          div.addEventListener('dragend',function(e){
+              this.style.backgroundColor = 'green';
+          },false);
+      </script>
+
+      <!-- 
+          DragEvent 接口: 拖拉事件都继承了DragEvent接口，这个接口又继承了MouseEvent接口和Event接口。
+          浏览器原生提供一个DragEvent()构造函数，用来生成拖拉事件的实例对象。
+          new DragEvent(type, options);
+          DragEvent()构造函数接受两个参数，第一个参数是字符串，表示事件的类型，该参数必须；第二个参数是事件的配置对象，用来设置事件的属性，该参数可选。配置对象除了接受MouseEvent接口和Event接口的配置属性，还可以设置dataTransfer属性要么是null，要么是一个DataTransfer接口的实例。
+       -->
+
+       <!-- 
+           DataTransfer 接口概述:
+           所有拖拉事件的实例都有一个DragEvent.dataTransfer属性，用来读写需要传递的数据。这个属性的值是一个DataTransfer接口的实例。
+           浏览器原生提供一个DataTransfer()构造函数，用来生成DataTransfer实例对象。
+           var dataTrans = new DataTransfer();
+           拖拉的数据分成两方面：数据的种类（又称格式）和数据的值。数据的种类是一个 MIME 字符串（比如text/plain、image/jpeg），数据的值是一个字符串。一般来说，如果拖拉一段文本，则数据默认就是那段文本；如果拖拉一个链接，则数据默认就是链接的 URL。
+           拖拉事件开始时，开发者可以提供数据类型和数据值。拖拉过程中，开发者通过dragenter和dragover事件的监听函数，检查数据类型，以确定是否允许放下（drop）被拖拉的对象。比如，在只允许放下链接的区域，检查拖拉的数据类型是否为text/uri-list。
+           发生drop事件时，监听函数取出拖拉的数据，对其进行处理。
+        -->
+
+        <!-- 
+            DataTransfer 的实例属性:
+            1. DataTransfer.dropEffect: 用来设置放下（drop）被拖拉节点时的效果，会影响到拖拉经过相关区域时鼠标的形状。它可能取下面的值:
+                (1)copy：复制被拖拉的节点
+                (2)move：移动被拖拉的节点
+                (3)link：创建指向被拖拉的节点的链接
+                (4)none：无法放下被拖拉的节点
+            2. DataTransfer.effectAllowed:设置本次拖拉中允许的效果。它可能取下面的值:
+                (1)copy：  复制被拖拉的节点
+                (2)move：  移动被拖拉的节点
+                (3)link：  创建指向被拖拉节点的链接
+                (4)copyLink：允许copy或link
+                (5)copyMove：允许copy或move
+                (6)linkMove：允许link或move
+                (7)all：   允许所有效果
+                (8)none：  无法放下被拖拉的节点
+                (9)uninitialized： 默认值，等同于all
+            3. DataTransfer.files: 是一个 FileList 对象，包含一组本地文件，可以用来在拖拉操作中传送。如果本次拖拉不涉及文件，则该属性为空的 FileList 对象。
+            4. DataTransfer.types: 是一个只读的数组，每个成员是一个字符串，里面是拖拉的数据格式（通常是 MIME 值）。比如，如果拖拉的是文字，对应的成员就是text/plain。
+            5. DataTransfer.items: 返回一个类似数组的只读对象（DataTransferItemList 实例），每个成员就是本次拖拉的一个对象（DataTransferItem 实例）。如果本次拖拉不包含对象，则返回一个空对象。
+         -->
+
+
+         <!-- 
+             DataTransfer 的实例方法:
+             1. DataTransfer 的实例方法: 法用来设置拖拉事件所带有的数据。该方法没有返回值。
+             2. DataTransfer.getData():
+             3. DataTransfer.clearData():
+             4. DataTransfer.setDragImage():
+             
+          -->
+</body>
+</html>

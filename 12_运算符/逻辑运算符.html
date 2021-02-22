@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 逻辑与短路运算：表达式1 && 表达式2 
+            //1.如果表达式1为真，则返回表达式2
+            //2.如果表达式1为假，则返回表达式1
+                console.log(123 && 456);    //456
+                console.log(0 && 456);      //0
+
+        //逻辑或短路运算：
+            //1.如果表达式1为真，则返回表达式1
+            //2.如果表达式1为假，则返回表达式2
+                console.log(123 || 456);         //123
+                console.log(0 || 456 || 14);      //456
+    var num = 9;
+    if(num > 98 || num % 3==0)
+        console.log('是的！');
+
+    //本来str是一个string型，它与88直接比较，好比是转换成了数值，然后再与88比较
+    var str = prompt('Hello,please input:>');
+    console.log(typeof str);
+    if(str > 88)
+        console.log(">88!");
+    else 
+        console.log("<88!");
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

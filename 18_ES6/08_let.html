@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        ES6新增的用于声明变量的关键字！
+        let声明的变量只在所处于的块级作用域有效。
+     -->
+    <script>
+        if (true) {
+            var a = 20;
+            let b = 10;
+        }
+        // console.log(a); // => 20
+        // console.log(b); // => ERROR，只在if块中有效
+
+        //1.  防止循环变量成为全局变量
+        for (var i = 0; i < 2; i++) { }
+        console.log(i); // right =>2
+
+        for (let j = 0; j < 2; j++) { }
+        // console.log(j); // =>ERROR
+
+
+
+        //2.  let关键字：必须先声明，再使用，没有变量提升！
+        //具有暂时性死区特性！
+        var num = 12;
+        if (true) {
+            console.log(num);
+            let num;
+        }
+        //此时ERROR，也即是块级里的num和外面的num毫无关系！
+        //因为块级里的先使用了，后声明 => 所以ERROR!
+    </script>
+</body>
+
+</html>

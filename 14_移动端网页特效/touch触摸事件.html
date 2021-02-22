@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        移动端浏览器兼容性较好，不需要考虑以前的JS的兼容性问题，
+        可以放心的使用原生JS书写效果，但是移动端也有自己独特的地方。
+        比如触屏事件：touch，Android 和 IOS都有。
+        触屏事件：
+            1.touchstart  手指触摸到一个DOM元素时触发
+            2.touchmove   滑动
+            3.touchend    移开
+     -->
+     <div></div>
+     <script>
+         var div = document.querySelector('div');
+         div.addEventListener('touchstart',function() {
+             console.log('jhlljl');
+         })
+     </script>
+</body>
+</html>

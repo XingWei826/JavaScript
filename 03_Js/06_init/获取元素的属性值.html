@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="demo" Hello="hello" class="Wo">多个多个镀锌方管的</div>
+            <!-- //注意：Hello,是我们给div自定义的属性 -->
+    <script>
+        var div = document.querySelector('div');
+        //通过属性来获取对应的属性值
+        //way 1：获取内置属性
+        console.log(div.id);
+        //way 2：主要用来获取自定义属性
+        console.log(div.getAttribute('id'));
+        console.log(div.getAttribute('Hello'));
+
+        //设置属性值
+        div.id = "test";
+        div.setAttribute('Hello','hi');
+        div.setAttribute('class','Ni');
+
+        //移除属性
+        div.removeAttribute('Hello');
+    </script>
+</body>
+</html>

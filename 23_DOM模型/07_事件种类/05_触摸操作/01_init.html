@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        浏览器的触摸 API 由三个部分组成。
+        Touch：         一个触摸点
+        TouchList：     多个触摸点的集合
+        TouchEvent：    触摸引发的事件实例
+        Touch接口的实例对象用来触摸点（一根手指或者一根触摸笔），包括位置、大小、形状、压力、目标元素等属性。有时，触摸动作由多个触摸点（多根手指）组成，多个触摸点的集合由TouchList接口的实例对象表示。TouchEvent接口的实例对象代表由触摸引发的事件，只有触摸屏才会引发这一类事件。
+        很多时候，触摸事件和鼠标事件同时触发，即使这个时候并没有用到鼠标。这是为了让那些只定义鼠标事件、没有定义触摸事件的代码，在触摸屏的情况下仍然能用。如果想避免这种情况，可以用event.preventDefault方法阻止发出鼠标事件。
+     -->
+
+     <!-- 
+         Touch 接口:Touch 接口代表单个触摸点。触摸点可能是一根手指，也可能是一根触摸笔。
+         浏览器原生提供Touch构造函数，用来生成Touch实例。
+         var touch = new Touch(touchOptions);
+         Touch构造函数接受一个配置对象作为参数，它有以下属性:
+         identifier: 必需，类型为整数，表示触摸点的唯一 ID。
+         target: 必需，类型为元素节点，表示触摸点开始时所在的网页元素。
+         clientX:
+         clientY:
+         screenX:
+         screenY:
+         pageX:
+         pageY:
+         radiusX:
+         radiusY:
+         rotationAngle:
+         force:
+      -->
+
+      <!-- 
+          Touch 接口的实例属性:
+            （1）Touch.identifier: 返回一个整数，表示触摸点的唯一 ID。这个值在整个触摸过程保持不变，直到触摸事件结束。
+            （2）Touch.screenX，Touch.screenY，Touch.clientX，Touch.clientY，pageX，pageY：
+            （3）Touch.radiusX，Touch.radiusY，Touch.rotationAngle：
+            （4）Touch.force： 返回一个0到1之间的数值，表示触摸压力。0代表没有压力，1代表硬件所能识别的最大压力。
+            （5）Touch.target：返回一个元素节点，代表触摸发生时所在的那个元素节点。即使触摸点已经离开了这个节点，该属性依然不变。
+       -->
+
+       <!-- 
+           TouchList 接口：
+           TouchList接口表示一组触摸点的集合。它的实例是一个类似数组的对象，成员是Touch的实例对象，表示所有触摸点。用户用三根手指触摸，产生的TouchList实例就会包含三个成员，每根手指的触摸点对应一个Touch实例对象。
+           它的实例主要通过触摸事件的TouchEvent.touches、TouchEvent.changedTouches、TouchEvent.targetTouches这几个属性获取。
+           它的实例属性和实例方法只有两个：
+                （1）TouchList.length：数值，表示成员数量（即触摸点的数量）。
+                （2）TouchList.item()：返回指定位置的成员，它的参数是该成员的位置编号（从零开始）。
+        -->
+
+        <!-- 
+            TouchEvent 接口：
+            TouchEvent 接口继承了 Event 接口，表示由触摸引发的事件实例，通常来自触摸屏或轨迹板。除了被继承的属性以外，它还有一些自己的属性。
+            浏览器原生提供TouchEvent()构造函数，用来生成触摸事件的实例。
+            new TouchEvent(type, options);
+            TouchEvent()构造函数可以接受两个参数，第一个参数是字符串，表示事件类型；第二个参数是事件的配置对象，该参数是可选的，对象的所有属性也是可选的。除了Event接口的配置属性，该接口还有一些自己的配置属性。
+                touches: TouchList实例，代表所有的当前处于活跃状态的触摸点，默认值是一个空数组[]。
+                targetTouches: TouchList实例，代表所有处在触摸的目标元素节点内部、且仍然处于活动状态的触摸点，默认值是一个空数组[]。
+                changedTouches: TouchList实例，代表本次触摸事件的相关触摸点，默认值是一个空数组[]。
+                ctrlKey: 布尔值，表示 Ctrl 键是否同时按下，默认值为false。
+                shiftKey: 布尔值，表示 Shift 键是否同时按下，默认值为false。
+                altKey: 布尔值，表示 Alt 键是否同时按下，默认值为false。
+                metaKey: 布尔值，表示 Meta 键（或 Windows 键）是否同时按下，默认值为false。
+         -->
+
+         <!-- 
+             TouchEvent 接口的实例具有Event实例的所有属性和方法，此外还有一些它自己的实例属性，这些属性全部都是只读。
+             实例属性：
+             （1）TouchEvent.altKey，TouchEvent.ctrlKey，TouchEvent.shiftKey，TouchEvent.metaKey
+             （2）TouchEvent.changedTouches
+             （3）TouchEvent.touches
+             （4）TouchEvent.targetTouches
+          -->
+
+          <!-- 
+              触摸事件的种类：
+              触摸引发的事件，有以下几种。可以通过TouchEvent.type属性，查看到底发生的是哪一种事件。
+              touchstart：
+              touchend：
+              touchmove：
+              touchcancel：
+           -->
+</body>
+</html>

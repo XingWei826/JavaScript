@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        bind方法用于将函数体内的this绑定到某个对象，然后返回一个新函数。
+     -->
+    <script>
+        var d = new Date();
+        console.log(d.getTime());
+        var show = d.getTime;
+        // show();         // Uncaught TypeError: this is not a Date object.
+        // 上面代码中，我们将d.getTime方法赋给变量print，然后调用print就报错了。
+        // 这是因为getTime方法内部的this，绑定Date对象的实例，赋给变量print以后，内部的this已经不指向Date对象的实例了。
+        // bind方法可以解决这个问题:
+        var print = d.getTime.bind(d);
+        print();    //1613100200254
+    </script>
+
+    <script>
+        // bind方法的参数就是所要绑定this的对象
+        var counter = {
+            count: 0,
+            inc: function() {
+                this.count++;
+            }
+        };
+        var func = counter.inc.bind(counter);   //意思是将counter对象的inc方方法绑定到counter对象上,然后赋值给func
+        func();
+        console.log(counter.count); //1
+        // 上面代码中，counter.inc方法被赋值给变量func。
+        // 这时必须用bind方法将inc内部的this，绑定到counter，否则就会出错。
+    </script>
+
+    <script>
+        // bind还可以接受更多的参数，将这些参数绑定原函数的参数。
+        var add = function(x,y) {
+            return x * this.m + y*this.n;
+        };
+        var obj = {
+            m: 2,
+            n: 2
+        };
+        var newAdd = add.bind(obj,5);
+        console.log(newAdd(5));     //20
+        // 上面代码中，bind方法除了绑定this对象，还将add函数的第一个参数x绑定成5，
+        // 然后返回一个新函数newAdd，这个函数只要再接受一个参数y就能运行了。
+
+        // 如果bind方法的第一个参数是null或undefined，等于将this绑定到全局对象，函数运行时this指向顶层对象（浏览器为window）。
+        function sum(x,y) {
+            return x + y;
+        }
+        var plus = sum.bind(null,5);
+        console.log(plus(6));   //11
+        // 上面代码中，函数add内部并没有this，使用bind方法的主要目的是绑定参数x，
+        // 以后每次运行新函数sum，就只需要提供另一个参数y就够了。
+        console.log('----------');
+    </script>
+
+    <script>
+        // bind方法有一些使用注意点:
+        //(1) 每一次返回一个新函数;
+        
+        //（2）结合回调函数使用;
+        // 回调函数是 JavaScript 最常用的模式之一，但是一个常见的错误是，将包含this的方法直接当作回调函数。
+        // 解决方法就是使用bind方法
+        var Counter = {
+            count: 0,
+            Inc: function() {
+                'use strict';
+                this.count++;
+            }
+        };
+        function callIt(callback) {
+            callback();
+        }
+        callIt(Counter.Inc.bind(Counter));
+        console.log(Counter.count);     //1
+        // 上面代码中，callIt方法会调用回调函数。
+        // 这时如果直接把counter.inc传入，调用时counter.inc内部的this就会指向全局对象。
+        // 使用bind方法将counter.inc绑定counter以后，就不会有这个问题，this总是指向counter。
+    </script>
+
+    <script>
+        var person = {
+            age : 12,
+            add: function() {
+                this.age++;
+            }
+        };
+      var Fun = person.add.bind(person);
+      Fun();
+      console.log(person.age);  //13
+    </script>
+</body>
+</html>

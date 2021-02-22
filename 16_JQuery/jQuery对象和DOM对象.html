@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jQuery.min.js"></script>
+</head>
+<body>
+    <div></div>
+    <span></span>
+    <script>
+        //DOM对象
+        var div = document.querySelector('div');
+        //jQuery对象
+        $('div');
+        console.log($('div'));
+        //jQuery只能使用jQu方法；
+        //DOM对象只能使用原生的Js属性和方法
+        
+        //相互转换
+        var span = document.querySelector('span');
+        $(span);            //DOM => jQuery
+        $('div')[0];        //jQuery => DOM
+        $('div').get(0);    //jQuery => DOM
+    </script>
+</body>
+</html>

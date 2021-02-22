@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        Number对象是数值对应的包装对象，可以作为构造函数使用，也可以作为工具函数使用。
+     -->
+    <script>
+        // 作为构造函数时，它用于生成值为数值的对象。
+        var num = new Number(1);
+        // 作为工具函数时，它可以将任何类型的值转为数值。
+        Number(true);
+    </script>
+
+    <script>
+        // Number对象拥有以下一些属性。
+    // Number.POSITIVE_INFINITY：       正的无限，指向Infinity。
+    // Number.NEGATIVE_INFINITY：       负的无限，指向-Infinity。
+    // Number.NaN：                     表示非数值，指向NaN。
+    // Number.MAX_VALUE：               表示最大的正数，相应的，最小的负数为-Number.MAX_VALUE。
+    // Number.MIN_VALUE：               表示最小的正数（即最接近0的正数，在64位浮点数体系中为5e-324），相应的，最接近0的负数为-Number.MIN_VALUE。
+    // Number.MAX_SAFE_INTEGER：        表示能够精确表示的最大整数，即9007199254740991。
+    // Number.MIN_SAFE_INTEGER：        表示能够精确表示的最小整数，即-9007199254740991。
+    </script>
+<!--------------------------Number.prototype.toString()-------------------------->
+    <script>
+        // Number对象有4个实例方法，都跟将数值转换成指定格式有关。
+        //1. Number.prototype.toString(): Number对象部署了自己的toString方法，用来将一个数值转为字符串形式。
+        // toString方法可以接受一个参数，表示输出的进制;
+        // 如果省略这个参数，默认将数值先转为十进制，再输出字符串;
+        // 否则，就根据参数指定的进制，将一个数字转化成某个进制的字符串。
+        (10).toString(); // "10"
+        (10).toString(2);     // "1010"
+        (10).toString(8);    // "12"
+        (10).toString(16);    // "a"
+        // 这实际上意味着，可以直接对一个小数使用toString方法。
+        10.5.toString();     // "10.5"
+        10.5.toString(2);     // "1010.1"
+        10.5.toString(8);    // "12.4"
+        10.5.toString(16);    // "a.8"
+        // 通过方括号运算符也可以调用toString方法。
+        10['toString'](2)   // "1010"
+    </script>
+
+<!--------------------------Number.prototype.toFixed()-------------------------->
+    <script>
+        // toFixed方法先将一个数转为指定位数的小数，然后返回这个小数对应的字符串。
+        (10).toFixed(2);     // "10.00"
+        0.005.toFixed(2);    // "10.01"
+        // toFixed方法的参数为小数位数，有效范围为0到20，超出这个范围将抛出 RangeError 错误。
+    </script>
+
+<!--------------------------Number.prototype.toPrecision()-------------------------->
+    <script>
+        // toPrecision方法用于将一个数转为指定位数的 [[[有效数字]]]。
+        (12.34).toPrecision(1);      // "1e+1"
+        (12.34).toPrecision(2);      // "12"
+        (12.34).toPrecision(3);      // "12.3"
+        (12.34).toPrecision(4);      // "12.34"
+        (12.34).toPrecision(5);      // "12.340"
+        // toPrecision方法的参数为有效数字的位数，范围是1到21，超出这个范围会抛出 RangeError 错误。
+        // toPrecision方法用于四舍五入时不太可靠，跟浮点数不是精确储存有关。
+    </script>
+
+<!--------------------------自定义方法-------------------------->
+    <script>
+        // 与其他对象一样，Number.prototype对象上面可以自定义方法，被Number的实例继承。
+        Number.prototype.add = function (x) {
+            return this + x;
+        };
+        8['add'](12);  //相当于Number(8).add(12) => 20
+        // 在数值上调用某个方法，数值会自动转为Number的实例对象，所以就可以调用add方法了。由于add方法返回的还是数值，所以可以链式运算。
+        console.log(Number(4).add(3)); //7
+
+        //链式调用
+        // 在数值上调用某个方法，数值会自动转为Number的实例对象，所以就可以调用add方法了。
+        // 由于add方法返回的还是数值，所以可以链式运算。
+        Number.prototype.subtract = function (x) {
+            console.log('this:' + this);
+            return this - x;
+        };
+        var result = (8).add(2).subtract(4);
+        console.log(result);    //6
+    </script>
+
+    <script>
+        Number.prototype.iterate = function () {
+        var result = [];
+        for (var i = 0; i <= this; i++) {
+            result.push(i);
+        }
+            return result;
+        };
+        var array = (8).iterate();
+        console.log(array);
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jQuery.min.js"></script>
+
+</head>
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <script>
+        $(function () {
+            //1. each方法：遍历元素
+            $("div").each(function (index, dom) {
+                console.log(index);
+                console.log(dom);
+            })
+            
+            //2.$.each()遍历: 主要用来遍历数据，处理数据,所有的
+            $.each($("div"), function (index, dom) {
+                console.log(index);
+                console.log(dom);
+            })
+
+            var arr = ["red", "green", "yellow"];
+            $.each(arr, function (index, ele) {
+                console.log(index);
+                console.log(ele);
+            })
+        })
+
+
+    </script>
+</body>
+
+</html>

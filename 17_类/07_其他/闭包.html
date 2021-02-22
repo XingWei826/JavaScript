@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul class="test">
+        <li>hello</li>
+        <li>world</li>
+        <li>love</li>
+        <li>you</li>
+    </ul>
+    <!-- 
+        闭包: 指有权访问另一个函数作用域中变量的函数。
+        首先，闭包也是一个函数。
+     -->
+    <script>
+        //fun就是一个闭包函数。
+        function fn() {
+            var num = 10;
+            function fun() {
+                console.log(num);
+            }
+            fun();
+        }
+        fn();
+
+        //闭包的作用：延伸了变量的作用范围。
+        //f()函数也可以使用num变量了！
+        function Fun() {
+            var num = 20;
+            return function () {
+                console.log(num);
+            }
+        }
+        var f = Fun();
+        f();
+
+        //
+        var lis = document.querySelector('.test').querySelectorAll('li');
+        for (var i = 0; i < lis.length; i++) {
+            (function (i) {
+                setTimeout(function () {
+                    console.log(lis[i].innerHTML);
+                }, 3000)
+            })(i);
+        }
+
+        //打车案例
+        console.log('----------');
+        var car = (function () {
+            var start = 13;
+            var total = 0;
+            return {
+                price: function (n) {
+                    if (n <= 3) {
+                        total = start;
+                    } else {
+                        total = start + (n - 3) * 5;
+                    }
+                    return total;
+                },
+                yongdu: function (flag) {
+                    return flag ? total + 10 : total;
+                }
+            }
+        })();
+        console.log(car.price(5));
+        console.log(car.yongdu(false));
+        console.log(car.yongdu(true));
+    </script>
+
+    <script>
+        // 由于在 JavaScript 语言中，只有函数内部的子函数才能读取内部变量，
+        // 因此可以把闭包简单理解成“定义在一个函数内部的函数”。
+        // 在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+        // 闭包的最大用处有两个，一个是可以读取函数内部的变量，
+        // 另一个就是让这些变量始终保持在内存中，即闭包可以使得它诞生环境一直存在。
+        function createIncrementor(start) {
+            return function() {
+                return start++;
+            }
+        }
+        var inc = createIncrementor(5);
+        console.log(inc());  //5
+        console.log(inc());  //6
+        console.log(inc());  //7    //通过闭包，延长了内部变量start的生命周期
+        // 上面代码中，start是函数createIncrementor的内部变量。
+        // 通过闭包，start的状态被保留了，每一次调用都是在上一次调用的基础上进行计算。
+        // 为什么会这样呢？原因就在于inc始终在内存中，而inc的存在依赖于createIncrementor，
+        // 因此也始终在内存中，不会在调用结束后，被垃圾回收机制回收。
+    </script>
+
+    <script>
+        // 闭包的另一个用处，是封装对象的私有属性和私有方法。
+        function Person(name) {
+            var _age;
+            function setAge(n) {
+                _age = n;
+            }
+            function getAge(n) {
+                return _age;
+            }
+            return {
+                name: name,
+                setAge: setAge,
+                getAge: getAge,
+            }
+        }
+        var p1 = Person('ZhangSan');
+        p1.setAge(25);
+        console.log(p1.getAge());
+        // 上面代码中，函数Person的内部变量_age，通过闭包getAge和setAge，变成了返回对象p1的私有变量。
+        // 注意，外层函数每次运行，都会生成一个新的闭包，而这个闭包又会保留外层函数的内部变量，
+        // 所以内存消耗很大。因此不能滥用闭包，否则会造成网页的性能问题。
+    </script>
+</body>
+
+</html>

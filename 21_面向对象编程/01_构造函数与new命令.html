@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        构造函数：
+            1. 典型的面向对象编程语言（比如 C++ 和 Java），都有“类”（class）这个概念。
+            所谓“类”就是对象的模板，对象就是“类”的实例。但是，JavaScript 语言的对象体系，不
+            是基于“类”的，而是基于构造函数（constructor）和原型链（prototype）。
+
+            2. JavaScript 语言使用构造函数（constructor）作为对象的模板。
+            所谓”构造函数”，就是专门用来生成实例对象的函数。它就是对象的模板，
+            描述实例对象的基本结构。一个构造函数，可以生成多个实例对象，
+            这些实例对象都有相同的结构。
+
+            3. 构造函数就是一个普通的函数，但是有自己的特征和用法。
+
+            4. 为了与普通函数区别，构造函数名字的第一个字母通常大写。
+
+            5.构造函数的特点有两个：
+                （1）函数体内部使用了this关键字，代表了所要生成的对象实例。
+                （2）生成对象的时候，必须使用new命令。
+
+            6. new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。
+            下面两行代码是等价的，但是为了表示这里是函数调用，推荐使用括号。
+            var v = new Vehicle();  //推荐的写法
+            var v = new Vehicle;    //不推荐的写法
+     -->
+
+     <!-- 一个很自然的问题是，如果忘了使用new命令，直接调用构造函数会发生什么事？ -->
+     <script>
+         var Vehicle = function() {
+            //  'use strict';       //(1)
+            //(2)
+            if(!(this instanceof Vehicle)) {
+                return new Vehicle();
+            }
+             this.price = 1000;
+         };
+         var v = Vehicle();
+         console.log(v);        //undefined
+        //  console.log(price);    //1000
+        //  这种情况下，构造函数就变成了普通函数，并不会生成实例对象。
+        // this这时代表全局对象，将造成一些意想不到的结果。
+        // 因此，应该非常小心，避免不使用new命令、直接调用构造函数。
+
+        // 为了保证构造函数必须与new命令一起使用，
+        // (1)一个解决办法是，构造函数内部使用严格模式，即第一行加上use strict。
+        // 这样的话，一旦忘了使用new命令，直接调用构造函数就会报错。
+        // ===>由于严格模式中，函数内部的this不能指向全局对象，默认等于undefined，导致不加new调用会报错（JavaScript 不允许对undefined添加属性）。
+
+        // (2)另一个解决办法，构造函数内部判断是否使用new命令，如果发现没有使用，则直接返回一个实例对象
+
+     </script>
+</body>
+</html>

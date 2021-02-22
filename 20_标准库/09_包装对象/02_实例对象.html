@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        包装对象的实例可以使用Object对象提供的原生方法，主要是valueOf方法和toString方法。
+        valueOf(): 返回包装对象实例对应的原始类型的值。
+        toString(): 返回对应的字符串形式。
+     -->
+     <script>
+         //
+        new Number(123).valueOf();       //123
+        new String('abc').valueOf();     //"abc"
+        new Boolean(true).valueOf();     //true
+        //
+        new Number(123).toString()      //"123"
+        new String('abc').toString()    //"abc"
+        new Boolean(true).toString()    //"true"
+     </script>
+
+     <script>
+        //  原始类型与实例对象的自动转换
+        // 原始类型的值，可以自动当作包装对象调用，即调用各种包装对象的属性和方法。
+        // 这时，JavaScript 引擎会自动将原始类型的值转为包装对象实例，在使用后立刻销毁实例。
+        'abc'.length;   //3
+        // 上面代码中，abc是一个字符串，本身不是对象，不能调用length属性。
+        // JavaScript 引擎自动将其转为包装对象，在这个对象上调用length属性。
+        // 调用结束后，这个临时对象就会被销毁。
+        // 这就叫原始类型与实例对象的自动转换。
+     </script>
+
+     <script>
+        //  Boolean对象是 JavaScript 的三个包装对象之一。作为构造函数，它主要用于生成布尔值的包装对象实例。
+        var b = new Boolean(true);
+
+
+        // 注意，false对应的包装对象实例，布尔运算结果也是true。
+        if(new Boolean(false)) {
+            console.log('yes');
+        }
+        // 因为false对应的包装对象实例是一个对象，进行逻辑运算时，
+        // 被自动转化成布尔值true（因为所有对象对应的布尔值都是true）
+        if(new Boolean(false).valueOf()) {
+            console.log('yes');
+        }//而实例的valueOf方法，则返回实例对应的原始值，本例为false。
+
+
+        // Boolean对象除了可以作为构造函数，还可以单独使用，将任意值转为布尔值。
+        // 这时Boolean就是一个单纯的工具方法。
+        console.log(Boolean(undefined));      //false
+        console.log(Boolean(null));           //false
+        console.log(Boolean(0));              //false
+        console.log(Boolean(''));             //false
+        console.log(Boolean(NaN));            //false
+        console.log(Boolean(false));          //false
+
+        console.log('----------');
+
+        console.log(Boolean(1));              //true
+        console.log(Boolean('false'));        //true
+        console.log(Boolean('hello'));        //true
+        console.log(Boolean([]));             //true
+        console.log(Boolean({}));             //true
+        console.log(Boolean(function () {})); //true
+        console.log(Boolean(/foo/));          //true
+        // 顺便提一下，使用双重的否运算符（!）也可以将任意值转为对应的布尔值。
+        !!undefined     //false
+        !!null          //false
+        !!0             //false
+        !!''            //false
+        !!NaN           //false
+        !!1             //true
+        !!'false'       //true
+        !![]            //true
+        !!{}            //true
+        !!function(){}  //true
+        !!/foo/         //true
+     </script>
+
+     <script>
+        //  console.log(Boolean(false));       //false
+        //  console.log(new Boolean(false));   //Boolean
+        //  console.log(Boolean(null));        //false
+        //  console.log(new Boolean(null));    //Boolean
+     </script>
+</body>
+</html>

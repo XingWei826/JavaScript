@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        1. 利用RegExp对象来创建 正则表达式；
+        2. 利用字面量来创建 正则表达式；
+           => 通过test()方法来验证用户输入的表达式是否符合要求！
+     -->
+    <script>
+        var rg = new RegExp(/123/);     //创建方法一
+        var rg1 = /123/;                //创建方法二
+        console.log(rg.test('ssacb'));    //false
+        console.log(rg1.test(123));     //true
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button accessKey="h" id="btn"></button>
+    <div contenteditable="true"></div>
+    <div class="one two three" id="div"></div>
+    <div id="foo" data-columns="3" data-index-number="12334" data-parent="cats"></div>
+    <!-- 
+        Element对象对应网页的 HTML 元素。
+        每一个 HTML 元素，在 DOM 树上都会转化成一个Element节点对象（以下简称元素节点）。
+        元素节点的nodeType属性都是1。
+
+        Element对象继承了Node接口，因此Node的属性和方法在Element对象都存在。
+        此外，不同的 HTML 元素对应的元素节点是不一样的，浏览器使用不同的构造函数，
+        生成不同的元素节点，比如<a>元素的节点对象由HTMLAnchorElement构造函数生成，
+        <button>元素的节点对象由HTMLButtonElement构造函数生成。
+        因此，元素节点不是一种对象，而是一组对象，这些对象除了继承Element的属性和方法，
+        还有各自构造函数的属性和方法。
+     -->
+
+     <!-- 
+         【【【1.】】】实例属性：
+         （1）Element.id: 返回指定元素的id属性，该属性可读写。
+         （2）Element.tagName: 返回指定元素的大写标签名，与nodeName属性的值相等。
+         （3）Element.dir: 用于读写当前元素的文字方向，可能是从左到右（"ltr"），也可能是从右到左（"rtl"）。
+         （4）Element.accessKey：用于读写分配给当前元素的快捷键。
+         （5）Element.draggable：返回一个布尔值，表示当前元素是否可拖动。该属性可读写。
+         （6）Element.lang：返回当前元素的语言设置。该属性可读写。
+         （7）Element.tabIndex：返回一个整数，表示当前元素在 Tab 键遍历时的顺序。该属性可读写。
+         （8）Element.title: 用来读写当前元素的 HTML 属性title。该属性通常用来指定，鼠标悬浮时弹出的文字提示框。
+      -->
+      <script>
+          var btn = document.getElementById('btn');
+          console.log(btn.accessKey);   //"h"
+        //   上面代码中，btn元素的快捷键是h，按下Alt + h就能将焦点转移到它上面。
+
+
+        // Element.tabIndex:
+        // tabIndex属性值如果是负值（通常是-1），则 Tab 键不会遍历到该元素。
+        // 如果是正整数，则按照顺序，从小到大遍历。
+        // 如果两个元素的tabIndex属性的正整数值相同，则按照出现的顺序遍历。
+        // 遍历完所有tabIndex为正整数的元素以后，再遍历所有tabIndex等于0、
+        // 或者属性值是非法值、或者没有tabIndex属性的元素，顺序为它们在网页中出现的顺序。
+      </script>
+
+
+        <!-- 【【【2.元素状态的相关属性】】】 -->
+        <!-- 
+            （1）Element.hidden：返回一个布尔值，表示当前元素的hidden属性，用来控制当前元素是否可见。该属性可读写。
+            （2）Element.contentEditable，Element.isContentEditable：使得元素的内容可以编辑。
+                    (1)"true"：元素内容可编辑
+                    (2)"false"：元素内容不可编辑
+                    (3)"inherit"：元素是否可编辑，继承了父元素的设置
+         -->
+
+
+         <!-- 
+             1. Element.attributes: 返回一个类似数组的对象，成员是当前元素节点的所有属性节点
+             2. Element.className: 用来读写当前元素节点的class属性。它的值是一个字符串，每个class之间用空格分割。
+             3. Element.classList: 返回一个类似数组的对象，当前元素节点的每个class就是这个对象的一个成员。
+             4. Element.dataset: 网页元素可以自定义data-属性，用来添加数据。
+                                Element.dataset属性返回一个对象，可以从这个对象读写data-属性。
+             5. Element.innerHTML: 返回一个字符串，等同于该元素包含的所有 HTML 代码。该属性可读写，常用来设置某个节点的内容。它能改写所有元素节点的内容，包括<HTML>和<body>元素。
+             6. Element.outerHTML: 属性返回一个字符串，表示当前元素节点的所有 HTML 代码，包括该元素本身和所有子元素。
+             7. Element.clientHeight，Element.clientWidth: 属性返回一个整数值，表示元素节点的 CSS 高度（单位像素），只对块级元素生效，对于行内元素返回0。如果块级元素没有设置 CSS 高度，则返回实际高度。
+                                                            除了元素本身的高度，它还包括padding部分，但是不包括border、margin。如果有水平滚动条，还要减去水平滚动条的高度。注意，这个值始终是整数，如果是小数会被四舍五入。
+            8. Element.clientLeft，Element.clientTop: 等于元素节点左边框（left border）的宽度（单位像素），不包括左侧的padding和margin。如果没有设置左边框，或者是行内元素（display: inline），该属性返回0。该属性总是返回整数值，如果是小数，会四舍五入。
+            9. Element.scrollHeight，Element.scrollWidth: 返回一个整数值（小数会四舍五入），表示当前元素的总高度（单位像素），包括溢出容器、当前不可见的部分。它包括padding，但是不包括border、margin以及水平滚动条的高度（如果有水平滚动条的话），还包括伪元素（::before或::after）的高度。 
+            10. Element.scrollLeft，Element.scrollTop： 表示当前元素的水平滚动条向右侧滚动的像素数量，Element.scrollTop属性表示当前元素的垂直滚动条向下滚动的像素数量。对于那些没有滚动条的网页元素，这两个属性总是等于0。
+            11. Element.offsetParent：返回最靠近当前元素的、并且 CSS 的position属性不等于static的上层元素。
+            12. Element.offsetHeight，Element.offsetWidth： 
+            13. Element.offsetLeft，Element.offsetTop：
+            14. Element.style：每个元素节点都有style用来读写该元素的行内样式信息
+            15. Element.children，Element.childElementCount：返回一个类似数组的对象（HTMLCollection实例），包括当前元素节点的所有子元素。如果当前元素没有子元素，则返回的对象包含零个成员。
+            16. Element.firstElementChild，Element.lastElementChild：返回当前元素的第一个元素子节点，Element.lastElementChild返回最后一个元素子节点。如果没有元素子节点，这两个属性返回null。
+            17. Element.nextElementSibling，Element.previousElementSibling：返回当前元素节点的后一个同级元素节点，如果没有则返回null。
+          -->
+          <script>
+              var div = document.getElementById('div');
+              console.log(div.className);   //"one two three"
+              console.log(div.classList);   //["one","two","three"]
+            //   classList对象有下列方法:
+                    //1. add()：增加一个 class。
+                    //2. remove()：移除一个 class。
+                    //3. contains()：检查当前元素是否包含某个 class。
+                    //4. toggle()：将某个 class 移入或移出当前元素。
+                    //5. item()：返回指定索引位置的 class。
+                    //6. toString()：将 class 的列表转为字符串。
+
+
+            var Div = document.getElementById('foo');
+            console.log(Div.dataset.columns);       //"3"
+            console.log(Div.dataset.indexNumber);   //"12334"
+            console.log(Div.dataset.parent);        //"cars"
+            // 注意，dataset上面的各个属性返回都是字符串。
+            // HTML 代码中，data-属性的属性名，只能包含英文字母、数字、连词线（-）、点（.）、冒号（:）和下划线（_）。它们转成 JavaScript 对应的dataset属性名，规则如下。
+            // 1. 开头的data-会省略。
+            // 2. 如果连词线后面跟了一个英文字母，那么连词线会取消，该字母变成大写。
+            // 3. 其他字符不变。
+            // 因此，data-abc-def对应dataset.abcDef，data-abc-1对应dataset["abc-1"]。
+            // 除了使用dataset读写data-属性，也可以使用Element.getAttribute()和Element.setAttribute()，通过完整的属性名读写这些属性。
+
+
+            // innerHTML:
+            // 注意，读取属性值的时候，如果文本节点包含&、小于号（<）和大于号（>），innerHTML属性会将它们转为实体形式&amp;、&lt;、&gt;。如果想得到原文，建议使用element.textContent属性。
+           /*  
+                HTML代码如下 <p id="para">   5 > 3   </p>
+                document.getElementById('para').innerHTML
+                // 5 &gt; 3 
+            */
+
+           //outerHTML:
+            // outerHTML属性是可读写的，对它进行赋值，等于替换掉当前元素。
+           console.log(Div.outerHTML);
+                //<div id="foo" data-columns="3" data-index-number="12334" data-parent="cats"></div>
+          </script>
+</body>
+</html>

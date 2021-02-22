@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //试分析以下输出结果？？？  => undefined
+        var num = 10;
+        fun();
+        function fun() {
+            console.log(num);
+            var num = 20;
+        }
+        /*分析：*/
+        // 1.预解析(变量提升，函数提升)
+        //2.代码执行
+        //notice:以上代码和以下代码等价
+        var num ;
+        function fun() {
+            var num ;
+            console.log(num);
+            num = 20;
+        }
+        num =10;
+        fun();
+    </script>
+</head>
+<body>
+    <script>
+        var NUM;
+        console.log('oijsjfsfjlsjflsj');
+        console.log(NUM);   //undefined
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery.min.js"></script>
+</head>
+<body>
+    <!-- 
+        如果想要把某个对象拷贝给另给一个对象使用，此时就要使用$.extend([deep],target,object1,[objectN])方法了！
+        深拷贝和浅拷贝
+     -->
+     <script>
+         $(function() {
+            //  var targetObj = {};
+            //  var obj = {
+            //      id: 1,
+            //      name: "tom"
+            //  }
+            //  $.extend(targetObj,obj);   //把obj拷贝给targetObj
+            //  console.log(targetObj);
+
+
+            // var targetObj = {
+            //     id: 0
+            // };
+            // var obj = {
+            //     id: 1,
+            //     name: "andy"
+            // };
+            // $.extend(targetObj,obj);
+            // console.log(targetObj);  //覆盖id
+
+//深浅拷贝
+            var targetObj = {
+                id: 0,
+                msg: {
+                    sex: 'man'
+                }
+            };
+            var obj = {
+                id: 1,
+                msg: {
+                    age: 18
+                },
+                name: "andy"
+            };
+            //浅拷贝：只是把被拷贝对象的复杂数据类型中的地址给目标对象，修改目标对象会影响被拷贝对象！
+            // 默认是false，浅拷贝
+            // $.extend([deep], target, object1,[objectN])
+            $.extend(targetObj,obj);
+            console.log(targetObj); 
+            console.log('----------------------');
+            targetObj.msg.age = 999;
+            console.log(targetObj);   //同时对msg进行了覆盖
+            console.log(obj);
+
+            //深拷贝:；两个对象，仅仅是值的拷贝，单独有内存空间
+            // $.extend(true,targetObj,obj);
+            // console.log(targetObj); 
+            // targetObj.msg.age = 999;
+            // console.log(targetObj);     //同时对msg进行了合并
+            // console.log(obj);
+
+
+         })
+     </script>
+</body>
+</html>

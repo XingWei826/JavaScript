@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+        网页中的所有内容都是节点(标签,属性,文本,注释等)，在DOM中，节点使用node来表示。
+        HTML DOM树中的所有节点均可以通过JavaScript进行访问，所有HTML元素(节点)均可以被修改，也可以被创建或删除。
+        一般地，结点至少拥有nodeType,nodeName,nodeValue这三个基本属性！
+            元素节点的 nodeType=1
+            属性节点的 nodeType=2
+            文本节点的 nodeType=3（文本节点包含文字，空格，换行等）
+        节点层级：
+            父子节点，兄弟节点
+     -->
+</head>
+<body>
+    <ul>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+    </ul>
+    <div class="box">
+        <span class="erweima"></span>
+    </div>
+    <ol>
+        <li>我是ol_li</li>
+        <li>我是ol_li</li>
+        <li>我是ol_li</li>
+    </ol>
+    <script>
+        //父节点：parentNode
+                 // 注意：parentNode属性可以返回某节点的父节点，但是是最近的一个父节点。
+                // 另外，如果指定的节点没有父亲节点，那么返回NULL。
+        var erweima = document.querySelector('.erweima');
+        console.log(erweima.parentNode);
+
+        //子结点:childNodes
+        var ul = document.querySelector('ul');
+        console.log(ul.childNodes);         //共7个，因为换行也是文本节点
+        console.log(ul.childNodes[0].nodeType); //3
+        console.log(ul.childNodes[1].nodeType); //1
+            //通过childen属性来获取所有子元素节点
+        console.log(ul.children);
+            //获取第一个子元素节点或最后一个子元素节点
+        var ol = document.querySelector('ol');
+        console.log(ol.firstChild); //#text
+        console.log(ol.lastChild);  //#text
+            //通过firstElementChild或lastElementChild来获取第一个，最后一个元素节点(IE9以上才支持)
+        console.log(ol.firstElementChild);
+        console.log(ol.lastElementChild);
+            //实际开发中，既没有兼容性问题又返回第一个元素节点
+        console.log(ol.children[0]);
+        console.log(ol.children[ol.children.length-1]);
+    </script>
+</body>
+</html>

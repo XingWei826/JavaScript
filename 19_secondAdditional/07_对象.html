@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            对象而的所有键名(属性)都是字符串;
+            键值(属性值)可以是任何数据类型，如果一个属性的值为函数，通常把这个属性称为“方法”，它可以像函数那样调用。
+        */
+        //如果属性的值还是一个对象，就形成了链式引用。
+        var obj1 = {};
+        var obj2 = { bar: 'hello' };
+        obj1.foo = obj2;
+        console.log(obj1.foo.bar);   //hello
+        //    上面代码中，对象o1的属性foo指向对象o2，就可以链式引用o2的属性。
+
+        //对象的引用：
+        // 如果不同的变量名指向同一个对象，那么它们都是这个对象的引用，也就是说指向同一个内存地址。
+        // 修改其中一个变量，会影响到其他所有变量。
+        var o1 = {};
+        var o2 = o1;
+        o1.a = 1;
+        console.log(o2.a);
+        o2.b = 2;
+        console.log(o1.b);
+        // 此时，如果取消某一个变量对于原对象的引用，不会影响到另一个变量。
+        o2 = 1;
+        console.log(o1);
+
+        // 但是，这种引用只局限于对象，如果两个变量指向同一个原始类型的值。那么，变量这时都是值的拷贝。
+        var x = 1;
+        var y = x;
+        x = 2;
+        console.log(y);        // 1
+                // 上面的代码中，当x的值发生变化后，y的值并不变，这就表示y和x并不是指向同一个内存地址。
+
+     //with属性：
+        //它的作用是操作同一个对象的多个属性时，提供一些书写的方便。
+        // 语法格式:   
+            // with(对象) {
+                // 语句;      //此处必为 ';'
+            // }
+    //1.
+     var obj = {
+         'num': 101,
+         'name': 'Zhang',
+         'age': 23
+     };
+     with(obj) {
+         console.log(num);  //101
+         console.log(name); //Zhang
+         console.log(age);  //23
+     };
+
+     //2.
+     var object = {
+         pp1: 1,
+         pp2: 2
+     };
+     /* with(object) {
+        pp1: 3;
+        pp2: 5;
+     }; 
+        此处如若这样写，并不能改变值，
+        可见，这个with最好是用来输出即可，而不要搞别的事！
+        //参考手册有误！
+     */
+    //  object.p1 = 44;
+    //  object.p2 = 55;
+     console.log(object);
+
+     //3.注意，如果with区块内部有变量的赋值操作，
+    //  必须是当前对象已经存在的属性，【否则会创造一个当前作用域的全局变量】。
+        //Notice:此处【...】内容有误！
+     var ooo = {};
+     with(ooo) {
+         xx: 101;
+     }
+     console.log(ooo.xx);    //undefined
+    //  console.log(xx);        //ERROR
+
+    </script>
+
+    <script>
+        // 如果要在单引号字符串的内部，使用单引号，就必须在内部的单引号前面加上反斜杠，用来转义。
+        // 双引号字符串内部使用双引号，也是如此。
+        console.log('hello \'sf\'');
+        console.log("how \"are\"");
+        // "Did she say "Hello"?"
+        // 由于 HTML 语言的属性值使用双引号，所以很多项目约定 JavaScript 语言的字符串只使用单引号，本教程遵守这个约定。
+        // 当然，只使用双引号也完全可以。重要的是坚持使用一种风格，不要一会使用单引号表示字符串，一会又使用双引号表示。
+
+        // 如果长字符串必须分成多行，可以在每一行的尾部使用反斜杠。
+        var longString = 'Long \
+                            long \
+                            long \
+                            string';
+        console.log(longString);
+
+        //字符串和字符数组
+            //字符串可以被视为字符数组.
+            var str = 'hello';
+            console.log(str[1]);
+            str[1] = 'd';
+            console.log(str[1]);//字符串内部的单个字符无法改变和增删，这些操作会默默地失败。
+            console.log(str.length);
+            str.length = 2;     //同样是默默的失败
+            console.log(str.length);
+
+        //字符集
+        // JavaScript 使用 Unicode 字符集。JavaScript 引擎内部，所有字符都用 Unicode 表示。
+        // JavaScript 不仅以 Unicode 储存字符，还允许直接在程序中使用 Unicode 码点表示字符，即将字符写成\uxxxx的形式，其中xxxx代表该字符的 Unicode 码点。比如，\u00A9代表版权符号。
+        // 解析代码的时候，JavaScript 会自动识别一个字符是字面形式表示，还是 Unicode 形式表示。输出给用户的时候，所有字符都会转成字面形式。
+        console.log('\u00A9');
+        var f\u006F\u006F = 'abc';
+        console.log(foo);   //"abc"
+    </script>
+
+    <script>
+        // Base64 转码
+        // 有时，文本里面包含一些不可打印的符号，比如 ASCII 码0到31的符号都无法打印出来，这时可以使用 Base64 编码，将它们转成可以打印的字符。
+        // 另一个场景是，有时需要以文本格式传递二进制数据，那么也可以使用 Base64 编码。
+        // 所谓 Base64 就是一种编码方法，可以将任意值转成 0～9、A～Z、a-z、+和/这64个字符组成的可打印字符。
+        // 使用它的主要目的，不是为了加密，而是为了不出现特殊字符，简化程序的处理。
+        // btoa()：任意值转为 Base64 编码
+        // atob()：Base64 编码转为原来的值
+        var String = 'Hello World';
+        console.log(btoa(String));  //SGVsbG8gV29ybGQ=
+        console.log(atob('SGVsbG8gV29ybGQ='));
+        // 注意，这两个方法不适合非 ASCII 码的字符，会报错。
+        // btoa('你好');    //ERROR
+    </script>
+</html>

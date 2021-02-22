@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        ES6之前并没有给我们提供extends继承机制，
+        但是我们可以通过 构造函数 + 原型对象来模拟实现继承，
+        称之为组合继承。 
+     -->
+    <script>
+        //父构造函数
+        function Father(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Father.prototype.money = function() {
+            console.log('10000000元RMB');
+        }
+        //子构造函数
+        function Son(name,age,score) {
+            Father.call(this,name,age); //关键句
+            this.score = score;
+        }
+        Son.prototype.exam = function() {
+            console.log('考试');
+        }
+        /////////////////////////////////////////////////
+        Son.prototype = new Father();   //关键：赋值 =》 son的原型对象指向father的实例对象
+        Son.prototype.constructor = Son;    //***
+        var son = new Son('ldh',13,199);
+        console.log(Son.prototype);
+        // console.log(son.__proto__ === Son.prototype);    //true
+        console.dir(son);
+        console.log(Father.prototype);
+        console.log(Son.prototype.constructor);     //指向了father，需更改指向，见***
+    </script>
+</body>
+</html>

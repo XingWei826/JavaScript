@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Father {
+            constructor(x,y) {
+                this.x = x;
+                this.y = y;
+            }
+            meony() {
+                console.log(100);
+            }
+            sum() {
+                console.log(this.x + this.y);
+            }
+            test() {
+                console.log('father_test');
+            }
+        }
+        class Son extends Father {
+            constructor(x,y) {
+                super(x,y);     //调用父类的构造函数
+                //子类在构造函数中使用super，必须放到this之前，
+                //也即是先调用基类，再初始化自己。
+                this.x = x ;    
+                this.y = y;
+            }
+            Hello() {
+                super.test();   //调用父类中的函数
+            }
+            sub() {
+                console.log(this.x - this.y);
+            }
+        }
+        var son = new Son(1,3);
+        // son.meony();
+        son.sum();
+        son.Hello();
+        son.sub();
+    </script>
+</body>
+</html>

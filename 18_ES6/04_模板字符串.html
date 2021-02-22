@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //  ${ ... }    =>    只不过是在之前的平常用法中加了一层包裹 ${}
+        //  也即是通过 ${} 对才能对模板字符串变量进行引用
+        //  只能在模板字符串中对模板变量进行引用解析
+        // var string = `Hello`;
+        // var str = ${string};    //ERROR => 必须加 ``才行，否则不能引用模板字符串变量
+
+
+
+        let name = `zhang`;     //声明一个模板字符串变量
+        // console.log(name);
+        //1. 可以用来解析变量
+        let hello =    `hello,my name is ${name}!`;
+        console.log(hello);
+
+        //2.模板字符串可以换行
+        let result = {
+            name:`zhangSan`,
+            age: 20,
+            sex: `man`
+        }
+        let html =`
+            <div> 
+                <span>${result.name}</span>
+                <span>${result.age}</span>
+            </div>
+            `;
+        console.log(html);
+
+        //3. 在模板字符串中可以调用普通函数 和 普通变量
+        const fun = () => { return '我是fun函数'};
+        let Html = `我是模板字符串 ${fun()}`;
+        console.log(Html);
+
+        let string = 'helloWorld';
+        console.log(`你好吗${string}`);
+
+
+ 
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=b, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    //getElementsByClassName():  => html5
+    //querySelector('选择器')   => html5
+            //返回指定选择器的第一个对象，选择器要加符号，.box,#nav
+    //querySelectorAll:返回选择器里的所有元素对象的集合  =>html5
+    <div class="box">盒子1</div>
+    <div class="box">盒子2</div>
+    <div id="nav">
+        <ul>
+            <li>首页</li>
+            <li>产品</li>
+        </ul>
+    </div>
+    <script>
+        //
+        var Box = document.getElementsByClassName('box');
+        console.log(Box);
+        //
+        var firstbox = document.querySelector('.box');
+        console.log(firstbox);
+        var nav = document.querySelector('#nav');
+        console.log(nav);
+        var firstli = document.querySelector('li');
+        console.log(firstli);
+        //
+        var allbox = document.querySelectorAll('.box');
+        console.log(allbox);
+    </script>
+</body>
+</html>

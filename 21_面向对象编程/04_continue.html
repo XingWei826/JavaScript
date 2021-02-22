@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 【1.】Object.prototype.isPrototypeOf(): 用来判断该对象是否为参数对象的原型 
+        也即是用来判断对象是否为参数的爹。
+    -->
+    <script>
+        var o1 = {};
+        var o2 = Object.create(o1);
+        var o3 = Object.create(o2);
+        console.log(Object.prototype.isPrototypeOf(o1));    //true
+        console.log(o1.isPrototypeOf(o2));                  //true
+        console.log(o2.isPrototypeOf(o3));                  //true
+        console.log(o1.isPrototypeOf(o3));                  //true
+    </script>
+    
+    <script>
+        Object.prototype.isPrototypeOf({});      //true
+        Object.prototype.isPrototypeOf([]);      //true
+        Object.prototype.isPrototypeOf(/xyz/);   //true
+        Object.prototype.isPrototypeOf(Object.create(null));     //false
+        // 上面代码中，由于Object.prototype处于原型链的最顶端，所以对各种实例都返回true，只有直接继承自null的对象除外。
+        console.log('----------');
+    </script>
+
+    <!-- 【2.】Object.prototype.__proto__: 返回该对象的原型。该属性可读写。 -->
+    <script>
+        // 实例对象的__proto__属性（前后各两个下划线），返回该对象的原型。该属性可读写。
+        var A = {
+            name: 'Zhang'
+        };
+        var B = {
+            name: 'Wang'
+        };
+        var proto = {
+            show: function() {
+                console.log(this.name);
+            }
+        };
+        A.__proto__ = proto;
+        B.__proto__ = proto;
+        A.show();
+        B.show();
+        console.log(A.show === B.show);     //true
+        console.log(A.show === proto.show); //true
+        console.log(B.show === proto.show); //true
+        // console.log(proto);
+        // console.log(A);
+        // 上面代码中，A对象和B对象的原型都是proto对象，它们都共享proto对象的print方法。
+        // 也就是说，A和B的print方法，都是在调用proto对象的print方法。
+        console.log('----------');
+    </script>
+
+    <!-- 【3.】获取原型对象方法的比较 -->
+    <script>
+        // 如前所述，__proto__属性指向当前对象的原型对象，即构造函数的prototype属性。
+        var OBJECT = new Object();
+        console.log(OBJECT.__proto__ === Object.prototype); //true
+        console.log(OBJECT.__proto__ === OBJECT.constructor.prototype); //true
+
+        // 因此,获取实例对象obj的原型对象，有三种方法：
+        // (1) obj.__proto__;
+        // (2) obj.constructor.prototype;
+        // (3) Object.getPrototypeOf(obj);
+        var _i = function() {
+            console.log('lj');
+        };
+        console.dir(_i);
+        console.log('----------');
+    </script>
+
+    <!-- 【4.】Object.getOwnPropertyNames(): 返回一个数组，成员是参数对象本身的所有属性的键名，不包含继承的属性键名。 -->
+    <script>
+        console.log(Object.getOwnPropertyNames(Date));
+        // Object.getOwnPropertyNames方法返回所有键名，不管是否可以遍历。
+        // 只获取那些可以遍历的属性，使用Object.keys方法。
+        console.log('----------');
+    </script>
+
+    <!-- 【5.】Object.prototype.hasOwnProperty()：返回一个布尔值，用于判断某个属性定义在对象自身，还是定义在原型链上。 -->
+    <script>
+        console.log(Date.hasOwnProperty('length'));     //true
+        console.log(Date.hasOwnProperty('toString'));   //false
+        // 上面代码表明，Date.length（构造函数Date可以接受多少个参数）是Date自身的属性，Date.toString是继承的属性。
+        console.log('----------');
+    </script>
+
+    <!-- 【6.】 in 运算符和 for…in 循环-->
+    <script>
+        // in运算符返回一个布尔值，表示一个对象是否具有某个属性。
+        // 它不区分该属性是对象自身的属性，还是继承的属性。
+        console.log('length' in Date);      //true
+        console.log('toString' in Date);    //true
+
+        // 获得对象的所有可遍历属性（不管是自身的还是继承的），可以使用for...in循环。
+        var oo1 = {
+            name: 'Zhang'
+        };
+        var oo2 = Object.create(oo1,{
+            age: {
+                value: 23,
+                enumerable: true,
+                configurable: true,
+                writable: true
+            }
+        });
+        for(key in oo2) {
+            console.log(key);
+        }   //age,name
+        // 上面对象中，对象oo2的age属性是自身的，name属性是继承的。这两个属性都会被for...in循环遍历。
+        // 为了在for...in循环中获得对象自身的属性，可以采用hasOwnProperty方法判断一下。
+        console.dir(Object);
+    </script>
+
+    <script>
+        console.log('===================================');
+        function Father(name, age) {
+            this.name = name;
+            this.age = age;
+        };
+        Father.prototype.show = function() {
+            console.log('Hello');
+        }
+        function Son() {
+        }
+        Son.prototype = new Father('zhang',101);
+        // console.dir(Father);
+        console.dir(Son);
+    </script>
+</body>
+</html>

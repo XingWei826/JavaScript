@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        使用new命令时，它后面的函数依次执行下面的步骤。
+        1.创建一个空对象，作为将要返回的对象实例。
+        2.将这个空对象的原型，指向构造函数的prototype属性。
+        3.将这个空对象赋值给函数内部的this关键字。
+        4.开始执行构造函数内部的代码。
+        也就是说，构造函数内部，this指的是一个新生成的空对象，
+        所有针对this的操作，都会发生在这个空对象上。
+        构造函数之所以叫“构造函数”，就是说这个函数的目的，
+        就是操作一个空对象（即this对象），将其“构造”为需要的样子。
+     -->
+     <script>
+        //  如果构造函数内部有return语句，
+        // 而且return后面跟着一个对象，new命令会返回return语句指定的对象；
+        // 否则，就会不管return语句，返回this对象。
+        var Vehicle = function() {
+            this.price = 1999;
+            return 1000;        //将会被忽略，实际返回的是this对象
+        };
+        var obj = new Vehicle();
+        console.log(obj);
+        console.log((new Vehicle()) === 1000);  //false
+        // （1）上面代码中，构造函数Vehicle的return语句返回一个数值。
+        // 这时，new命令就会忽略这个return语句，返回“构造”后的this对象。（见上）
+
+        // （2）但是，如果return语句返回的是一个跟this无关的新对象，
+        // new命令会返回这个新对象，而不是this对象。这一点需要特别引起注意。（见下）
+        var Animal = function() {
+            this.animal = 'cat';
+            return {name: 'Zhang'};
+        }
+        var object = new Animal();
+        console.log(object);    //{name: "Zhang"}
+        // new命令会返回return后的这个指定的对象，而不是this对象。
+     </script>
+
+     <script>
+        //  另一方面，如果对普通函数（内部没有this关键字的函数）使用new命令，则会返回一个空对象。
+        function getMessage() {
+            return 'HelloWorld';    //将会被忽略
+        }
+        var msg = new getMessage();
+        console.log(typeof msg);    //{} object
+        // 上面代码中，getMessage是一个普通函数，返回一个字符串。
+        // 对它使用new命令，会得到一个空对象。这是因为new命令总是返回一个对象，要么是实例对象，要么是return语句指定的对象。
+        // 本例中，return语句返回的是字符串，所以new命令就忽略了该语句。
+     </script>
+
+     <!-- 函数内部可以使用new.target属性 -->
+     <script>
+        //  函数内部可以使用new.target属性。
+        //  如果当前函数使用了new命令调用，new.target指向当前函数本身，否则为undefined。
+        function test() {
+            console.log(new.target === test);
+        }
+        test();     //false
+        new test(); //true
+
+        // 使用这个属性，可以判断函数调用的时候，是否使用new命令。
+        function fun() {
+            if(!new.target) {
+                throw new Error('请使用new命令调用！');
+            }
+        }
+        fun();
+     </script>
+
+<!-- Object.create() 创建实例对象 -->
+     <script>
+        //  构造函数作为模板，可以生成实例对象。
+        //  但是，有时拿不到构造函数，只能拿到一个现有的对象。
+        //  我们希望以这个现有的对象作为模板，生成新的实例对象，
+        // 这时就可以使用Object.create()方法。
+        var Person = {
+            name: 'ZhangSan',
+            age: 38,
+            sing: function(){
+                console.log('i like sing!');
+            }
+        };
+        var person = Object.create(Person);
+        console.log(person.name);
+        person.sing();
+     </script>
+</body>
+</html>

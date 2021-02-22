@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- setTimeout() -->
+    <script>
+        // setTimeout还允许更多的参数。它们将依次传入推迟执行的函数（回调函数）
+        var timerId = setTimeout(function(num1,num2){
+            console.log(num1+num2);
+        },1000,2,6);
+        console.log("timerId:" + timerId);
+        // 最后那两个参数，将在1000毫秒之后回调函数执行时，作为回调函数的参数。
+    </script>
+    
+    <script>
+        // 如果回调函数是对象的方法，那么setTimeout使得方法内部的this关键字指向全局环境，而不是定义时所在的那个对象。
+        var x = 1;
+        var object = {
+            x: 2,
+            y: function() {
+                console.log(this.x);
+            }
+        };
+        setTimeout(object.y,1000);      //1
+        // 上面代码输出的是1，而不是2。因为当object.y在1000毫秒后运行时，this所指向的已经不是obj了，而是全局环境。
+
+        //解决方案：使用bind，将object.y这个方法绑定在object上面。
+        setTimeout(object.y.bind(object),1000); //2
+    </script>
+
+
+<!-- 
+    setInterval指定的是“开始执行”之间的间隔，并不考虑每次任务执行本身所消耗的时间。
+    因此实际上，两次执行之间的间隔会小于指定的时间。比如，setInterval指定每 100ms 执行一次，
+    每次执行需要 5ms，那么第一次执行结束后95毫秒，第二次执行就会开始。
+    如果某次执行耗时特别长，比如需要105毫秒，那么它结束后，下一次执行就会立即开始。 
+-->
+    <script>
+        // 为了确保两次执行之间有固定的间隔，可以不用setInterval，而是每次执行结束后，使用setTimeout指定下一次执行的具体时间。
+        var num = 1;
+        var timer = setTimeout(function f() {
+            //  ...
+            //  ...
+            //  ...
+            timer = setTimeout(f,2000);
+        },2000);
+    </script>
+
+    <script>
+        // 再看一个setInterval的例子。
+/*         setInterval(function () {
+            console.log(2);
+            }, 1000);
+        sleep(3000); */
+        // 上面代码中，setInterval要求每隔1000毫秒，就输出一个2。但是，紧接着的sleep语句需要3000毫秒才能完成，
+        // 那么setInterval就必须推迟到3000毫秒之后才开始生效。
+        // 注意，生效后setInterval不会产生累积效应，即不会一下子输出三个2，而是只会输出一个2。
+        console.log('----------');
+    </script>
+
+    <script>
+        // setTimeout(f, 0):
+        // setTimeout的作用是将代码推迟到指定时间执行，如果指定时间为0，即setTimeout(f, 0)，那么会立刻执行吗？
+        // 答案是不会。因为上一节说过，必须要等到当前脚本的同步任务，全部处理完以后，才会执行setTimeout指定的回调函数f。也就是说，setTimeout(f, 0)会在下一轮事件循环一开始就执行。
+        setTimeout(function() {
+            console.log(11);
+        },0);
+        console.log(22);
+        //22 11
+        // 上面代码先输出22，再输出11。因为22是同步任务，在本轮事件循环执行，而11是下一轮事件循环执行。
+        // 总之，setTimeout(f, 0)这种写法的目的是，尽可能早地执行f，但是并不能保证立刻就执行f。
+    </script>
+</body>
+</html>

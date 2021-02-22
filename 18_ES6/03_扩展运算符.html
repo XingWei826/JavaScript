@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <!-- 
+        扩展运算符可以将数组拆分成以逗号分隔的参数序列。
+     -->
+    <script>
+        let arr1 = ['a','b','c'];
+        let arr2 = [1,2,3];
+        console.log(...arr1);           //=> "a b c" 
+        console.log('a','b','c');     //=> "a b c"
+        console.log(...arr2);       //1 2 3
+        console.log(1,2,2);         //1 2 2 
+
+
+        //扩展运算符可以：合并数组
+        //方法一：
+        let Arr1 = [1,2,3];
+        let Arr2 = [4,5,6];
+        let Arr3 = [...Arr1,...Arr2];
+        console.log(Arr3);  //[1,2,3,4,5,6]
+
+        //方法二：
+        Arr1.push(...Arr2);
+        console.log(Arr1);
+
+        //利用扩展运算符将伪数组转换为真正的数组
+        var divs = document.getElementsByTagName('div');
+        console.log(divs);
+        var ARR = [...divs];    //转换成了真正数组
+        console.log(ARR);
+        
+        ARR.push('a');
+        console.log(ARR);
+        console.log('----------');
+    </script>
+
+    <script>
+        //1. 基本用法
+        function push(array,...items) {
+            items.forEach(function(item) {
+                array.push(item);
+            });
+        };
+        var arr = [];
+        push(arr,"a","B",'s1','2');
+        console.log(arr);
+
+        //2. 将数组转为参数序列
+        function fun(s1,s2,s3,s4,s5) {
+            console.log(s1+s2+s3+s4+s5);
+        }
+        var array = ["a","B","s","w"];
+        fun("a", ...array); 
+    </script>
+
+    <script>
+        // 可以简化求出一个数组最大元素的写法。
+        //ES5
+        console.log(Math.max.apply(null,[14,3,77]));
+        //ES6
+        console.log(Math.max(...[12,3,1]));
+            //等价于Math.max(12,3,1)
+    </script>
+</body>
+</html>

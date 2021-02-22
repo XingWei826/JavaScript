@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        有时需要冻结对象的读写状态，防止对象被改变。
+        JavaScript 提供了三种冻结方法:
+            最弱的一种是Object.preventExtensions，
+            其次是Object.seal，
+            最强的是Object.freeze。
+     -->
+     <!-- 【1.】Object.preventExtensions：可以使得一个对象无法再添加新的属性。 -->
+     <!-- Object.isExtensible() -->
+     <script>
+         var object1 = new Object();
+         Object.preventExtensions(object1);
+        //  Object.defineProperty(object1,'name',{
+        //      value: 'Zhang'
+        //  });    //ERROR
+
+        //  Object.isExtensible():  检查是否可以为一个对象添加属性。
+        var object2 = new Object();
+        console.log(Object.isExtensible(object2));  //true
+        Object.preventExtensions(object2);
+        console.log(Object.isExtensible(object2));  //false
+     </script>
+
+     <!-- 【2.】Object.seal()：使得一个对象既无法添加新属性，也无法删除旧属性。 -->
+     <!--  Object.isSealed()-->
+     <script>
+         var object3 = {
+             name: 'ZhangWang'
+         };
+         Object.seal(object3);
+         console.log(delete object3.name);  //false
+         object3.age = 23;
+         console.log(object3.age);          //undefined
+        //  Object.seal实质是把属性描述对象的configurable属性设为false，因此属性描述对象不再能改变了。
+        var testObj = {name: 'a'};
+        console.log(Object.getOwnPropertyDescriptor(testObj,'name'));
+        Object.seal(testObj);
+        console.log(Object.getOwnPropertyDescriptor(testObj,'name'));
+        //Object.seal只是禁止新增或删除属性，并不影响修改某个属性的值。
+        object3.name = "ZhangWangLiZhao";
+        console.log(object3.name);
+     </script>
+
+     <!-- 【3.】Object.freeze()：使得一个对象无法添加新属性、无法删除旧属性、也无法改变属性的值，使得这个对象实际上变成了常量。 -->
+     <!-- Object.isFrozen() -->
+     <script>
+         var object4 = {
+             name: 'Hello'
+         };
+         Object.freeze(object4);
+         object4.name = 'World';
+         console.log(object4.name);     //"Hello"
+         object4.age = 23;
+         console.log(object4.age);      //undefined
+         delete object4.name;
+         console.log(object4.name);     //"Hello"
+         console.log(Object.isFrozen());        //true
+         console.log(Object.isExtensible());    //false
+        //  使用Object.freeze方法以后，Object.isSealed将会返回true，Object.isExtensible返回false。
+     </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person() { }
+        Person.prototype.name = 'Zhang';
+        Person.prototype.age = 88;
+        Person.prototype.add = function (num1, num2) {
+            return num1 + num2;
+        };
+        Person.prototype.sub = function (num1, num2) {
+            return num1 - num2;
+        };
+        //修改构造函数的原型对象为一个普通对象;
+        Person.prototype = {
+            constructor: Person,
+            name: '我是普通对象',
+            Name: '我覆盖了构造函数的原型对象',
+            method: function() {}
+        }
+        // 上面代码中，构造函数Person的原型对象改掉了，但是没有修改constructor属性，导致这个属性不再指向Person。
+        // 由于Person的新原型是一个普通对象，而普通对象的constructor属性指向Object构造函数，导致Person.prototype.constructor变成了Object。
+
+        //生成实例对象
+        var p1 = new Person();
+        p1.addr = 'GanSu';
+        p1.tel = 111;
+
+        console.dir(Person);
+        console.dir(p1);
+        // console.log(p1.__proto__ === Person.prototype); //true
+    </script>
+
+<!-- instanceof 运算符 -->
+    <script>
+        // instanceof运算符返回一个布尔值，表示对象是否为某个构造函数的实例。
+        function Vehicle() {}
+        var v = new Vehicle();
+        console.log(v instanceof Vehicle);                  //true
+        console.log(Vehicle.prototype.isPrototypeOf(v));    //同上，与上等价
+
+        // 由于instanceof检查整个原型链，因此同一个实例对象，可能会对多个构造函数都返回true。
+        var d = new Date();
+        console.log(d instanceof Date);     //true
+        console.log(d instanceof Object);   //true
+        // 上面代码中，d同时是Date和Object的实例，因此对这两个构造函数都返回true。
+    </script>
+
+
+    <script>
+        // instanceof运算符的一个用处，是判断值的类型。
+        var x = [1,2,3];
+        var y = {};
+        console.log(x instanceof Array);    //true
+        console.log(y instanceof Object);   //true
+
+        // 注意，instanceof运算符只能用于对象，不适用原始类型的值。
+        console.log('hello' instanceof String); //Error
+    </script>
+
+</body>
+</html>
+
+
+
+    <!-- 
+        function Person() {}	//构造函数
+        Person.prototype.name = 'Zhang';
+        Person.prototype.age = 88;
+        Person.prototype.add = function(num1,num2) { return num1 + num2;}
+        Perosn.prototype.sub = function(num1,num2) { return num1 - num2;} 
+        var p1 = new Person();	//实例对象
+        p1.addr = 'GanSu';
+        p1.tel = 111;
+
+
+        关于prototype和__proto__的解释：
+        1.prototype(原型对象) => 存在与构造函数当中;
+                            => 首先它自己也是一个对象(既然是对象,那么自然有属性和方法了)
+            作用：在其上的所有属性和方法都将被实例对象所继承;
+            
+        2.__proto__ => 存在于实例对象当中;
+            作用：标识自己所继承的原型,也即是继承自谁;
+            
+        3.关系：p1.__proto__ === Person.prototype;
+
+        此时,Person.prototype中的所有属性和方法都已经被实例对象p1所继承了！
+
+        4.constructor属性：prototype对象存在一个constructor属性,默认执行构造函数本身;
+     -->

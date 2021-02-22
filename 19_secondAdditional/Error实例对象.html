@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var error = new Error('出错了');
+        // console.dir(Error);
+        console.log(error.message); //出错了
+        /* 
+            Error构造函数接受一个参数，表示错误提示，可以从实例的message属性读到这个参数。
+            抛出Error实例对象以后，整个程序就中断在发生错误的地方，不再往下执行。
+         */
+        /* 
+            JavaScript 解析或运行时，一旦发生错误，引擎就会抛出一个错误对象。
+            JavaScript 原生提供Error构造函数，所有抛出的错误都是这个构造函数的实例
+        */
+        /* 
+            error:错误提示信息
+            name:错误名称(非标准属性)
+            stack:错误的堆栈(非标准属性)
+        */
+        /////////////////////////////////////////////////////
+        //    原生错误类型：Error [存在Error的6个派生对象]
+        //SyntaxError对象：解析代码时发生的语法错误。   
+        //ReferenceError对象：引用一个不存在的变量时发生的错误。
+        //RangeError对象： 是一个值超出有效范围时发生的错误。
+        //TypeError对象：变量或参数不是预期类型时发生的错误。
+        //URIError对象：URI 相关函数的参数不正确时抛出的错误。
+        //EvalError对象：eval函数没有被正确执行时，会抛出EvalError错误。
+        //该错误类型已经不再使用了，只是为了保证与以前代码兼容，才继续保留。
+        /* 
+            总结：
+                以上这6种派生错误，连同原始的Error对象，都是构造函数。
+                开发者可以使用它们，手动生成错误对象的实例。
+                这些构造函数都接受一个函数，代表错误提示信息（message）。
+        */
+        var err2 = new RangeError('变量值超出范围');
+        var err3 = new TypeError('变量类型无法解析');
+        console.log(err2.message);
+        console.log(err3.message);
+
+        //除了 JavaScript 原生提供的七种错误对象，还可以定义自己的错误对象。
+        function UserError(message) {
+            this.message = message || '默认信息';
+            this.name = 'UserError';
+        }
+        UserError.prototype = new Error();
+        UserError.prototype.constructor = UserError;
+        new UserError('这是自定义类型的错误！');
+    </script>
+
+    <script>
+        //try...catch结构：
+        try {
+            throw new Error('出错了!!!');
+        } catch (e) {
+            console.log(e.name + ':' + e.message);
+            console.log(e.stack);
+        }
+        /* 
+            上面代码中，try代码块抛出错误（上例用的是throw语句），
+            JavaScript 引擎就立即把代码的执行，转到catch代码块，
+            或者说错误被catch代码块捕获了。
+            【catch接受一个参数，表示try代码块抛出的值。】
+        */
+        try {
+            throw 'helloWorld';
+        } catch (e) {
+            console.log(e);  //helloWorld
+        }                    //抛出什么，捕获什么
+        console.log(111222);  //111222
+       //catch代码块捕获错误之后，程序不会中断，会按照正常流程继续执行下去。
+    </script>
+
+    <script>
+        /* 
+            try...catch结构允许在最后添加一个finally代码块，
+            表示不管是否出现错误，都必需在最后运行的语句。
+        */
+        function cleansUp() {
+            try {
+                throw new Error('error......');
+                console.log('此行不会立即执行');
+            } finally {
+                console.log('完成清理工作');
+            }
+        }
+        //    cleansUp();
+        /* 
+             上面代码中，由于没有catch语句块，所以错误没有捕获。
+             执行finally代码块以后，程序就中断在错误抛出的地方。
+        */
+        var count = 0;
+        function countUp() {
+            try {
+                return count;
+            } finally {
+                count++;
+            }
+        }
+        console.log(countUp());            //0
+        console.log(count);               //1
+      /*
+          以上代码说明，return语句的执行是排在finally代码之前，只是等finally代码执行完毕后才返回。
+          上面代码说明，return语句的count的值，是在finally代码块运行之前就获取了。
+        */
+    </script>
+
+    <script>
+        // openFile();
+        // try {
+        //     writeFile(Data);
+        // } catch (e) {
+        //     handleError(e);
+        // } finally {
+        //     closeFile();
+        // }
+        /* 
+            上面代码首先打开一个文件，然后在try代码块中写入文件，如果没有发生错误，则运行finally代码块关闭文件；
+            一旦发生错误，则先使用catch代码块处理错误，再使用finally代码块关闭文件。
+        */
+    </script>
+
+    <script>
+        /*catch代码块之中，触发转入finally代码块的标志，不仅有return语句，还有throw语句。  */
+        /* 进入catch代码块之后，一遇到throw语句 或者 return语句，就会去执行finally代码块 */
+       function f() {
+           try {
+               throw 'shijiediyideng';
+           } catch (e) {
+               console.log('捕捉到内部错误');
+            //    throw e;                         //将立即执行finally中的语句块
+                return true;                        //将立即执行finally中的语句块
+               console.log('...............');
+           } finally {
+            //    return false;
+                return 'HaHa';
+           }
+       }
+      console.log(f());
+    </script>
+</body>
+</html>

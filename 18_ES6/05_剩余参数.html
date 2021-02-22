@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        剩余参数：允许我们将一个不定数量的参数表示为一个数组。
+
+     -->
+    <script>
+//
+        function SUM(first,...args) {   
+            console.log(first); //10
+            console.log(args);  //[20,30]
+        }   //...args表示接受剩余的全部参数,args是一个数组，用来接纳剩余的参数了
+
+        SUM(10,20,30);
+
+
+//
+        const sum = (...args) => {
+            let total = 0;
+            args.forEach(item => {
+                total += item;
+            })
+            return total;
+        }
+        console.log( sum(10,20));
+        console.log( sum(10,20,30));
+
+//剩余参数与解构配合使用
+        let students = ['zhang','wang','li'];
+        let [s1,...s2] = students;
+        console.log(s1);    //'zhang'
+        console.log(s2);    //['wang','li']
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 50px;
+            height: 50px;
+            background-color: green;
+        }
+        ul li {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border: 2px solid black;
+        }
+        a {
+            width: 50px;
+            background-color: yellow;
+        }
+
+        .father {
+            width: 60px;
+            height: 20px;
+            background-color: purple;
+        }
+        .son {
+            width: 30px;
+            height: 20px;
+            background-color: blue;
+        }
+        /* 事件对象的属性和方法
+            e.target: 返回触发事件的对象
+            e.srcElement: 返回事件的对象  非标准IE6—8使用
+            e.type: 返回事件的类型， 比如click，mouseover，，,
+            e.cancelBubble: 该属性阻止冒泡
+            e.returnValue: 该属性阻止默认事件，比如不让链接跳转
+            e.preventDefault():该方法阻止默认事件，比如不让链接跳转
+            e.stopPropagation():组织冒泡
+         */
+    </style>
+</head>
+<body>
+    <div>123</div>
+    <ul>
+        <li>abc</li>
+        <li>abc</li>
+        <li>abc</li>
+    </ul>
+    <a href="www.baidu.com">百度</a>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+
+    <script>
+        // 1.event.target返回的是触发事件的对象，this返回的是绑定事件的对象；
+        var div = document.querySelector('div');
+        div.addEventListener('click',function(event) {
+            console.log(event.target);
+            console.log(this);
+        });
+             //
+        var ul = document.querySelector('ul');
+        ul.addEventListener('click',function(ev) {
+            console.log(this);      //ul
+            console.log(ev.target); //li
+        })
+
+        //2. preventDefault():阻止默认行为，让链接不跳转或者让提交按钮不提交
+        var a = document.querySelector('a');
+            //监听注册
+        a.addEventListener('click',function(ev) {
+            ev.preventDefault();
+        })  
+            //传统注册
+        a.onclick = function(e) {   
+            ev.preventDefault();    //普通浏览器
+            // ev.returnValue;  //低版本IE678
+            return false;   //没有兼容性问题，但是注意return的特点
+        }
+
+        //3.阻止冒泡标准:stopPropagation()      //false：冒泡阶段
+        var son = document.querySelector('.son');
+        son.addEventListener('click',function(event) {
+            alert('son');
+            event.stopPropagation();
+            // event.cancelBubble = true;   //低版本
+        },false)    
+        var father = document.querySelector('.father');
+        father.addEventListener('click',function(event) {
+            alert('father');
+        },false)
+        document.addEventListener('click',function(event) {
+            alert('document');
+        })
+
+    </script>
+</body>
+</html>

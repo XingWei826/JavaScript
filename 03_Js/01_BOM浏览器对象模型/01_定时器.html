@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>停止定时器:clearTimeout</button>
+    <button class="hello">停止定时器:clearInterval</button>
+    <script>
+        //1.setTimeout:在指定的时间之后调用一次，就完事了
+            //停止：clearTimeout();
+        // setTimeout(function() {
+        //     console.log('Hello');
+        // },5000);
+        function callback() {
+            console.log('定时器1');
+        }
+        var time = setTimeout(callback,5000);
+        var btn = document.querySelector('button');
+        btn.addEventListener('click',function() {
+            clearTimeout(time);
+        })
+
+        //2. setInterval:类似于Qt中的定时器，周期调用
+            //停止：clearInterval();
+        var timer = setInterval(function(){
+            console.log('Hello');
+        },1000);
+        var btnn = document.querySelector('.hello');
+        btnn.addEventListener('click',function(){
+            clearInterval(timer);
+        })
+    </script>
+
+</body>
+</html>

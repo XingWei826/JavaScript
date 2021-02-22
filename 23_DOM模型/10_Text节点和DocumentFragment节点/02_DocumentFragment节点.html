@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        DocumentFragment节点代表一个文档的片段，本身就是一个完整的 DOM 树形结构。它
+        它没有父节点，parentNode返回null，但是可以插入任意数量的子节点。
+        它不属于当前文档，操作DocumentFragment节点，要比直接操作 DOM 树快得多。
+
+        它一般用于构建一个 DOM 结构，然后插入当前文档。
+        document.createDocumentFragment方法，以及浏览器原生的DocumentFragment构造函数，可以创建一个空的DocumentFragment节点。
+        然后再使用其他 DOM 方法，向其添加子节点。
+     -->
+
+     <!-- 
+        var docFrag = document.createDocumentFragment();
+        // 等同于
+        var docFrag = new DocumentFragment();
+
+      -->
+</body>
+</html>

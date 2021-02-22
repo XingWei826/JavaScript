@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>Hello</div>
+    <p>
+        我是文字
+        <span>1324</span>
+    </p>
+    <script>
+        var div = document.querySelector('div');
+        //innerText 和 innerHTML的区别
+    //一、
+        //1.innerText不识别HTML标签(当做寻常的text使用即可)
+        // div.innerText = '<strong>今天是：</strong>jlkkj';
+
+        //2.innerHTML识别HTML标签（会识别HTML标签）
+        div.innerHTML = '<strong>今天是：</strong>lljl';
+        
+    //二、
+        var p = document.querySelector('p');
+        console.log(p.innerText);       //我是文字 1324
+        console.log(p.innerHTML);        //我是文字  [换行]  <span>1324</span> 
+    </script>
+</body>
+</html>

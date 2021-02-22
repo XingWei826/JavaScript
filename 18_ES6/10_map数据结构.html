@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        ES6还提供了map数据结构。它类似于对象，就是一个键值对的集合，
+            但是“键”的范围不限于字符串，甚至对象,函数也可以当作键。
+        Map数据结构有以下属性和方法：
+        size：返回成员总数。
+        set(key, value)：设置一个键值对。
+        get(key)：读取一个键。
+        has(key)：返回一个布尔值，表示某个键是否在Map数据结构中。
+        delete(key)：删除某个键。
+        clear()：清除所有成员。
+     -->
+     <script>
+         var m = new Map();
+         var obj = {name: 'Zhang'};
+         m.set(obj,"HelloWorld");       //obj充当键
+         console.log(m.get(obj));       //获取键对应的值
+     </script>
+</body>
+</html>

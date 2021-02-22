@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <!-- 
+        事件的代理/事件的委托：
+            由于事件会在冒泡阶段向上传播到父节点，因此可以把子节点的监听函数定义在父节点上，
+            【【【由父节点的监听函数统一处理多个子元素的事件】】】。
+            这种方法叫做事件的代理（delegation）。
+     -->
+     <script>
+        //  冒泡顺序： li -> ul -> body -> html -> document -> window
+         var ul = document.querySelector('ul');
+         ul.addEventListener('click',function(event){
+            //  if(event.target.tagName.toLowerCase() === 'li') {
+                //  console.log(event);
+                 event.target.style.backgroundColor = 'red';
+            //  }
+         })
+     </script>
+
+
+        <!-- 
+            如果希望事件到某个节点为止，不再传播，可以使用事件对象的stopPropagation方法。
+        -->
+        <script>
+            // 1.
+            // 事件传播到 p 元素后，就不再向下传播了
+            p.addEventListener('click',function(event){
+                event.stopPropagation();
+            },true);
+            // 事件冒泡到 p 元素后，就不再向上冒泡了
+            p.addEventListener('click',function(event){
+                event.stopPropagation();
+            },false);
+            // 上面代码中，stopPropagation方法分别在捕获阶段和冒泡阶段，阻止了事件的传播。
+
+
+
+            // 2.但是，stopPropagation方法只会阻止事件的传播，不会阻止该事件触发<p>节点的其他click事件的监听函数。也就是说，不是彻底取消click事件。
+            p.addEventListener('click', function (event) {
+                event.stopPropagation();
+                console.log(1);
+            });
+            p.addEventListener('click', function(event) {
+                // 仍然会触发
+                console.log(2);
+            });
+            // 上面代码中，p元素绑定了两个click事件的监听函数。stopPropagation方法只能阻止这个事件向其他元素传播。因此，第二个监听函数会触发。输出结果会先是1，然后是2。
+
+
+            // 3.如果想要彻底阻止这个事件的传播，不再触发后面所有click的监听函数，可以使用stopImmediatePropagation方法。
+            p.addEventListener('click', function (event) {
+                event.stopImmediatePropagation();
+                console.log(1);
+            });
+            p.addEventListener('click', function(event) {
+                // 此时不会触发为了
+                console.log(2);
+            });
+        </script>
+</body>
+</html>

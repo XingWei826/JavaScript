@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1.document.open(): 清除当前文档所有内容，使得文档处于可写状态，供document.write方法写入内容。
+        2.document.close(): 用来关闭document.open()打开的文档。
+        3.document.write(): 用于向当前文档写入内容。在网页的首次渲染阶段，只要页面没有关闭写入（即没有执行document.close()）,document.write写入的内容就会追加在已有内容的后面。
+        4.document.writeln(): 与write方法完全一致，除了会在输出内容的尾部添加换行符。
+        5.document.querySelector(): 返回匹配该选择器的元素节点。如果有多个节点满足匹配条件，则返回第一个匹配的节点。如果没有发现匹配的节点，则返回null。
+        6.document.querySelectorAll(): 返回一个NodeList对象，包含所有匹配给定选择器的节点。
+                    但是，它们（5,6）不支持 CSS 伪元素的选择器（比如:first-line和:first-letter）和伪类的选择器（比如:link和:visited），即无法选中伪元素和伪类。
+        7.document.getElementsByTagName()：搜索 HTML 标签名，返回符合条件的元素。它的返回值是一个类似数组对象（HTMLCollection实例），可以实时反映 HTML 文档的变化。如果没有任何匹配的元素，就返回一个空集。
+        8.document.getElementsByClassName()： 返回一个类似数组的对象（HTMLCollection实例），包括了所有class名字符合指定条件的元素，元素的变化实时反映在返回结果中。
+                    由于class是保留字，所以 JavaScript 一律使用className表示 CSS 的class。
+        9.document.getElementsByName(): 用于选择拥有name属性的 HTML 元素（比如<form>、<radio>、<img>、<frame>、<embed>和<object>等），返回一个类似数组的的对象（NodeList实例），因为name属性相同的元素可能不止一个。
+        10.document.getElementById(): 返回匹配指定id属性的元素节点。如果没有发现匹配的节点，则返回null。
+                    document.getElementById方法与document.querySelector方法都能获取元素节点，不同之处是document.querySelector方法的参数使用 CSS 选择器语法，document.getElementById方法的参数是元素的id属性。
+        11.document.elementFromPoint(): 返回位于页面指定位置最上层的元素节点。
+        12.document.elementsFromPoint(): 返回一个数组，成员是位于指定坐标（相对于视口）的所有元素。
+        13.document.caretPositionFromPoint(): 返回一个 CaretPosition 对象，包含了指定坐标点在节点对象内部的位置信息。CaretPosition 对象就是光标插入点的概念，用于确定光标点在文本对象内部的具体位置。
+        14.document.createElement(): 用来生成元素节点，并返回该节点。
+        15.document.createTextNode()： 用来生成文本节点（Text实例），并返回该节点。它的参数是文本节点的内容。
+        16. document.createAttribute()： 生成一个新的属性节点（Attr实例），并返回它。
+        17. document.createComment()： 生成一个新的注释节点，并返回该节点。参数是一个字符串，会成为注释节点的内容。
+        18. document.createDocumentFragment()： 生成一个空的文档片段对象（DocumentFragment实例）。
+        19. document.createEvent(): 生成一个事件对象（Event实例），该对象可以被element.dispatchEvent方法使用，触发指定事件。
+        20. document.addEventListener(): 添加事件监听函数
+        21. document.removeEventListener():移除事件监听函数
+        22. document.dispatchEvent():触发事件
+        23. document.hasFocus(): 返回一个布尔值，表示当前文档之中是否有元素被激活或获得焦点。
+        24. document.adoptNode(): 将某个节点及其子节点，从原来所在的文档或DocumentFragment里面移除，归属当前document对象，返回插入后的新节点。插入的节点对象的ownerDocument属性，会变成当前的document对象，而parentNode属性是null。
+        25. document.importNode(): 拷贝外部节点，这时该节点的父节点是null。下一步还必须将这个节点插入当前文档树。
+        26. document.createNodeIterator(): 返回一个子节点遍历器。
+        27. document.createTreeWalker():返回一个 DOM 的子树遍历器。它与document.createNodeIterator方法基本是类似的，区别在于它返回的是TreeWalker实例，后者返回的是NodeIterator实例。另外，它的第一个节点不是根节点。
+     -->
+     <script>
+         document.open();
+         document.write('hello World!');
+         document.write('i love you!')
+         document.write('<p>HELLO WORLD!</p>');
+         document.write(1);
+         document.write(2);
+         document.writeln(1);
+         document.writeln(2);
+        //  注意，writeln方法添加的是 ASCII 码的换行符，渲染成 HTML 网页时不起作用，即在网页上显示不出换行。网页上的换行，必须显式写入<br>。
+         document.close();
+        //  注意，document.write会当作 HTML 代码解析，不会转义。
+        // document.write('<p>hello world</p>');
+        // 上面代码中，document.write会将<p>当作 HTML 标签解释。
+            // 如果页面已经解析完成（DOMContentLoaded事件发生之后），再调用write方法，它会先调用open方法，擦除当前文档所有内容，然后再写入。
+            // document.write是JavaScript语言标准化之前就存在的方法，现在完全有更符合标准的方法向文档写入内容（比如对innerHTML属性赋值）。所以，除了某些特殊情况，应该尽量避免使用document.write这个方法。
+            // document.writeln方法与write方法完全一致，除了会在输出内容的尾部添加换行符。
+     </script>
+
+     <script>
+         var elements = document.getElementsByClassName('foo bar');
+        //  上面代码返回同时具有foo和bar两个class的元素，foo和bar的顺序不重要。
+
+        //document.querySelector方法的参数使用 CSS 选择器语法，document.getElementById方法的参数是元素的id属性。
+        document.getElementById('myElement');
+        document.querySelector('#myElement');
+        // 上面代码中，两个方法都能选中id为myElement的元素，但是document.getElementById()比document.querySelector()效率高得多。
+        // 另外，这个方法只能在document对象上使用，不能在其他元素节点上使用。
+        
+        //document.elementFromPoint()，document.elementsFromPoint():
+        var element = document.elementFromPoint(50, 50);
+        // 上面代码选中在(50, 50)这个坐标位置的最上层的那个 HTML 元素。
+        // elementFromPoint方法的两个参数，依次是相对于当前视口左上角的横坐标和纵坐标，单位是像素。
+        // 如果位于该位置的 HTML 元素不可返回（比如文本框的滚动条），则返回它的父元素（比如文本框）。如果坐标值无意义（比如负值或超过视口大小），则返回null。
+
+        // document.elementsFromPoint()返回一个数组，成员是位于指定坐标（相对于视口）的所有元素。
+        // var elements = document.elementsFromPoint(x, y);
+     </script>
+
+
+     <script>
+        //  1.document.caretPositionFromPoint():
+        var range = document.caretPositionFromPoint(clientX, clientY);
+        // 上面代码中，range是指定坐标点的 CaretPosition 对象。该对象有两个属性:
+                // (1)CaretPosition.offsetNode：该位置的节点对象
+                // (2)CaretPosition.offset：该位置在offsetNode对象内部，与起始位置相距的字符数。
+
+        //  2.document.createElement():
+        var newDiv = document.createElement('div');
+        // createElement方法的参数为元素的标签名，即元素节点的tagName属性，对于 HTML 网页大小写不敏感，即参数为div或DIV返回的是同一种节点。如果参数里面包含尖括号（即<和>）会报错。
+        // 注意，document.createElement的参数可以是自定义的标签名。
+        // document.createElement('foo');
+
+        // 3.document.createAttribute()：
+        // document.createAttribute方法的参数name，是属性的名称。
+
+        //4.document.createDocumentFragment():
+        // DocumentFragment是一个存在于内存的 DOM 片段，不属于当前文档，
+        // 常常用来生成一段较复杂的 DOM 结构，然后再插入当前文档。
+        // 这样做的好处在于，因为DocumentFragment不属于当前文档，对它的任何改动，
+        // 都不会引发网页的重新渲染，比直接修改当前文档的 DOM 有更好的性能表现。
+     </script>
+
+
+     <script>
+         //1.
+         var event = document.createEvent(type);
+        //  document.createEvent方法的参数是事件类型，比如UIEvents、MouseEvents、MutationEvents、HTMLEvents。
+
+        //2. document.createNodeIterator():
+        var nodeIterator = document.createNodeIterator(
+            document.body,
+            NodeFilter.SHOW_ELEMENT
+        );
+        // 上面代码返回<body>元素子节点的遍历器。
+            // document.createNodeIterator方法第一个参数为所要遍历的根节点，
+            // 第二个参数为所要遍历的节点类型，这里指定为元素节点（NodeFilter.SHOW_ELEMENT）。
+            // 几种主要的节点类型写法如下:
+                //1. 所有节点：NodeFilter.SHOW_ALL
+                //2. 元素节点：NodeFilter.SHOW_ELEMENT
+                //3. 文本节点：NodeFilter.SHOW_TEXT
+                //4. 评论节点：NodeFilter.SHOW_COMMENT
+            // document.createNodeIterator方法返回一个“遍历器”对象（NodeFilter实例）。该实例的nextNode()方法和previousNode()方法，可以用来遍历所有子节点。
+            /* var nodeIterator = document.createNodeIterator(document.body);
+            var pars = [];
+            var currentNode;
+
+            while (currentNode = nodeIterator.nextNode()) {
+            pars.push(currentNode);
+            } */
+            // 上面代码中，使用遍历器的nextNode方法，将根节点的所有子节点，依次读入一个数组。
+            // nextNode方法先返回遍历器的内部指针所在的节点，然后会将指针移向下一个节点。
+            // 所有成员遍历完成后，返回null。previousNode方法则是先将指针移向上一个节点，然后返回该节点。
+     </script>
+</body>
+</html>
